@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
-@ComponentScan(basePackages = "com.antonchar.webapp")
+@ComponentScan(basePackages = "com.antonchar")
 @SpringBootApplication
 public class SimpleWebServiceApplication {
 

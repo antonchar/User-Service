@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Users</title>
+</head>
+<body>
+
+<h1>Simple User Web Application</h1>
+<h2>List of Users</h2>
+
+<a th:href="@{/item/search}">Add User</a><br/>
+<a th:href="@{/item/add}">Search Users</a>
+
+<table class="users">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Admin</th>
+        <th>Created At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.isAdmin}"></td>
+        <td th:text="${user.createDate}"></td>
+        <td><a th:href="@{/item/edit?id={id}(id=${user.id})}">Edit</a></td>
+        <td><button name="id">Delete</button></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
