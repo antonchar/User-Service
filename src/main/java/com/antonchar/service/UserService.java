@@ -1,10 +1,9 @@
 package com.antonchar.service;
 
 import com.antonchar.entity.User;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface UserService {
 
-    List<User> getUsers();
+    Page<User> getUsers(Integer pageNumber);
 }

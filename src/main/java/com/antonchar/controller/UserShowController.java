@@ -3,12 +3,12 @@ package com.antonchar.controller;
 import com.antonchar.entity.User;
 import com.antonchar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -17,11 +17,19 @@ public class UserShowController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showUsers() {
-        List<User> users = userService.getUsers();
-        ModelAndView mav = new ModelAndView("index");
-        mav.addObject("users", users);
-        return mav;
+    @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
+    public String showUserPage(@PathVariable Integer pageNumber, Model model) {
+        Page<User> userPages = userService.getUsers(pageNumber);
+
+        int currentIndex = userPages.getNumber() + 1;
+        int beginIndex = Math.max(1, currentIndex - 5);
+        int endIndex = Math.min(beginIndex + 10, userPages.getTotalPages());
+
+        model.addAttribute("userPages", userPages);
+        model.addAttribute("beginIndex", beginIndex);
+        model.addAttribute("currentIndex", currentIndex);
+        model.addAttribute("endIndex", endIndex);
+
+        return "index";
     }
 }

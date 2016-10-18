@@ -12,27 +12,68 @@
 <a th:href="@{/item/search}">Add User</a><br/>
 <a th:href="@{/item/add}">Search Users</a>
 
-<table class="users">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Admin</th>
-        <th>Created At</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.age}"></td>
-        <td th:text="${user.isAdmin}"></td>
-        <td th:text="${user.createDate}"></td>
-        <td><a th:href="@{/item/edit?id={id}(id=${user.id})}">Edit</a></td>
-        <td><button name="id">Delete</button></td>
-    </tr>
-    </tbody>
-</table>
+<div class="pagination" th:with="prevIndex=${currentIndex} - 1, nextIndex=${currentIndex} + 1">
+    <div th:with="firstUrl='/users/pages/1', lastUrl='/users/pages/' + ${userPages.totalPages},
+         prevUrl='/users/pages/' + ${prevIndex}, nextUrl='/users/pages/' + ${nextIndex}">
+        <ul>
+            <!--Arrows back-->
+            <div th:if="${currentIndex} == 1">
+                <li class="disabled"><a href="#">&lt;&lt;</a></li>
+                <li class="disabled"><a href="#">&lt;</a></li>
+            </div>
+            <div th:unless="${currentIndex} == 1">
+                <li><a th:href="${firstUrl}">&lt;&lt;</a></li>
+                <li><a th:href="${prevUrl}">&lt;</a></li>
+            </div>
+            <!--Page numbers-->
+            <div th:each="i : ${#numbers.sequence(beginIndex, endIndex)}">
+                <div th:with="pageUrl='/users/pages/' + ${i}">
+                    <div th:if="${i} == ${currentIndex}">
+                        <li class="active"><a th:href="${pageUrl}" th:text="${i}"></a></li>
+                    </div>
+                    <div th:unless="${i} == ${currentIndex}">
+                        <li><a th:href="${pageUrl}" th:text="${i}"></a></li>
+                    </div>
+                </div>
+            </div>
+            <!--Arrows forward-->
+            <div th:if="${currentIndex} == ${userPages.totalPages}">
+                <li class="disabled"><a href="#">&gt;</a></li>
+                <li class="disabled"><a href="#">&gt;&gt;</a></li>
+            </div>
+            <div th:unless="${currentIndex} == ${userPages.totalPages}">
+                <li><a th:href="${nextUrl}">&gt;</a></li>
+                <li><a th:href="${lastUrl}">&gt;&gt;</a></li>
+            </div>
+        </ul>
+
+        <table class="users">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Admin</th>
+                <th>Created At</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${userPages.getContent()}">
+                <div th:object="${user}">
+                    <td th:text="*{id}"></td>
+                    <td th:text="*{name}"></td>
+                    <td th:text="*{age}"></td>
+                    <td th:text="*{isAdmin}"></td>
+                    <td th:text="*{createDate}"></td>
+                    <td><a th:href="@{/item/edit?id={id}(id=${user.id})}">Edit</a></td>
+                    <td>
+                        <button name="id">Delete</button>
+                    </td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
