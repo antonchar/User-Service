@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Users</title>
-    <!-- Bootstrap -->
+    <!-- Bootstrap 3.3.7-->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 </head>
 <body>
@@ -26,12 +26,12 @@
                 <!--Arrows back-->
                 <li th:class="(${currentIndex} == 1) ? 'disabled' : ''">
                     <a th:href="(${currentIndex} == 1) ? '#' : ${firstUrl}" aria-label="First">
-                        &lt;&lt;
+                        <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
                     </a>
                 </li>
                 <li th:class="(${currentIndex} == 1) ? 'disabled' : ''">
                     <a th:href="(${currentIndex} == 1) ? '#' : ${prevUrl}" aria-label="Previous">
-                        &lt;
+                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
                     </a>
                 </li>
                 <!--Page numbers-->
@@ -42,12 +42,12 @@
                 <!--Arrows forward-->
                 <li th:class="(${currentIndex} == ${userPages.totalPages}) ? 'disabled' : ''">
                     <a th:href="(${currentIndex} == ${userPages.totalPages}) ? '#' : ${nextUrl}" aria-label="Next">
-                        &gt;
+                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
                     </a>
                 </li>
                 <li th:class="(${currentIndex} == ${userPages.totalPages}) ? 'disabled' : ''">
                     <a th:href="(${currentIndex} == ${userPages.totalPages}) ? '#' : ${lastUrl}" aria-label="Last">
-                        &gt;&gt;
+                        <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
                     </a>
                 </li>
             </ul>
@@ -56,7 +56,7 @@
 </div>
 
 
-<table class="users">
+<table class="table">
     <thead>
     <tr>
         <th>ID</th>
@@ -72,12 +72,10 @@
             <td th:text="*{id}"></td>
             <td th:text="*{name}"></td>
             <td th:text="*{age}"></td>
-            <td th:text="*{isAdmin}"></td>
+            <td><span th:class="*{isAdmin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
             <td th:text="*{createDate}"></td>
             <td><a th:href="@{/item/edit?id={id}(id=${user.id})}">Edit</a></td>
-            <td>
-                <button name="id">Delete</button>
-            </td>
+            <td><button name="id">Delete</button></td>
         </div>
     </tr>
     </tbody>

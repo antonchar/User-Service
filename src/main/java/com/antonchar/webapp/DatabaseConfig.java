@@ -1,8 +1,10 @@
 package com.antonchar.webapp;
 
 import org.hibernate.dialect.MySQL5Dialect;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
@@ -15,12 +17,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@PropertySource("classpath:mysql.properties")
 public class DatabaseConfig {
+
+    @Value("${driver.class.name}")
+    private String driverClassName;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource driver = new DriverManagerDataSource();
-        driver.setDriverClassName("com.mysql.jdbc.Driver");
+        driver.setDriverClassName(driverClassName);
         driver.setUrl("jdbc:mysql://localhost:3306/test?autoReconnect=true&useSSL=false");
         driver.setUsername("root");
         driver.setPassword("root");

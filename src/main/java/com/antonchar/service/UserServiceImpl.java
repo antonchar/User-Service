@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> getUsers(Integer pageNumber) {
-        PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.DESC, "createDate");
+        PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
         return userRepository.findAll(request);
     }
 }
