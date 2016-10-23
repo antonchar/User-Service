@@ -23,13 +23,23 @@ public class DatabaseConfig {
     @Value("${driver.class.name}")
     private String driverClassName;
 
+    @Value("${url}")
+    private String url;
+
+    @Value("${username}")
+    private String username;
+
+    @Value("${password}")
+    private String password;
+
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource driver = new DriverManagerDataSource();
         driver.setDriverClassName(driverClassName);
-        driver.setUrl("jdbc:mysql://localhost:3306/test?autoReconnect=true&useSSL=false");
-        driver.setUsername("root");
-        driver.setPassword("root");
+        driver.setUrl(url);
+        driver.setUsername(username);
+        driver.setPassword(password);
         return driver;
     }
 
