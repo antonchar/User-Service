@@ -11,6 +11,8 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
     <!--Custom css-->
     <link th:href="@{/css/justified-nav.css}" rel="stylesheet"/>
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet"/>
 
     <title>Simple Web Service</title>
 
@@ -21,7 +23,7 @@
 <div class="container">
 
     <!--Navigation bar-->
-    <div class="masthead">
+    <div class="masthead" th:fragment="navbar">
         <h3 class="text-muted">Simple Web Service</h3>
         <nav>
             <ul class="nav nav-justified">
@@ -39,7 +41,7 @@
     </div>
 
     <!--Footer-->
-    <footer class="footer">
+    <footer class="footer" th:fragment="footer">
         <p>Copyright &copy; 2016 Anton Charnamord</p>
     </footer>
 

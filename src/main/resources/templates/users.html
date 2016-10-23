@@ -1,35 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
+<div th:replace="index :: head"></div>
 
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <!-- Bootstrap 3.3.7-->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <!--Custom css-->
-    <link th:href="@{/css/justified-nav.css}" rel="stylesheet"/>
-
-    <title>Users</title>
-
-</head>
 <body>
 
 <div class="container">
 
-    <!--Navigation bar-->
-    <div class="masthead">
-        <h3 class="text-muted">Simple Web Service</h3>
-        <nav>
-            <ul class="nav nav-justified">
-                <li id="home"><a th:href="@{/}">Home</a></li>
-                <li id="users"><a th:href="@{/users/pages/1}">All Users</a></li>
-                <li id="search"><a href="#">User Search</a></li>
-            </ul>
-        </nav>
-    </div>
+    <div th:replace="index :: navbar"></div>
 
     <!--Content-->
     <div class="jumbotron">
@@ -115,10 +93,7 @@
 
     </div>
 
-    <!--Footer-->
-    <footer class="footer">
-        <p>Copyright &copy; 2016 Anton Charnamord</p>
-    </footer>
+    <div th:replace="index :: footer"></div>
 
 </div>
 
