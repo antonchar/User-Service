@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/users")
-public class UserShowController {
+public class UserListController {
 
     @Autowired
     private UserService userService;
@@ -30,6 +30,6 @@ public class UserShowController {
         model.addAttribute("currentIndex", currentIndex);
         model.addAttribute("endIndex", endIndex);
 
-        return "index";
+        return "users";
     }
 }

@@ -1,85 +1,49 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Users</title>
+
     <!-- Bootstrap 3.3.7-->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--Custom css-->
+    <link th:href="@{/css/justified-nav.css}" rel="stylesheet"/>
+
+    <title>Simple Web Service</title>
+
 </head>
+
 <body>
 
-<h1>Simple User Web Application</h1>
-<h2>List of Users</h2>
+<div class="container">
 
-<a th:href="@{/item/search}">Add User</a><br/>
-<a th:href="@{/item/add}">Search Users</a>
-
-<!--Pagination-->
-<div th:with="prevIndex=${currentIndex} - 1, nextIndex=${currentIndex} + 1">
-    <div th:with="firstUrl='/users/pages/1', lastUrl='/users/pages/' + ${userPages.totalPages},
-         prevUrl='/users/pages/' + ${prevIndex}, nextUrl='/users/pages/' + ${nextIndex}">
-
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <!--Arrows back-->
-                <li th:class="(${currentIndex} == 1) ? 'disabled' : ''">
-                    <a th:href="(${currentIndex} == 1) ? '#' : ${firstUrl}" aria-label="First">
-                        <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
-                    </a>
-                </li>
-                <li th:class="(${currentIndex} == 1) ? 'disabled' : ''">
-                    <a th:href="(${currentIndex} == 1) ? '#' : ${prevUrl}" aria-label="Previous">
-                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
-                    </a>
-                </li>
-                <!--Page numbers-->
-                <li th:each="i : ${#numbers.sequence(beginIndex, endIndex)}"
-                    th:class="(${i} == ${currentIndex}) ? 'active' : ''">
-                    <a th:href="'/users/pages/' + ${i}" th:text="${i}"></a>
-                </li>
-                <!--Arrows forward-->
-                <li th:class="(${currentIndex} == ${userPages.totalPages}) ? 'disabled' : ''">
-                    <a th:href="(${currentIndex} == ${userPages.totalPages}) ? '#' : ${nextUrl}" aria-label="Next">
-                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
-                    </a>
-                </li>
-                <li th:class="(${currentIndex} == ${userPages.totalPages}) ? 'disabled' : ''">
-                    <a th:href="(${currentIndex} == ${userPages.totalPages}) ? '#' : ${lastUrl}" aria-label="Last">
-                        <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
-                    </a>
-                </li>
+    <!--Navigation bar-->
+    <div class="masthead">
+        <h3 class="text-muted">Simple Web Service</h3>
+        <nav>
+            <ul class="nav nav-justified">
+                <li id="home"><a th:href="@{/}">Home</a></li>
+                <li id="users"><a th:href="@{/users/pages/1}">All Users</a></li>
+                <li id="search"><a href="#">User Search</a></li>
             </ul>
         </nav>
     </div>
+
+    <!--Content-->
+    <div class="jumbotron">
+        <h1>Portfolio Project</h1>
+        <p class="lead">Description</p>
+    </div>
+
+    <!--Footer-->
+    <footer class="footer">
+        <p>Copyright &copy; 2016 Anton Charnamord</p>
+    </footer>
+
 </div>
-
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Admin</th>
-        <th>Created At</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${userPages.getContent()}">
-        <div th:object="${user}">
-            <td th:text="*{id}"></td>
-            <td th:text="*{name}"></td>
-            <td th:text="*{age}"></td>
-            <td><span th:class="*{isAdmin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
-            <td th:text="*{createDate}"></td>
-            <td><a th:href="@{/item/edit?id={id}(id=${user.id})}">Edit</a></td>
-            <td><button name="id">Delete</button></td>
-        </div>
-    </tr>
-    </tbody>
-</table>
 
 <!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
 <script th:src="@{/js/jquery.min.js}"></script>
@@ -88,7 +52,7 @@
 <!--Custom script-->
 <script th:inline="javascript">
     /*<![CDATA[*/
-
+    $("#home").addClass("active");
     /*]]>*/
 </script>
 
