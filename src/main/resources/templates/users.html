@@ -62,34 +62,53 @@
 
         </div>
 
-        <!--User table-->
-        <table class="table">
+        <!--Panel-->
+        <div class="panel panel-primary">
 
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Age</th>
-                <th>Admin</th>
-                <th>Created At</th>
-            </tr>
-            </thead>
+            <div class="panel-heading">Users</div>
 
-            <tbody>
-            <tr th:each="user : ${userPages.getContent()}">
-                <div th:object="${user}">
-                    <td th:text="*{id}"></td>
-                    <td th:text="*{name}"></td>
-                    <td th:text="*{age}"></td>
-                    <td><span th:class="*{isAdmin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
-                    <td th:text="*{createDate}"></td>
-                    <td><a th:href="@{/item/edit?id={id}(id=${user.id})}">Edit</a></td>
-                    <td><button name="id">Delete</button></td>
-                </div>
-            </tr>
-            </tbody>
+            <!--User table-->
+            <table class="table table-hover">
 
-        </table>
+                <thead>
+                <tr class="thead">
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Admin</th>
+                    <th>Created At</th>
+                    <th>Show/Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:class="${user.isAdmin} ? 'info' : ''" th:each="user : ${userPages.getContent()}">
+                    <div th:object="${user}">
+                        <td th:text="*{id}"></td>
+                        <td th:text="*{name}"></td>
+                        <td th:text="*{age}"></td>
+                        <td><span th:class="*{isAdmin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
+                        <td th:text="*{createDate}"></td>
+                        <td>
+                            <button><a class="plain" th:href="@{/user/{id}(id=*{id})}">Edit</a></button>
+                        </td>
+                        <td>
+                            <button name="id" form="delete-form" type="submit" th:value="*{id}">Delete</button>
+                        </td>
+                    </div>
+                </tr>
+                </tbody>
+
+            </table>
+
+            <div class="panel-footer"></div>
+
+        </div>
+
+        <form id="delete-form" th:action="@{/user/delete}" method="POST">
+            <input type="hidden" name="page" th:value="${currentIndex}"/>
+        </form>
 
     </div>
 

@@ -20,6 +20,14 @@ body {
   font-size: 21px;
 }
 
+.thead {
+    background-color: #DDDDDD;
+}
+
+th {
+    text-align: center;
+}
+
 /* Customize the nav-justified links to be fill the entire space of the .navbar */
 
 .nav-justified {

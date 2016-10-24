@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="index :: head"></div>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="index :: navbar"></div>
+
+    <!--Content-->
+    <div class="jumbotron">
+
+
+
+    </div>
+
+    <div th:replace="index :: footer"></div>
+
+</div>
+
+<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

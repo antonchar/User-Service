@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private static final int PAGE_SIZE = 3;
+    private static final int PAGE_SIZE = 5;
 
     @Autowired
     private UserRepository userRepository;
@@ -20,5 +20,15 @@ public class UserServiceImpl implements UserService {
     public Page<User> getUsers(Integer pageNumber) {
         PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
         return userRepository.findAll(request);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.delete(id);
+    }
+
+    @Override
+    public User findUser(Long id) {
+        return userRepository.findOne(id);
     }
 }

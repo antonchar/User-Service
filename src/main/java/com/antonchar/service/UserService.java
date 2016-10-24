@@ -6,4 +6,8 @@ import org.springframework.data.domain.Page;
 public interface UserService {
 
     Page<User> getUsers(Integer pageNumber);
+
+    void deleteUser(Long id);
+
+    User findUser(Long id);
 }
