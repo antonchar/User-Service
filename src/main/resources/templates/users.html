@@ -91,10 +91,16 @@
                         <td><span th:class="*{isAdmin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
                         <td th:text="*{createDate}"></td>
                         <td>
-                            <button><a class="plain" th:href="@{/user/{id}(id=*{id})}">Edit</a></button>
+                            <button>
+                                <a th:href="@{/user/{id}(id=*{id})}">
+                                    <span class="glyphicon glyphicon-edit big-ico" aria-hidden="true"></span>
+                                </a>
+                            </button>
                         </td>
                         <td>
-                            <button name="id" form="delete-form" type="submit" th:value="*{id}">Delete</button>
+                            <button name="id" form="delete-form" type="submit" th:value="*{id}">
+                                <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
+                            </button>
                         </td>
                     </div>
                 </tr>
