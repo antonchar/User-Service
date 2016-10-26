@@ -29,4 +29,9 @@ public class UserController {
         model.addAttribute("user", user);
         return "user";
     }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String editUser(@RequestParam Long id) {
+        return "user_save";
+    }
 }
