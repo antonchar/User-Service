@@ -31,7 +31,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@RequestParam Long id) {
-        return "user_save";
+    public String editUser(@RequestParam Long id, @RequestParam String name, @RequestParam Integer age,
+                           @RequestParam Boolean admin, Model model) {
+        User user = userService.findUser(id);
+        model.addAttribute("user", user);
+        model.addAttribute("success", false);
+        return "user_edit";
     }
 }
