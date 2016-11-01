@@ -5,10 +5,10 @@ import com.antonchar.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -31,11 +31,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@RequestParam Long id, @RequestParam String name, @RequestParam Integer age,
-                           @RequestParam Boolean admin, Model model) {
-        User user = userService.findUser(id);
-        model.addAttribute("user", user);
-        model.addAttribute("success", false);
-        return "user_edit";
+    public String editUser(@Valid User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "user_edit";
+        }
+
+//        User user = userService.findUser(id);
+//        user.setName(name);
+//        userService.saveUser(user);
+//        model.addAttribute("user", user);
+//        model.addAttribute("success", true);
+        return "index";
     }
 }

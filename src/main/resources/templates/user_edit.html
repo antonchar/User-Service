@@ -26,59 +26,65 @@
                     <div class="alert alert-success" role="alert">User details has been changed successfully!</div>
                 </div>
                 <div th:unless="${success}">
-                    <form id="save-form" th:action="@{/user/edit}" method="POST">
-                        <input type="hidden" name="id" th:value="${user.id}"/>
-                        <button type="submit" class="btn btn-default element-row">
-                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
-                        </button>
-                    </form>
+                    <button type="submit" class="btn btn-default element-row" form="save-form">
+                        <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
+                    </button>
                     <div class="alert alert-danger element-row" role="alert">Invalid field format! Try again</div>
                 </div>
             </div>
 
-            <!--User table-->
-            <table class="table table-bordered">
+            <!--Form-->
+            <form id="save-form" th:action="@{/user/edit}" th:object="${user}" method="POST">
+                <input type="hidden" name="id" th:field="*{id}"/>
 
-                <thead><tr/></thead>
+                <!--User table-->
+                <table class="table table-bordered">
 
-                <tbody>
-                <div th:object="${user}">
-                    <tr>
-                        <td class="td-const-width">ID</td>
-                        <td th:text="*{id}"></td>
-                    </tr>
-                    <tr>
-                        <td class="td-const-width">Name</td>
-                        <td>
-                            <span th:if="${success}" th:text="*{name}"></span>
-                            <input th:unless="${success}" class="form-control" type="text" name="userName"
-                                   form="save-form" placeholder="Name" th:value="*{name}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td-const-width">Age</td>
-                        <td>
-                            <span th:if="${success}" th:text="*{age}"></span>
-                            <input th:unless="${success}" class="form-control" type="number" name="age" form="save-form"
-                                   placeholder="Age" th:value="*{age}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td-const-width">Admin</td>
-                        <td>
-                            <span th:if="${success}" th:text="(*{age}) ? 'yes' : 'no'"></span>
-                            <input th:unless="${success}" form="save-form" type="checkbox"
-                                   name="admin" th:checked="*{isAdmin}"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="td-const-width">Created At</td>
-                        <td th:text="*{createDate}"></td>
-                    </tr>
-                </div>
-                </tbody>
+                    <thead>
+                    <tr/>
+                    </thead>
 
-            </table>
+                    <tbody>
+                    <div th:object="${user}">
+                        <tr>
+                            <td class="td-const-width">ID</td>
+                            <td th:text="*{id}"></td>
+                        </tr>
+                        <tr>
+                            <td class="td-const-width">Name</td>
+                            <td>
+                                <span th:if="${success}" th:text="*{name}"></span>
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                                <input th:unless="${success}" class="form-control" type="text" placeholder="Name"
+                                       th:value="*{name}" th:field="*{name}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-const-width">Age</td>
+                            <td>
+                                <span th:if="${success}" th:text="*{age}"></span>
+                                <input th:unless="${success}" class="form-control" type="number" placeholder="Age"
+                                       th:value="*{age}" th:field="*{age}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-const-width">Admin</td>
+                            <td>
+                                <span th:if="${success}" th:text="(*{age}) ? 'yes' : 'no'"></span>
+                                <input th:unless="${success}" type="checkbox"
+                                       th:checked="*{isAdmin}" th:field="*{isAdmin}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-const-width">Created At</td>
+                            <td th:text="*{createDate}"></td>
+                        </tr>
+                    </div>
+                    </tbody>
+
+                </table>
+
+            </form>
 
         </div>
 
