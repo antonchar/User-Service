@@ -37,15 +37,6 @@ th {
     margin-left: 20px;
 }
 
-.edit-field {
-    width: 300px;
-}
-
-.td-const-width {
-    width: 400px;
-    font-weight: bold;
-}
-
 /* Customize the nav-justified links to be fill the entire space of the .navbar */
 
 .nav-justified {

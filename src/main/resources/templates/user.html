@@ -19,70 +19,52 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> User Info
             </div>
 
-            <!--Buttons-->
             <div class="panel-body">
-
-                <button id="edit-btn" type="button" class="btn btn-default element-row">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
-                </button>
-
-                <button id="save-btn" type="submit" form="save-form" class="btn btn-default element-row">
-                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
-                </button>
-
+                <form id="save-form" th:action="@{/user/edit}" th:object="${user}" method="POST">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{name}"/>
+                    <input type="hidden" th:field="*{age}"/>
+                    <input type="hidden" th:field="*{isAdmin}"/>
+                    <input type="hidden" th:field="*{createDate}"/>
+                    <input type="hidden" name="state" value="init"/>
+                    <button id="save-btn" type="submit" class="btn btn-default element-row">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit
+                    </button>
+                    <div th:if="${saved}" class="alert alert-success element-row" role="alert">Saved successfully!</div>
+                </form>
             </div>
 
-            <!--Form-->
-            <form id="save-form" th:action="@{/user/edit}" th:object="${user}" method="POST">
-                <input type="hidden" th:field="*{id}"/>
+            <!--User table-->
+            <table class="table table-bordered">
 
-                <!--User table-->
-                <table class="table table-bordered">
+                <thead><tr/></thead>
 
-                    <thead>
-                    <tr/>
-                    </thead>
+                <tbody>
+                <div th:object="${user}">
+                    <tr>
+                        <td>ID</td>
+                        <td th:text="*{id}"></td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td th:text="*{name}"></td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td th:text="*{age}"></td>
+                    </tr>
+                    <tr>
+                        <td>Admin</td>
+                        <td th:text="(*{isAdmin}) ? 'yes' : 'no'"></td>
+                    </tr>
+                    <tr>
+                        <td>Created At</td>
+                        <td th:text="*{createDate}"></td>
+                    </tr>
+                </div>
+                </tbody>
 
-                    <tbody>
-                    <div th:object="${user}">
-                        <tr>
-                            <td class="td-const-width">ID</td>
-                            <td th:text="*{id}"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-const-width">Name</td>
-                            <td>
-                                <span class="show-field" th:text="*{name}"></span>
-                                <input class="form-control edit-field" type="text" placeholder="Name"
-                                       th:value="*{name}" th:field="*{name}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-const-width">Age</td>
-                            <td>
-                                <span class="show-field" th:text="*{age}"></span>
-                                <input class="form-control edit-field" type="number" placeholder="Age"
-                                       th:value="*{age}" th:field="*{age}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-const-width">Admin</td>
-                            <td>
-                                <span class="show-field" th:text="(*{age}) ? 'yes' : 'no'"></span>
-                                <input class="edit-field" type="checkbox"
-                                       th:checked="*{isAdmin}" th:field="*{isAdmin}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-const-width">Created At</td>
-                            <td th:text="*{createDate}"></td>
-                        </tr>
-                    </div>
-                    </tbody>
-
-                </table>
-
-            </form>
+            </table>
 
         </div>
 
@@ -96,19 +78,6 @@
 <script th:src="@{/js/jquery.min.js}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $(".edit-field").hide();
-    $("#save-btn").hide();
-
-    $("#edit-btn").click(function () {
-        $(".show-field").hide();
-        $("#edit-btn").hide();
-        $(".edit-field").show();
-        $("#save-btn").show();
-    });
-    /*]]>*/
-</script>
 
 </body>
 </html>

@@ -31,16 +31,19 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@Valid User user, BindingResult result, Model model) {
+    public String editUser(@Valid User user, BindingResult result, @RequestParam(required = false) String state,
+                           Model model) {
+        if (state != null && state.equals("init")) {
+            return "user_edit";
+        }
+
         if (result.hasErrors()) {
             return "user_edit";
         }
 
-//        User user = userService.findUser(id);
-//        user.setName(name);
-//        userService.saveUser(user);
-//        model.addAttribute("user", user);
-//        model.addAttribute("success", true);
-        return "index";
+        userService.saveUser(user);
+        model.addAttribute("user", user);
+        model.addAttribute("saved", true);
+        return showUser(user.getId(), model);
     }
 }
