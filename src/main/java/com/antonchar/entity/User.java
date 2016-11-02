@@ -31,7 +31,6 @@ public class User {
     @Max(90)
     private Integer age;
 
-    @NotNull
     private Boolean isAdmin;
 
     private Date createDate;

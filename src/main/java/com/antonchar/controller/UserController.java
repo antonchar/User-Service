@@ -36,14 +36,22 @@ public class UserController {
         if (state != null && state.equals("init")) {
             return "user_edit";
         }
-
         if (result.hasErrors()) {
             return "user_edit";
         }
-
         userService.saveUser(user);
         model.addAttribute("user", user);
         model.addAttribute("saved", true);
         return showUser(user.getId(), model);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String showAddUserForm() {
+        return "user_add_form";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addUser(@Valid User user, BindingResult result, Model model) {
+        return "user_add";
     }
 }

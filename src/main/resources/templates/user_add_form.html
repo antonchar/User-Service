@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="index :: head"></div>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="index :: navbar"></div>
+
+    <!--Content-->
+    <div class="jumbotron">
+
+        <!--Panel-->
+        <div class="panel panel-primary">
+
+            <div class="panel-heading" th:fragment="add_user_header">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add New User
+            </div>
+
+            <div class="panel-body" th:fragment="add_user_button">
+                <button type="submit" class="btn btn-default element-row" form="save-form">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                </button>
+            </div>
+
+            <!--Form-->
+            <form id="save-form" th:action="@{/user/add}" method="POST">
+
+                <!--User table-->
+                <table class="table table-bordered">
+
+                    <thead><tr/></thead>
+
+                    <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td><input class="form-control" type="text" placeholder="Name" name="name"/></td>
+                    </tr>
+                    <tr>
+                        <td>Age</td>
+                        <td><input class="form-control" type="number" placeholder="Age" name="age"/></td>
+                    </tr>
+                    <tr>
+                        <td>Admin</td>
+                        <td><input type="checkbox" name="admin"/></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div th:replace="index :: footer"></div>
+
+</div>
+
+<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
