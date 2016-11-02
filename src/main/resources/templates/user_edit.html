@@ -20,11 +20,7 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Change User Details
             </div>
 
-            <!--Buttons-->
             <div class="panel-body">
-                <div th:if="${success}">
-                    <div class="alert alert-success" role="alert">User details has been changed successfully!</div>
-                </div>
                 <div th:unless="${success}">
                     <button type="submit" class="btn btn-default element-row" form="save-form">
                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Save
@@ -51,22 +47,32 @@
                         <tr>
                             <td>Name</td>
                             <td>
-                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                                <input class="form-control" type="text" placeholder="Name" th:field="*{name}"/>
+                                <div class="form-group" th:class="(${#fields.hasErrors('name')}) ? 'has-error' : ''">
+                                    <label class="control-label"
+                                           th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                                    </label>
+                                    <input class="form-control" type="text" placeholder="Name" th:field="*{name}"/>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td>Age</td>
                             <td>
-                                <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></span>
-                                <input class="form-control" type="number" placeholder="Age" th:field="*{age}"/>
+                                <div class="form-group" th:class="(${#fields.hasErrors('age')}) ? 'has-error' : ''">
+                                    <label class="control-label"
+                                           th:if="${#fields.hasErrors('age')}" th:errors="*{name}">
+                                    </label>
+                                    <input class="form-control" type="number" placeholder="Age" th:field="*{age}"/>
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <td>Admin</td>
                             <td>
-                                <span th:if="${#fields.hasErrors('isAdmin')}" th:errors="*{isAdmin}"></span>
-                                <input type="checkbox" th:field="*{isAdmin}"/>
+                                <div th:class="(${#fields.hasErrors('isAdmin')}) ? 'has-error' : ''">
+                                    <input type="checkbox" th:field="*{isAdmin}"/>
+                                    <span th:if="${#fields.hasErrors('isAdmin')}" th:errors="*{name}"></span>
+                                </div>
                             </td>
                         </tr>
                         <tr>
