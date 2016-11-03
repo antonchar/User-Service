@@ -27,23 +27,23 @@
         <h3 class="text-muted">Simple Web Service</h3>
         <nav>
             <ul class="nav nav-justified">
-                <li>
+                <li id="home">
                     <a th:href="@{/}">
                         <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
                     </a>
                 </li>
-                <li>
+                <li id="users">
                     <a th:href="@{/users/pages/1}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> User List
                     </a>
                 </li>
-                <li>
+                <li id="add_user">
                     <a th:href="@{/user/add}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add User
                     </a>
                 </li>
-                <li>
-                    <a href="#">
+                <li id="search_users">
+                    <a th:href="@{/users/search}">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span> User Search
                     </a>
                 </li>

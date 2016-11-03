@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.util.Calendar;
 
 @Controller
 @RequestMapping("/user")
@@ -31,8 +33,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@Valid User user, BindingResult result, @RequestParam(required = false) String state,
-                           Model model) {
+    public String editUser(@Valid User user, BindingResult result,
+                           @RequestParam(required = false) String state, Model model) {
         if (state != null && state.equals("init")) {
             return "user_edit";
         }
@@ -52,6 +54,13 @@ public class UserController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addUser(@Valid User user, BindingResult result, Model model) {
-        return "user_add";
+        if (result.hasErrors()) {
+            return "user_add";
+        }
+        user.setCreateDate(new Date(Calendar.getInstance().getTimeInMillis()));
+        User savedUser = userService.addUser(user);
+        model.addAttribute("user", savedUser);
+        model.addAttribute("saved", true);
+        return showUser(user.getId(), model);
     }
 }

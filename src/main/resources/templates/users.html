@@ -10,7 +10,7 @@
     <div th:replace="index :: navbar"></div>
 
     <!--Content-->
-    <div class="jumbotron">
+    <div class="jumbotron" th:with="users=${userPages.getContent()}">
 
         <!--Pagination-->
         <div th:with="prevIndex=${currentIndex} - 1, nextIndex=${currentIndex} + 1">
@@ -63,7 +63,7 @@
         </div>
 
         <!--Panel-->
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" th:fragment="user_table_panel">
 
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users
@@ -85,7 +85,7 @@
                 </thead>
 
                 <tbody>
-                <tr th:class="${user.isAdmin} ? 'info' : ''" th:each="user : ${userPages.getContent()}">
+                <tr th:class="${user.isAdmin} ? 'info' : ''" th:each="user : ${users}">
                     <div th:object="${user}">
                         <td th:text="*{id}"></td>
                         <td th:text="*{name}"></td>
@@ -112,11 +112,11 @@
 
             <div class="panel-footer"></div>
 
-        </div>
+            <form id="delete-form" th:action="@{/user/delete}" method="POST">
+                <input type="hidden" name="page" th:value="${currentIndex}"/>
+            </form>
 
-        <form id="delete-form" th:action="@{/user/delete}" method="POST">
-            <input type="hidden" name="page" th:value="${currentIndex}"/>
-        </form>
+        </div>
 
     </div>
 

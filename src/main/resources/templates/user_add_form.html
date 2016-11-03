@@ -45,7 +45,7 @@
                     </tr>
                     <tr>
                         <td>Admin</td>
-                        <td><input type="checkbox" name="admin"/></td>
+                        <td><input type="checkbox" name="isAdmin"/></td>
                     </tr>
                     </tbody>
 
@@ -65,6 +65,12 @@
 <script th:src="@{/js/jquery.min.js}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<!--Custom script-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $("#add_user").addClass("active");
+    /*]]>*/
+</script>
 
 </body>
 </html>

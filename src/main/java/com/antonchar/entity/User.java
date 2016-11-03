@@ -19,7 +19,7 @@ import java.sql.Date;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -31,7 +31,7 @@ public class User {
     @Max(90)
     private Integer age;
 
-    private Boolean isAdmin;
+    private boolean isAdmin;
 
     private Date createDate;
 

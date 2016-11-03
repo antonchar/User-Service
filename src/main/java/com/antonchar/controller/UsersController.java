@@ -9,10 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/users")
-public class UserListController {
+public class UsersController {
 
     @Autowired
     private UserService userService;
@@ -29,7 +30,11 @@ public class UserListController {
         model.addAttribute("beginIndex", beginIndex);
         model.addAttribute("currentIndex", currentIndex);
         model.addAttribute("endIndex", endIndex);
-
         return "users";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchUser(@RequestParam(required = false) String query, Model model) {
+        return "user_search";
     }
 }
