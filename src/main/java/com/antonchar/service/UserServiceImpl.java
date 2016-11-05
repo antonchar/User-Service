@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -40,5 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user) {
         return userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findUsers(String name) {
+        return userRepository.findByNameContaining(name);
     }
 }

@@ -12,11 +12,21 @@
     <!--Content-->
     <div class="jumbotron">
 
-        <!--Form-->
+        <form class="form-inline" th:action="@{/users/search}" th:object="${user}" method="GET">
+            <div class="form-group">
+                <label for="input_name">Name or part of it </label>
+                <input id="input_name" type="text" name="query" th:value="${query}" placeholder="User Name"/>
+            </div>
+            <button type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+        </form>
 
-        <div th:if="${users != null}">
+        <div th:if="${users != null AND not #lists.isEmpty(users)}">
             <div th:replace="users :: user_table_panel"></div>
         </div>
+
+        <form id="delete-form" th:action="@{/user/delete}" method="POST">
+            <input type="hidden" name="query" th:value="${query}"/>
+        </form>
 
     </div>
 

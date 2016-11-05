@@ -20,7 +20,7 @@
             </div>
 
             <div class="panel-body">
-                <form id="save-form" th:action="@{/user/edit}" th:object="${user}" method="POST">
+                <form th:action="@{/user/edit}" th:object="${user}" method="POST">
                     <input type="hidden" th:field="*{id}"/>
                     <input type="hidden" th:field="*{name}"/>
                     <input type="hidden" th:field="*{age}"/>

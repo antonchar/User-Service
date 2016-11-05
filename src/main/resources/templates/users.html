@@ -112,11 +112,11 @@
 
             <div class="panel-footer"></div>
 
-            <form id="delete-form" th:action="@{/user/delete}" method="POST">
-                <input type="hidden" name="page" th:value="${currentIndex}"/>
-            </form>
-
         </div>
+
+        <form id="delete-form" th:action="@{/user/delete}" method="POST">
+            <input type="hidden" name="page" th:value="${currentIndex}"/>
+        </form>
 
     </div>
 

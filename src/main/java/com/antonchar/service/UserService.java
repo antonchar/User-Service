@@ -3,6 +3,8 @@ package com.antonchar.service;
 import com.antonchar.entity.User;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface UserService {
 
     Page<User> getUsers(Integer pageNumber);
@@ -14,4 +16,6 @@ public interface UserService {
     void saveUser(User user);
 
     User addUser(User user);
+
+    List<User> findUsers(String name);
 }
