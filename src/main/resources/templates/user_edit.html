@@ -67,8 +67,10 @@
                         <td>Admin</td>
                         <td>
                             <div th:class="(${#fields.hasErrors('isAdmin')}) ? 'has-error' : ''">
-                                <input type="checkbox" th:field="*{isAdmin}"/>
-                                <span th:if="${#fields.hasErrors('isAdmin')}" th:errors="*{isAdmin}"></span>
+                                <div class="checkbox">
+                                    <input type="checkbox" th:field="*{isAdmin}"/>
+                                    <label th:if="${#fields.hasErrors('isAdmin')}" th:errors="*{isAdmin}"></label>
+                                </div>
                             </div>
                         </td>
                     </tr>

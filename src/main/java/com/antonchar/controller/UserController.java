@@ -2,6 +2,7 @@ package com.antonchar.controller;
 
 import com.antonchar.entity.User;
 import com.antonchar.service.UserService;
+import com.antonchar.validator.UserValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserValidator validator;
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
@@ -55,9 +59,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@Valid User user, BindingResult result,
+    public String editUser(@ModelAttribute @Valid User user, BindingResult result,
                            @RequestParam(required = false) String state, Model model) {
         logger.info("POST: Edit user");
+
+        validator.validate(user, result);
 
         if (state != null && state.equals("init")) {
             logger.info("Show user data to edit: " + user);
@@ -85,8 +91,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult result, Model model) {
+    public String addUser(@ModelAttribute @Valid User user, BindingResult result, Model model) {
         logger.info("POST: Add new user");
+
+        validator.validate(user, result);
 
         if (result.hasErrors()) {
             logger.error("Invalid new user data: " + user);
