@@ -11,5 +11,5 @@ The project is not finished and is under development. It is updated from time to
 * MySQL
 * Thymeleaf
 * Bootstrap
-* JPA Hibernate
+* JPA (Hibernate)
 * Lombok

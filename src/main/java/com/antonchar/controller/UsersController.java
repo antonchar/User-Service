@@ -2,7 +2,7 @@ package com.antonchar.controller;
 
 import com.antonchar.entity.User;
 import com.antonchar.service.UserService;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/users")
 public class UsersController {
-
-    private static Logger logger = Logger.getLogger(UsersController.class);
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
     public String showUserPage(@PathVariable Integer pageNumber, Model model) {
-        logger.info("GET: Show user page number " + pageNumber);
+        log.info("GET: Show user page number " + pageNumber);
 
         Page<User> userPages = userService.getUsers(pageNumber);
         int currentIndex = userPages.getNumber() + 1;
@@ -43,14 +42,14 @@ public class UsersController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public String searchUser(@RequestParam(required = false) String query, Model model) {
         if (query != null && !query.isEmpty()) {
-            logger.info("GET: Search user by name containing '" + query + "'");
+            log.info("GET: Search user by name containing '" + query + "'");
 
             List<User> users = userService.findUsers(query);
 
             model.addAttribute("users", users);
             model.addAttribute("query", query);
         } else {
-            logger.info("GET: Search user page");
+            log.info("GET: Search user page");
         }
 
         return "user_search";
