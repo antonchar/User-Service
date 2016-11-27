@@ -35,9 +35,7 @@
                 <li id="users">
                     <a th:href="@{/users/pages/1}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> User List
-                        <span th:if="${userNum}">(</span>
-                        <span th:text="${userNum}">(</span>
-                        <span th:if="${userNum}">)</span>
+                        <span id="userNum" th:text="'(' + ${userNum} + ')'">(</span>
                     </a>
                 </li>
                 <li id="add_user">

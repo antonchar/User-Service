@@ -37,6 +37,10 @@ th {
     margin-left: 20px;
 }
 
+#userNum {
+  display: none;
+}
+
 /* Customize the nav-justified links to be fill the entire space of the .navbar */
 
 .nav-justified {
