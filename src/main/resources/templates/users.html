@@ -85,13 +85,13 @@
                 </thead>
 
                 <tbody>
-                <tr th:class="${user.isAdmin} ? 'info' : ''" th:each="user : ${users}">
+                <tr th:class="${user.admin} ? 'info' : ''" th:each="user : ${users}">
                     <div th:object="${user}">
                         <td th:text="*{id}"></td>
                         <td th:text="*{name}"></td>
                         <td th:text="*{age}"></td>
-                        <td><span th:class="*{isAdmin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
-                        <td th:text="*{createDate}"></td>
+                        <td><span th:class="*{admin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
+                        <td th:text="*{creationDate}"></td>
                         <td>
                             <button>
                                 <a th:href="@{/user/{id}(id=*{id})}">

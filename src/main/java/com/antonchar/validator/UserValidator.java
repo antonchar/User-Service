@@ -18,8 +18,8 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-        if (user.getAge() != null && user.getAge() < 18 && user.getIsAdmin()) {
-            errors.rejectValue("isAdmin", "admin.young", "Admin cannot be younger then 18 years old");
+        if (user.getAge() != null && user.getAge() < 18 && user.isAdmin()) {
+            errors.rejectValue("admin", "admin.young", "Admin cannot be younger then 18 years old");
         }
     }
 }

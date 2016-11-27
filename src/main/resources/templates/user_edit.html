@@ -29,7 +29,7 @@
             <!--Form-->
             <form id="save-form" th:action="@{/user/edit}" th:object="${user}" method="POST">
                 <input type="hidden" th:field="*{id}"/>
-                <input type="hidden" th:field="*{createDate}"/>
+                <input type="hidden" th:field="*{creationDate}"/>
 
                 <!--User table-->
                 <table class="table table-bordered">
@@ -66,17 +66,17 @@
                     <tr th:fragment="admin_row">
                         <td>Admin</td>
                         <td>
-                            <div th:class="(${#fields.hasErrors('isAdmin')}) ? 'has-error' : ''">
+                            <div th:class="(${#fields.hasErrors('admin')}) ? 'has-error' : ''">
                                 <div class="checkbox">
-                                    <input type="checkbox" th:field="*{isAdmin}"/>
-                                    <label th:if="${#fields.hasErrors('isAdmin')}" th:errors="*{isAdmin}"></label>
+                                    <input type="checkbox" th:field="*{admin}"/>
+                                    <label th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}"></label>
                                 </div>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>Created At</td>
-                        <td th:text="*{createDate}"></td>
+                        <td th:text="*{creationDate}"></td>
                     </tr>
                     </tbody>
 

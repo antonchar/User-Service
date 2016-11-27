@@ -103,7 +103,7 @@ public class UserController {
             return "user_add";
         }
 
-        user.setCreateDate(new Date(Calendar.getInstance().getTimeInMillis()));
+        user.setCreationDate(new Date(Calendar.getInstance().getTimeInMillis()));
         User savedUser = userService.addUser(user);
         log.info("New user saved successfully! " + user);
 

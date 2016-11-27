@@ -1,12 +1,10 @@
 package com.antonchar.entity;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -31,16 +29,18 @@ public class User {
     @Max(90)
     private Integer age;
 
-    private boolean isAdmin;
+    private boolean admin;
 
-    private Date createDate;
+    @Column(name = "creation_date")
+    private Date creationDate;
 
-    public boolean getIsAdmin() {
-        return isAdmin;
+    // Standard getter
+    public boolean isAdmin() {
+        return this.admin;
     }
 
-    public User setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-        return this;
+    // Getter for thymeleaf
+    public boolean getAdmin() {
+        return this.admin;
     }
 }
