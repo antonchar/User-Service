@@ -20,6 +20,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
+    public long getUserNum() {
+        return userRepository.count();
+    }
+
+    @Override
     public Page<User> getUsers(Integer pageNumber) {
         if (userRepository.count() == 0L) {
             throw new EmptyUsersException("No users in the database. Please add some entries first.");

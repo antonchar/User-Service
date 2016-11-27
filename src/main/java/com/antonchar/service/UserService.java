@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface UserService {
 
+    long getUserNum();
+
     Page<User> getUsers(Integer pageNumber);
 
     void deleteUser(Long id);

@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/users")
-public class UsersController {
+public class UserListController {
 
     @Autowired
     private UserService userService;
@@ -37,20 +37,9 @@ public class UsersController {
         return "users";
     }
 
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchUser(@RequestParam(required = false) String query, Model model) {
-        if (query != null && !query.isEmpty()) {
-            log.info("GET: Search user by name containing '" + query + "'");
-
-            List<User> users = userService.findUsers(query);
-
-            model.addAttribute("users", users);
-            model.addAttribute("query", query);
-        } else {
-            log.info("GET: Search user page");
-        }
-
-        return "user_search";
+    @ModelAttribute("userNum")
+    public long getUserNumber(){
+        return userService.getUserNum();
     }
 
     @ExceptionHandler
