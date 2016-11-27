@@ -1,6 +1,7 @@
 package com.antonchar.service;
 
 import com.antonchar.entity.User;
+import com.antonchar.exception.EmptyUsersException;
 import com.antonchar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<User> getUsers(Integer pageNumber) {
+        if (userRepository.count() == 0L) {
+            throw new EmptyUsersException("No users in the database. Please add some entries first.");
+        }
+
         PageRequest request = new PageRequest(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id");
         return userRepository.findAll(request);
     }

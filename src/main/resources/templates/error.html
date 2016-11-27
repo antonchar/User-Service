@@ -12,10 +12,20 @@
     <!--Content-->
     <div class="jumbotron">
 
+        <div th:if="${emptyDB}">
+            <h1>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> No users in your database.
+            </h1>
+            <p>Please add at least one user.</p>
+        </div>
+
+        <div th:unless="${emptyDB}">
         <h1>
             <span class="glyphicon glyphicon-fire" aria-hidden="true"></span> Ooops!
         </h1>
-        <p>It is not a really good idea to insert your own request parameter values :)</p>
+        <p>1. Check your database connection</p>
+        <p>2. It is not a really good idea to insert your own request parameter values :)</p>
+        </div>
 
     </div>
 
