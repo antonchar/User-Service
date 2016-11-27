@@ -1,3 +1,4 @@
+# Create User table
 CREATE TABLE User (
   id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(25),
@@ -6,6 +7,7 @@ CREATE TABLE User (
   createDate TIMESTAMP
 );
 
+# Fill the table with data
 INSERT INTO User (name, age, isAdmin, createDate) VALUES
   ('Vasily Pupkin', 29, 0, NOW()),
   ('Superbratan', 48, 1, NOW()),
@@ -19,3 +21,7 @@ INSERT INTO User (name, age, isAdmin, createDate) VALUES
   ('Ivan Ivanovich Ivanov', 38, 0, NOW()),
   ('Mark Kerames', 28, 1, NOW()),
   ('Peter Snow', 56, 0, NOW());
+
+# Rename table fields
+ALTER TABLE User CHANGE isAdmin admin BIT;
+ALTER TABLE User CHANGE createDate creation_date TIMESTAMP;
