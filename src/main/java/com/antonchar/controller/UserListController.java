@@ -39,12 +39,16 @@ public class UserListController {
 
     @ModelAttribute("userNum")
     public long getUserNumber(){
-        return userService.getUserNum();
+        long userNum = userService.getUserNum();
+        log.debug("List of users accessed : " + userNum + " user(s) found.");
+
+        return userNum;
     }
 
     @ExceptionHandler
     public String emptyDbHandler(EmptyUsersException e, Model model) {
         model.addAttribute("emptyDB", e.getMessage());
+
         return "error";
     }
 }
