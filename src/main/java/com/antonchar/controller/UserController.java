@@ -8,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.sql.Date;
@@ -20,6 +18,7 @@ import java.util.Calendar;
 @Slf4j
 @Controller
 @RequestMapping("/user")
+@SessionAttributes("userNum")
 public class UserController {
 
     @Autowired
@@ -30,11 +29,12 @@ public class UserController {
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
-                             @RequestParam(required = false) String query) {
+                             @RequestParam(required = false) String query, SessionStatus sessionStatus) {
         log.info("POST: Delete user with id = " + id);
         logRequestSender(page, query);
 
         userService.deleteUser(id);
+        sessionStatus.setComplete();
 
         return "redirect:/users" + (page != null ? "/pages/" + page : "/search?query=" + query);
     }
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult result, Model model) {
+    public String addUser(@Valid User user, BindingResult result, Model model, SessionStatus sessionStatus) {
         log.info("POST: Add new user");
 
         validator.validate(user, result);
@@ -105,6 +105,7 @@ public class UserController {
 
         user.setCreationDate(new Date(Calendar.getInstance().getTimeInMillis()));
         User savedUser = userService.addUser(user);
+        sessionStatus.setComplete();
         log.info("New user saved successfully! " + user);
 
         model.addAttribute("user", savedUser);

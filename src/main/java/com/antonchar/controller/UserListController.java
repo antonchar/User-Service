@@ -15,6 +15,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("/users")
+@SessionAttributes("userNum")
 public class UserListController {
 
     @Autowired
