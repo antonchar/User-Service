@@ -61,7 +61,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@Valid User user, BindingResult result,
+    public String editUser(@ModelAttribute @Valid User user, BindingResult result,
                            @RequestParam(required = false) String state, Model model) {
         log.info("POST: Edit user");
 
@@ -93,7 +93,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@Valid User user, BindingResult result, Model model, SessionStatus sessionStatus) {
+    public String addUser(@ModelAttribute @Valid User user, BindingResult result, Model model, SessionStatus sessionStatus) {
         log.info("POST: Add new user");
 
         validator.validate(user, result);
