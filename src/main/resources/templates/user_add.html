@@ -20,7 +20,7 @@
             <div th:replace="user_add_form :: add_user_button"></div>
 
             <!--Form-->
-            <form id="save-form" th:action="@{/user/add}" th:object="${user}" method="POST">
+            <form id="save-form" th:action="@{/user/add}" th:object="${newUser}" method="POST">
 
                 <!--User table-->
                 <table class="table table-bordered">

@@ -18,7 +18,7 @@ import java.util.Calendar;
 @Slf4j
 @Controller
 @RequestMapping("/user")
-@SessionAttributes(value = {"userNum", "existingUser"})
+@SessionAttributes(value = {"userNum", "existingUser", "newUser"})
 public class UserCrUDController {
 
     @Autowired
@@ -41,14 +41,17 @@ public class UserCrUDController {
     // CREATE
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public String showAddUserForm() {
+    public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
+
+        model.addAttribute("newUser", new User());
 
         return "user_add_form";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute @Valid User user, BindingResult result, Model model, SessionStatus sessionStatus) {
+    public String addUser(@ModelAttribute("newUser") @Valid User user, BindingResult result, Model model,
+                          SessionStatus sessionStatus) {
         log.info("POST: Add new user");
 
         validator.validate(user, result);
