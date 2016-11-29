@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 @ControllerAdvice
 public class ControllerBindings {
 
-    @InitBinder("user")
+    @InitBinder("existingUser")
     public void initUserBinder(WebDataBinder webDataBinder) {
         webDataBinder.setDisallowedFields("id", "creationDate");
     }

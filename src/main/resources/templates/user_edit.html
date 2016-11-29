@@ -27,14 +27,12 @@
             </div>
 
             <!--Form-->
-            <form id="save-form" th:action="@{/user/edit}" th:object="${user}" method="POST">
-                <input type="hidden" th:field="*{id}"/>
-                <input type="hidden" th:field="*{creationDate}"/>
+            <form id="save-form" th:action="@{/user/edit}" th:object="${existingUser}" method="POST">
 
                 <!--User table-->
                 <table class="table table-bordered">
 
-                    <thead><tr/></thead>
+                    <thead><tr></tr></thead>
 
                     <tbody>
                     <tr>
