@@ -28,12 +28,13 @@ public class UserCrUDController {
     private UserValidator validator;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String showUser(@PathVariable Long id, Model model) {
+    public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
         log.info("GET: Show data for user with id = " + id);
 
         User user = userService.findUser(id);
 
         model.addAttribute("existingUser", user);
+        model.addAttribute("saved", saved);
 
         return "user";
     }
@@ -50,7 +51,7 @@ public class UserCrUDController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("newUser") @Valid User user, BindingResult result, Model model,
+    public String addUser(@ModelAttribute("newUser") @Valid User user, BindingResult result,
                           SessionStatus sessionStatus) {
         log.info("POST: Add new user");
 
@@ -63,20 +64,19 @@ public class UserCrUDController {
 
         user.setCreationDate(new Date(Calendar.getInstance().getTimeInMillis()));
         User savedUser = userService.addUser(user);
+
         sessionStatus.setComplete();
+
         log.info("New user saved successfully! " + user);
 
-        model.addAttribute("user", savedUser);
-        model.addAttribute("saved", true);
-
-        return showUser(user.getId(), model);
+        return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 
     //UPDATE
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String editUser(@ModelAttribute("existingUser") @Valid User user, BindingResult result,
-                           @RequestParam(required = false) String state, Model model, SessionStatus sessionStatus) {
+                           @RequestParam(required = false) String state, SessionStatus sessionStatus) {
         log.info("POST: Edit user");
 
         validator.validate(user, result);
@@ -91,13 +91,12 @@ public class UserCrUDController {
         }
 
         userService.saveUser(user);
+
         sessionStatus.setComplete();
+
         log.info("User data updated successfully! " + user);
 
-        model.addAttribute("user", user);
-        model.addAttribute("saved", true);
-
-        return showUser(user.getId(), model);
+        return String.format("redirect:/user/%d?saved=true", user.getId());
     }
 
     // DELETE
