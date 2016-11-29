@@ -22,9 +22,6 @@ public class UserShowEditController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserValidator validator;
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
         log.info("GET: Show data for user with id = " + id);
@@ -42,7 +39,7 @@ public class UserShowEditController {
                            @RequestParam(required = false) String state, SessionStatus sessionStatus) {
         log.info("POST: Edit user");
 
-        validator.validate(user, result);
+        new UserValidator().validate(user, result);
 
         if (state != null && state.equals("init")) {
             log.info("Show user data to edit: " + user);

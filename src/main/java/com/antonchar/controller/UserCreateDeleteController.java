@@ -24,9 +24,6 @@ public class UserCreateDeleteController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private UserValidator validator;
-
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
@@ -41,7 +38,7 @@ public class UserCreateDeleteController {
                           SessionStatus sessionStatus) {
         log.info("POST: Add new user");
 
-        validator.validate(user, result);
+        new UserValidator().validate(user, result);
 
         if (result.hasErrors()) {
             log.error("Invalid new user data: " + user);
