@@ -18,28 +18,14 @@ import java.util.Calendar;
 @Slf4j
 @Controller
 @RequestMapping("/user")
-@SessionAttributes(value = {"userNum", "existingUser", "newUser"})
-public class UserCrUDController {
+@SessionAttributes(value = {"userNum", "newUser"})
+public class UserCreateDeleteController {
 
     @Autowired
     private UserService userService;
 
     @Autowired
     private UserValidator validator;
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
-        log.info("GET: Show data for user with id = " + id);
-
-        User user = userService.findUser(id);
-
-        model.addAttribute("existingUser", user);
-        model.addAttribute("saved", saved);
-
-        return "user";
-    }
-
-    // CREATE
 
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddUserForm(Model model) {
@@ -71,35 +57,6 @@ public class UserCrUDController {
 
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
-
-    //UPDATE
-
-    @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@ModelAttribute("existingUser") @Valid User user, BindingResult result,
-                           @RequestParam(required = false) String state, SessionStatus sessionStatus) {
-        log.info("POST: Edit user");
-
-        validator.validate(user, result);
-
-        if (state != null && state.equals("init")) {
-            log.info("Show user data to edit: " + user);
-            return "user_edit";
-        }
-        if (result.hasErrors()) {
-            log.error("Invalid user edit data: " + user);
-            return "user_edit";
-        }
-
-        userService.saveUser(user);
-
-        sessionStatus.setComplete();
-
-        log.info("User data updated successfully! " + user);
-
-        return String.format("redirect:/user/%d?saved=true", user.getId());
-    }
-
-    // DELETE
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
