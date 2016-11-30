@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@PropertySource("classpath:mysql.properties")
+@PropertySource("classpath:/mysql.properties")
 public class DatabaseConfig {
 
     @Value("${driver.class.name}")
