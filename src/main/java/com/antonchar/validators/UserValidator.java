@@ -1,7 +1,7 @@
-package com.antonchar.validator;
+package com.antonchar.validators;
 
 
-import com.antonchar.entity.User;
+import com.antonchar.entities.User;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

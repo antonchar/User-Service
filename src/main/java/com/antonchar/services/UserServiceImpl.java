@@ -1,8 +1,8 @@
-package com.antonchar.service;
+package com.antonchar.services;
 
-import com.antonchar.entity.User;
-import com.antonchar.exception.EmptyUsersException;
-import com.antonchar.repository.UserRepository;
+import com.antonchar.entities.User;
+import com.antonchar.exceptions.EmptyUsersException;
+import com.antonchar.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

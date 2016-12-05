@@ -1,7 +1,7 @@
-package com.antonchar.controller;
+package com.antonchar.controllers;
 
-import com.antonchar.entity.User;
-import com.antonchar.service.UserService;
+import com.antonchar.entities.User;
+import com.antonchar.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

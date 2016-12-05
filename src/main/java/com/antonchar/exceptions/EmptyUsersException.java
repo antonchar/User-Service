@@ -1,4 +1,4 @@
-package com.antonchar.exception;
+package com.antonchar.exceptions;
 
 public class EmptyUsersException extends RuntimeException {
 

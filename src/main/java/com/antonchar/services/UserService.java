@@ -1,6 +1,6 @@
-package com.antonchar.service;
+package com.antonchar.services;
 
-import com.antonchar.entity.User;
+import com.antonchar.entities.User;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

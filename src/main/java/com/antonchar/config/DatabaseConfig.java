@@ -1,4 +1,4 @@
-package com.antonchar.webapp;
+package com.antonchar.config;
 
 import org.hibernate.dialect.MySQL5Dialect;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,7 +57,7 @@ public class DatabaseConfig {
         adapter.setDatabase(Database.MYSQL);
         factoryBean.setJpaVendorAdapter(adapter);
 
-        factoryBean.setPackagesToScan("com.antonchar.entity");
+        factoryBean.setPackagesToScan("com.antonchar.entities");
 
         Map<String, Object> jpaPropertyMap = new HashMap<>();
         jpaPropertyMap.put("javax.persistence.validation.factory", validator());

@@ -1,4 +1,4 @@
-package com.antonchar.webapp;
+package com.antonchar.config;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
