@@ -22,9 +22,17 @@
 
 <div class="container">
 
+    <!--Language-->
+    <div class="btn-group pull-right" role="group" aria-label="..." th:with="classes='btn btn-default'">
+        <a th:href="@{/?lang=en}" role="button" th:class="__${#locale}__=='en' ? ${classes} + ' active' : ${classes}">ENG</a>
+        <a th:href="@{/?lang=ru}" role="button" th:class="__${#locale}__=='ru' ? ${classes} + ' active' : ${classes}">RUS</a>
+    </div>
+
     <!--Navigation bar-->
     <div class="masthead" th:fragment="navbar">
+
         <h3 class="text-muted">Simple Web Service</h3>
+
         <nav>
             <ul class="nav nav-justified">
                 <li id="home">
