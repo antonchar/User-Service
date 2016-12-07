@@ -14,10 +14,14 @@
 
         <form class="form-inline" th:action="@{/users/search}" th:object="${user}" method="GET">
             <div class="form-group">
-                <label for="input_name">Name or part of it </label>
-                <input id="input_name" type="text" name="query" th:value="${query}" placeholder="User Name"/>
+                <label for="input_name" th:text="#{user.search.label}"></label>
+                <input id="input_name" type="text" name="query" th:value="${query}"
+                       th:placeholder="#{user.search.placeholder}"/>
             </div>
-            <button type="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search</button>
+            <button type="submit">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <span th:text="#{user.search.button}"></span>
+            </button>
         </form>
 
         <div th:if="${users != null AND not #lists.isEmpty(users)}">

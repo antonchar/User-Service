@@ -17,12 +17,14 @@
 
             <div class="panel-heading" th:fragment="add_user_header">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Add New User
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span th:text="#{user.add.header}"></span>
             </div>
 
             <div class="panel-body" th:fragment="add_user_button">
                 <button type="submit" class="btn btn-default element-row" form="save-form">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span th:text="#{user.add.button}"></span>
                 </button>
             </div>
 
@@ -32,19 +34,25 @@
                 <!--User table-->
                 <table class="table table-bordered">
 
-                    <thead><tr/></thead>
+                    <thead><tr></tr></thead>
 
                     <tbody>
                     <tr>
-                        <td>Name</td>
-                        <td><input class="form-control" type="text" placeholder="Name" name="name"/></td>
+                        <td th:text="#{user.name}"></td>
+                        <td>
+                            <input class="form-control" type="text" th:placeholder="#{user.placeholder.name}"
+                                   name="name"/>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Age</td>
-                        <td><input class="form-control" type="number" placeholder="Age" name="age"/></td>
+                        <td th:text="#{user.age}"></td>
+                        <td>
+                            <input class="form-control" type="number" th:placeholder="#{user.placeholder.age}"
+                                   name="age"/>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Admin</td>
+                        <td th:text="#{user.admin}"></td>
                         <td><input type="checkbox" name="admin"/></td>
                     </tr>
                     </tbody>

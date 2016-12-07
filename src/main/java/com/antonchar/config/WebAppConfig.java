@@ -19,7 +19,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:/i18n/usermsg");
+        messageSource.setBasename("classpath:i18n/usermsg");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
@@ -42,6 +42,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:static/js/");
     }
 }

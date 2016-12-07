@@ -66,7 +66,8 @@
         <div class="panel panel-primary" th:fragment="user_table_panel">
 
             <div class="panel-heading">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span th:text="#{user.list.header}"></span>
             </div>
 
             <!--User table-->
@@ -75,12 +76,12 @@
                 <thead>
                 <tr class="thead">
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Admin</th>
-                    <th>Created At</th>
-                    <th>Show/Edit</th>
-                    <th>Delete</th>
+                    <th th:text="#{user.name}"></th>
+                    <th th:text="#{user.age}"></th>
+                    <th th:text="#{user.admin}"></th>
+                    <th th:text="#{user.creation.date}"></th>
+                    <th th:text="#{user.operation.show.edit}"></th>
+                    <th th:text="#{user.operation.delete}"></th>
                 </tr>
                 </thead>
 

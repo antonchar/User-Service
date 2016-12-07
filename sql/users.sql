@@ -25,3 +25,6 @@ INSERT INTO User (name, age, isAdmin, createDate) VALUES
 # Rename table fields
 ALTER TABLE User CHANGE isAdmin admin BIT;
 ALTER TABLE User CHANGE createDate creation_date TIMESTAMP;
+
+# Change charset to utf-8 (for Russian language)
+ALTER TABLE User MODIFY COLUMN name VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci;
