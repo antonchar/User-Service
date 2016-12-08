@@ -23,13 +23,14 @@
 <div class="container">
 
     <!--Language-->
-    <div th:with="res='/'">
-        <div class="btn-group pull-right" role="group" aria-label="..." th:with="classes='btn btn-default'">
-            <a th:href="@{${res} + '?lang=en'}" role="button"
+    <div th:with="res='/?'">
+        <div class="btn-group pull-right" role="group" aria-label="..."
+             th:with="classes='btn btn-default'" th:fragment="lang">
+            <a th:href="@{${res} + 'lang=en'}" role="button"
                th:class="__${#locale}__=='en' ? ${classes} + ' active' : ${classes}">
                 ENG
             </a>
-            <a th:href="@{${res} + '?lang=ru'}" role="button"
+            <a th:href="@{${res} + 'lang=ru'}" role="button"
                th:class="__${#locale}__=='ru' ? ${classes} + ' active' : ${classes}">
                 RUS
             </a>

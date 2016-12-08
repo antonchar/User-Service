@@ -7,6 +7,11 @@
 
 <div class="container">
 
+    <!--Language-->
+    <div th:with="res='/users/pages/' + ${currentIndex} + '?'">
+        <div th:replace="index :: lang"></div>
+    </div>
+
     <div th:replace="index :: navbar"></div>
 
     <!--Content-->
