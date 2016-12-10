@@ -3,12 +3,12 @@ CREATE TABLE User (
   id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(25),
   age INT,
-  isAdmin BIT,
-  createDate TIMESTAMP
+  admin BIT,
+  creation_date TIMESTAMP
 );
 
 # Fill the table with data
-INSERT INTO User (name, age, isAdmin, createDate) VALUES
+INSERT INTO User (name, age, admin, creation_date) VALUES
   ('Vasily Pupkin', 29, 0, NOW()),
   ('Superbratan', 48, 1, NOW()),
   ('John Doe', 34, 0, NOW()),
@@ -21,10 +21,3 @@ INSERT INTO User (name, age, isAdmin, createDate) VALUES
   ('Ivan Ivanovich Ivanov', 38, 0, NOW()),
   ('Mark Kerames', 28, 1, NOW()),
   ('Peter Snow', 56, 0, NOW());
-
-# Rename table fields
-ALTER TABLE User CHANGE isAdmin admin BIT;
-ALTER TABLE User CHANGE createDate creation_date TIMESTAMP;
-
-# Change charset to utf-8 (for Russian language)
-ALTER TABLE User MODIFY COLUMN name VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci;
