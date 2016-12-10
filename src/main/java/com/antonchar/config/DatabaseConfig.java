@@ -17,18 +17,15 @@ import javax.validation.Validator;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
-@ConfigurationProperties(prefix = "db", locations = "classpath:mysql.properties", ignoreUnknownFields = false)
 @Getter
 @Setter
+@Configuration
+@ConfigurationProperties(prefix = "db", locations = "classpath:database.yml", ignoreUnknownFields = false)
 public class DatabaseConfig {
 
     private String driverClassName;
-
     private String url;
-
     private String username;
-
     private String password;
 
     @Bean
