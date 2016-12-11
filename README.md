@@ -1,4 +1,4 @@
-# SimpleWebService
+# User Service
 
 This is a simple CRUD MVC project implemented with Spring Boot, MySQL and Thymeleaf technologies. 
 The project is not finished and is under development. It is updated from time to time.

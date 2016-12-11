@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.antonchar</groupId>
-    <artifactId>simplewebservice</artifactId>
+    <artifactId>userservice</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>SimpleWebService</name>
+    <name>User Service</name>
     <description>Demo project for Spring Boot</description>
 
     <parent>
