@@ -32,14 +32,4 @@ public class User {
 
     @Column(name = "creation_date")
     private Date creationDate;
-
-    // Standard getter
-    public boolean isAdmin() {
-        return this.admin;
-    }
-
-    // Getter for thymeleaf
-    public boolean getAdmin() {
-        return this.admin;
-    }
 }
