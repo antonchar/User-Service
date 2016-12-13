@@ -1,7 +1,7 @@
 package com.antonchar.controllers;
 
 import com.antonchar.entities.User;
-import com.antonchar.exceptions.EmptyUsersException;
+import com.antonchar.exceptions.NoUsersException;
 import com.antonchar.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +45,7 @@ public class UserListController {
     }
 
     @ExceptionHandler
-    public String emptyDbHandler(EmptyUsersException e, Model model) {
+    public String emptyDbHandler(NoUsersException e, Model model) {
         model.addAttribute("emptyDB", e.getMessage());
 
         return "error";
