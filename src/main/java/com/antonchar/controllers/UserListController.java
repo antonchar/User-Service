@@ -24,6 +24,7 @@ public class UserListController {
         log.info("GET: Show user page number " + pageNumber);
 
         Page<User> userPages = userService.getUsers(pageNumber);
+
         int currentIndex = userPages.getNumber() + 1;
         int beginIndex = Math.max(1, currentIndex - 5);
         int endIndex = Math.min(beginIndex + 10, userPages.getTotalPages());
