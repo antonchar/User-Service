@@ -21,7 +21,7 @@ public class UserListController {
 
     @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
     public String showUserPage(@PathVariable Integer pageNumber, Model model) {
-        log.info("GET: Show user page number " + pageNumber);
+        log.info("GET: Show user page number {}", pageNumber);
         Page<UserDto> userPages = userService.getUsers(pageNumber);
 
         int currentIndex = userPages.getNumber() + 1;
@@ -38,8 +38,8 @@ public class UserListController {
 
     @ModelAttribute("userNum")
     public long getUserNumber(){
-        long userNum = userService.getUserNum();
-        log.debug("List of users accessed : " + userNum + " user(s) found.");
+        Long userNum = userService.getUserNum();
+        log.debug("List of users accessed : {} user(s) found.", userNum);
         return userNum;
     }
 

@@ -24,7 +24,7 @@ public class UserShowEditController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
-        log.info("GET: Show data for user with id = " + id);
+        log.info("GET: Show data for user with id = {}", id);
         UserDto user = userService.findUser(id);
 
         model.addAttribute("existingUser", user);
@@ -39,17 +39,17 @@ public class UserShowEditController {
         new UserValidator().validate(user, result);
 
         if (state != null && state.equals("init")) {
-            log.info("Show user data to edit: " + user);
+            log.info("Show user data to edit: {}", user);
             return "user_edit";
         }
         if (result.hasErrors()) {
-            log.error("Invalid user edit data: " + user);
+            log.error("Invalid user edit data: {}", user);
             return "user_edit";
         }
 
         userService.saveUser(user);
         sessionStatus.setComplete();
-        log.info("User data updated successfully! " + user);
+        log.info("User data updated successfully! {}", user);
         return String.format("redirect:/user/%d?saved=true", user.getId());
     }
 }

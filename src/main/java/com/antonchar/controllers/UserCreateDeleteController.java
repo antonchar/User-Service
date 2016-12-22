@@ -38,7 +38,7 @@ public class UserCreateDeleteController {
         new UserValidator().validate(user, result);
 
         if (result.hasErrors()) {
-            log.error("Invalid new user data: " + user);
+            log.error("Invalid new user data: {}", user);
             return "user_add";
         }
 
@@ -46,14 +46,14 @@ public class UserCreateDeleteController {
         UserDto savedUser = userService.addUser(user);
 
         sessionStatus.setComplete();
-        log.info("New user saved successfully! " + user);
+        log.info("New user saved successfully! {}", user);
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
                              @RequestParam(required = false) String query, SessionStatus sessionStatus) {
-        log.info("POST: Delete user with id = " + id);
+        log.info("POST: Delete user with id = {}", id);
         logRequestSender(page, query);
 
         userService.deleteUser(id);
