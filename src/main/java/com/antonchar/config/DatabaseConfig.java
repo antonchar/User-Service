@@ -39,26 +39,20 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public Validator validator() {
-        return new LocalValidatorFactoryBean();
-    }
-
-    @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
+        factoryBean.setPackagesToScan("com.antonchar.entities");
 
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.MYSQL);
         factoryBean.setJpaVendorAdapter(adapter);
 
-        factoryBean.setPackagesToScan("com.antonchar.entities");
-
         Map<String, Object> jpaPropertyMap = new HashMap<>();
-        jpaPropertyMap.put("javax.persistence.validation.factory", validator());
         jpaPropertyMap.put("hibernate.dialect", MySQL5Dialect.class.getName());
-
+        jpaPropertyMap.put("hibernate.show_sql", "false");
         factoryBean.setJpaPropertyMap(jpaPropertyMap);
+
         return factoryBean;
     }
 }
