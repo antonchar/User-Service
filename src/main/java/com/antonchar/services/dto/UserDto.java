@@ -1,9 +1,8 @@
-package com.antonchar.dto;
+package com.antonchar.services.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -16,17 +15,15 @@ public class UserDto {
 
     private Long id;
 
-    @NotNull
-    @Size(min = 3, max = 50)
+    @NotNull(message = "{error.null}")
+    @Size(min = 3, max = 50, message = "{error.name.length}")
     private String name;
 
-    @NotNull
-    @Min(16)
-    @Max(90)
+    @NotNull(message = "{error.null}")
+    @Min(value = 16, message = "{error.age.min}")
+    @Max(value = 90, message = "{error.age.max}")
     private Integer age;
 
     private boolean admin;
-
-    @Column(name = "creation_date")
     private Date creationDate;
 }

@@ -13,7 +13,6 @@ public class StartController {
     @RequestMapping(method = RequestMethod.GET)
     public String showStartPage() {
         log.info("GET: Show home page");
-
         return "index";
     }
 }

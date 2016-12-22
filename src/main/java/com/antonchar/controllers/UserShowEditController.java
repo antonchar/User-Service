@@ -1,7 +1,7 @@
 package com.antonchar.controllers;
 
-import com.antonchar.entities.User;
 import com.antonchar.services.UserService;
+import com.antonchar.services.dto.UserDto;
 import com.antonchar.validators.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,20 +25,17 @@ public class UserShowEditController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
         log.info("GET: Show data for user with id = " + id);
-
-        User user = userService.findUser(id);
+        UserDto user = userService.findUser(id);
 
         model.addAttribute("existingUser", user);
         model.addAttribute("saved", saved);
-
         return "user";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String editUser(@ModelAttribute("existingUser") @Valid User user, BindingResult result,
+    public String editUser(@ModelAttribute("existingUser") @Valid UserDto user, BindingResult result,
                            @RequestParam(required = false) String state, SessionStatus sessionStatus) {
         log.info("POST: Edit user");
-
         new UserValidator().validate(user, result);
 
         if (state != null && state.equals("init")) {
@@ -51,11 +48,8 @@ public class UserShowEditController {
         }
 
         userService.saveUser(user);
-
         sessionStatus.setComplete();
-
         log.info("User data updated successfully! " + user);
-
         return String.format("redirect:/user/%d?saved=true", user.getId());
     }
 }

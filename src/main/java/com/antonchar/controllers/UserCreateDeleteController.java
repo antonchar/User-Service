@@ -1,7 +1,7 @@
 package com.antonchar.controllers;
 
-import com.antonchar.entities.User;
 import com.antonchar.services.UserService;
+import com.antonchar.services.dto.UserDto;
 import com.antonchar.validators.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,14 @@ public class UserCreateDeleteController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
-
-        model.addAttribute("newUser", new User());
-
+        model.addAttribute("newUser", new UserDto());
         return "user_add_form";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("newUser") @Valid User user, BindingResult result,
+    public String addUser(@ModelAttribute("newUser") @Valid UserDto user, BindingResult result,
                           SessionStatus sessionStatus) {
         log.info("POST: Add new user");
-
         new UserValidator().validate(user, result);
 
         if (result.hasErrors()) {
@@ -46,12 +43,10 @@ public class UserCreateDeleteController {
         }
 
         user.setCreationDate(new Date(Calendar.getInstance().getTimeInMillis()));
-        User savedUser = userService.addUser(user);
+        UserDto savedUser = userService.addUser(user);
 
         sessionStatus.setComplete();
-
         log.info("New user saved successfully! " + user);
-
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 
@@ -63,7 +58,6 @@ public class UserCreateDeleteController {
 
         userService.deleteUser(id);
         sessionStatus.setComplete();
-
         return "redirect:/users" + (page != null ? "/pages/" + page : "/search?query=" + query);
     }
 

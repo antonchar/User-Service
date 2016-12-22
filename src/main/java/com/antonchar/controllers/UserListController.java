@@ -1,8 +1,8 @@
 package com.antonchar.controllers;
 
-import com.antonchar.entities.User;
 import com.antonchar.exceptions.NoUsersException;
 import com.antonchar.services.UserService;
+import com.antonchar.services.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,8 +22,7 @@ public class UserListController {
     @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
     public String showUserPage(@PathVariable Integer pageNumber, Model model) {
         log.info("GET: Show user page number " + pageNumber);
-
-        Page<User> userPages = userService.getUsers(pageNumber);
+        Page<UserDto> userPages = userService.getUsers(pageNumber);
 
         int currentIndex = userPages.getNumber() + 1;
         int beginIndex = Math.max(1, currentIndex - 5);
@@ -41,14 +40,12 @@ public class UserListController {
     public long getUserNumber(){
         long userNum = userService.getUserNum();
         log.debug("List of users accessed : " + userNum + " user(s) found.");
-
         return userNum;
     }
 
     @ExceptionHandler
     public String emptyDbHandler(NoUsersException e, Model model) {
         model.addAttribute("emptyDB", e.getMessage());
-
         return "error";
     }
 }
