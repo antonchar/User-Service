@@ -20,4 +20,5 @@ INSERT INTO User (name, age, admin, creation_date) VALUES
   ('badass', 90, 1, NOW()),
   ('Ivan Ivanovich Ivanov', 38, 0, NOW()),
   ('Mark Kerames', 28, 1, NOW()),
-  ('Peter Snow', 56, 0, NOW());
+  ('Peter Snow', 56, 0, NOW()
+);
