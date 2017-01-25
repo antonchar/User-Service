@@ -1,5 +1,5 @@
 db:
-  driverClassName: com.mysql.jdbc.Driver
-  url: jdbc:mysql://localhost:3306/user_service?autoReconnect=true&useSSL=false&characterEncoding=UTF-8
+  driverClassName: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/user_service
   username: root
   password: root

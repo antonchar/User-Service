@@ -1,23 +1,34 @@
 package com.antonchar.entities;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.sql.Date;
 
-@Entity
+
 @Data
 @Accessors(chain = true)
+@NoArgsConstructor
+@Entity
+@Table(name = "Users")
+@SequenceGenerator(name = "PK_SEQ", sequenceName = "USERSERVICE_PK_SEQUENCE", allocationSize = 1)
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "PK_SEQ")
+    @Column(name = "id", nullable = false)
     private Long id;
-    private String name;
-    private Integer age;
-    private boolean admin;
 
-    @Column(name = "creation_date")
+    @Column(name = "name", nullable = false, unique = true)
+    private String name;
+
+    @Column(name = "age", nullable = false)
+    private Integer age;
+
+    @Column(name = "admin", nullable = false)
+    private Boolean admin;
+
+    @Column(name = "creation_time", nullable = false)
     private Date creationDate;
 }

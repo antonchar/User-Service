@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <!--USERSERVICE_PK_SEQUENCE-->
+    <changeSet author="antonchar" id="initial.001" dbms="postgresql">
+        <createSequence cacheSize="5" cycle="false"
+                        startValue="1" incrementBy="1"
+                        maxValue="99999999999" minValue="1"
+                        sequenceName="USERSERVICE_PK_SEQUENCE"/>
+    </changeSet>
+    <changeSet author="antonchar" id="initial.001" dbms="h2">
+        <createSequence cacheSize="5" cycle="false" ordered="false"
+                        startValue="1" incrementBy="1"
+                         sequenceName="USERSERVICE_PK_SEQUENCE"/>
+    </changeSet>
+
+    <!--USERS-->
+    <changeSet author="antonchar" id="initial.002">
+        <createTable tableName="USERS">
+            <column name="ID" type="INTEGER">
+                <constraints primaryKey="true" primaryKeyName="CONSTR_PK_USERSERVICE_USER" nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR2(32)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="AGE" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ADMIN" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="USERS"/>
+        </rollback>
+    </changeSet>
+
+    <!--USERS.CREATION_TIME-->
+    <changeSet author="antonchar" id="initial.003">
+        <sql dbms="postgresql">
+            <comment>Liquibase does not support TZ timestamp types properly.</comment>
+            ALTER TABLE USERS ADD CREATION_TIME TIMESTAMP WITH TIME ZONE NOT NULL;
+        </sql>
+        <sql dbms="h2">
+            <comment>Liquibase does not support TZ timestamp types properly.</comment>
+            ALTER TABLE USERS ADD CREATION_TIME TIMESTAMP NOT NULL;
+        </sql>
+        <rollback>
+            <dropColumn tableName="USERS">
+                <column name="CREATION_TIME"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

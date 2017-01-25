@@ -1,12 +1,3 @@
-# Create User table
-CREATE TABLE User (
-  id INT(8) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(25),
-  age INT,
-  admin BIT,
-  creation_date TIMESTAMP
-);
-
 # Fill the table with data
 INSERT INTO User (name, age, admin, creation_date) VALUES
   ('Vasily Pupkin', 29, 0, NOW()),

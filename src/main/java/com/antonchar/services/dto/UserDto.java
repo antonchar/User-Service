@@ -25,5 +25,6 @@ public class UserDto {
     private Integer age;
 
     private boolean admin;
+
     private Date creationDate;
 }
