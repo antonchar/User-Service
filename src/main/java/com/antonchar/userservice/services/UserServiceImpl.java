@@ -1,9 +1,9 @@
-package com.antonchar.services;
+package com.antonchar.userservice.services;
 
-import com.antonchar.entities.User;
-import com.antonchar.exceptions.NoUsersException;
-import com.antonchar.repositories.UserRepository;
-import com.antonchar.services.dto.UserDto;
+import com.antonchar.userservice.entities.User;
+import com.antonchar.userservice.exceptions.NoUsersException;
+import com.antonchar.userservice.repositories.UserRepository;
+import com.antonchar.userservice.services.dto.UserDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

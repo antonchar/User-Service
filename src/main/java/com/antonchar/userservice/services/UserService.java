@@ -1,6 +1,6 @@
-package com.antonchar.services;
+package com.antonchar.userservice.services;
 
-import com.antonchar.services.dto.UserDto;
+import com.antonchar.userservice.services.dto.UserDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

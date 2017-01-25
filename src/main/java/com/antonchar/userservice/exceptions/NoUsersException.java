@@ -1,4 +1,4 @@
-package com.antonchar.exceptions;
+package com.antonchar.userservice.exceptions;
 
 public class NoUsersException extends RuntimeException {
 

@@ -9,16 +9,11 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
     <!--USERSERVICE_PK_SEQUENCE-->
-    <changeSet author="antonchar" id="initial.001" dbms="postgresql">
+    <changeSet author="antonchar" id="initial.001">
         <createSequence cacheSize="5" cycle="false"
-                        startValue="1" incrementBy="1"
-                        maxValue="99999999999" minValue="1"
+                        startValue="100" incrementBy="1"
+                        maxValue="99999999999" minValue="100"
                         sequenceName="USERSERVICE_PK_SEQUENCE"/>
-    </changeSet>
-    <changeSet author="antonchar" id="initial.001" dbms="h2">
-        <createSequence cacheSize="5" cycle="false" ordered="false"
-                        startValue="1" incrementBy="1"
-                         sequenceName="USERSERVICE_PK_SEQUENCE"/>
     </changeSet>
 
     <!--USERS-->
@@ -47,10 +42,6 @@
         <sql dbms="postgresql">
             <comment>Liquibase does not support TZ timestamp types properly.</comment>
             ALTER TABLE USERS ADD CREATION_TIME TIMESTAMP WITH TIME ZONE NOT NULL;
-        </sql>
-        <sql dbms="h2">
-            <comment>Liquibase does not support TZ timestamp types properly.</comment>
-            ALTER TABLE USERS ADD CREATION_TIME TIMESTAMP NOT NULL;
         </sql>
         <rollback>
             <dropColumn tableName="USERS">

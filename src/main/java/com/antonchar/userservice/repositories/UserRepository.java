@@ -1,6 +1,6 @@
-package com.antonchar.repositories;
+package com.antonchar.userservice.repositories;
 
-import com.antonchar.entities.User;
+import com.antonchar.userservice.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

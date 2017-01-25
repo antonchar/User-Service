@@ -1,4 +1,4 @@
-package com.antonchar.controllers;
+package com.antonchar.userservice.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

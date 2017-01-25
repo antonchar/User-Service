@@ -1,4 +1,4 @@
-package com.antonchar.services.dto;
+package com.antonchar.userservice.services.dto;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

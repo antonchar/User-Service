@@ -1,4 +1,4 @@
-package com.antonchar.config;
+package com.antonchar.userservice.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 @Getter
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "db", locations = "classpath:database.yml", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "db", locations = "classpath:postgresql.yml", ignoreUnknownFields = false)
 public class DatabaseConfig {
 
     private String driverClassName;
@@ -29,29 +29,29 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource() {
-        DriverManagerDataSource driver = new DriverManagerDataSource();
-        driver.setDriverClassName(driverClassName);
-        driver.setUrl(url);
-        driver.setUsername(username);
-        driver.setPassword(password);
-        return driver;
+        DriverManagerDataSource ds = new DriverManagerDataSource();
+        ds.setDriverClassName(driverClassName);
+        ds.setUrl(url);
+        ds.setUsername(username);
+        ds.setPassword(password);
+        return ds;
     }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan("com.antonchar.entities");
+        LocalContainerEntityManagerFactoryBean lcemfb = new LocalContainerEntityManagerFactoryBean();
+        lcemfb.setDataSource(dataSource());
+        lcemfb.setPackagesToScan("com.antonchar.userservice.entities");
 
         HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
         adapter.setDatabase(Database.POSTGRESQL);
-        factoryBean.setJpaVendorAdapter(adapter);
+        lcemfb.setJpaVendorAdapter(adapter);
 
         Map<String, Object> jpaPropertyMap = new HashMap<>();
         jpaPropertyMap.put("hibernate.dialect", PostgreSQL94Dialect.class.getName());
         jpaPropertyMap.put("hibernate.show_sql", "false");
-        factoryBean.setJpaPropertyMap(jpaPropertyMap);
+        lcemfb.setJpaPropertyMap(jpaPropertyMap);
 
-        return factoryBean;
+        return lcemfb;
     }
 }

@@ -1,4 +1,4 @@
-package com.antonchar.entities;
+package com.antonchar.userservice.entities;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

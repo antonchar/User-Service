@@ -1,8 +1,8 @@
-package com.antonchar.controllers;
+package com.antonchar.userservice.controllers;
 
-import com.antonchar.services.UserService;
-import com.antonchar.services.dto.UserDto;
-import com.antonchar.validators.UserValidator;
+import com.antonchar.userservice.services.UserService;
+import com.antonchar.userservice.services.dto.UserDto;
+import com.antonchar.userservice.validators.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package com.antonchar.validators;
+package com.antonchar.userservice.validators;
 
-import com.antonchar.services.dto.UserDto;
+import com.antonchar.userservice.services.dto.UserDto;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

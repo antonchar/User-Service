@@ -1,4 +1,4 @@
-package com.antonchar;
+package com.antonchar.userservice;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
