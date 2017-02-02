@@ -2,7 +2,8 @@ logging:
   file: logs/simple_ws.log
   level:
     org.springframework.web: INFO
-    com.antonchar.controllers: DEBUG
+    com.antonchar.userservice.controllers: DEBUG
 
 liquibase:
+  enabled: true
   change-log: classpath:liquibase/userservice.changelog.xml

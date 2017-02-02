@@ -20,15 +20,18 @@
     </parent>
 
     <properties>
+        <!--Java-->
         <java.version>1.8</java.version>
+        <!--Encodings-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--Libs-->
         <modelmapper.version>0.7.5</modelmapper.version>
         <lombok.version>1.16.10</lombok.version>
+        <!--DB-->
         <postgresql.version>9.4.1212</postgresql.version>
         <h2.version>1.4.193</h2.version>
         <liquibase.version>3.5.3</liquibase.version>
-        <spring-jdbc.version>4.3.5.RELEASE</spring-jdbc.version>
     </properties>
 
     <dependencies>
@@ -43,27 +46,10 @@
             <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!--DB-->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
-        </dependency>
-        <!--Spring JDBC-->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>${spring-jdbc.version}</version>
         </dependency>
         <!--Spring Boot-->
         <dependency>
@@ -114,4 +100,26 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>h2</id>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>${h2.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>postgres</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
+                    <version>${postgresql.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>

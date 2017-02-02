@@ -3,3 +3,6 @@ db:
   url: jdbc:postgresql://localhost:5432/user_service
   username: root
   password: root
+
+liquibase:
+  enabled: true
