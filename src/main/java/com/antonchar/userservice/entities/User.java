@@ -1,5 +1,6 @@
 package com.antonchar.userservice.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "Users")
 @SequenceGenerator(name = "PK_SEQ", sequenceName = "USERSERVICE_PK_SEQUENCE", allocationSize = 1)
