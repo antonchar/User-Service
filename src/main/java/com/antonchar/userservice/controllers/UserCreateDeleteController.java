@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
-import java.sql.Date;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Controller
@@ -42,7 +41,7 @@ public class UserCreateDeleteController {
             return "user_add";
         }
 
-        user.setCreationDate(new Date(Calendar.getInstance().getTimeInMillis()));
+        user.setCreationDate(LocalDateTime.now());
         UserDto savedUser = userService.addUser(user);
 
         sessionStatus.setComplete();

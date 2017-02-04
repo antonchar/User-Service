@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -30,5 +30,5 @@ public class User {
     private Boolean admin;
 
     @Column(name = "creation_time", nullable = false)
-    private Date creationDate;
+    private LocalDateTime creationDate;
 }

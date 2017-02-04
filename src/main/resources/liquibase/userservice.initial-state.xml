@@ -8,6 +8,9 @@
                    http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
+    <property name="now" value="now()" dbms="postgresql"/>
+    <property name="now" value="now()" dbms="h2"/>
+
     <!--USERSERVICE_PK_SEQUENCE POSTGRES-->
     <changeSet author="antonchar" id="initial.001" dbms="postgresql">
         <createSequence cacheSize="5" cycle="false"
@@ -38,26 +41,12 @@
             <column name="ADMIN" type="BOOLEAN" defaultValueBoolean="false">
                 <constraints nullable="false" />
             </column>
+            <column name="CREATION_TIME" type="TIMESTAMP" defaultValueComputed="${now}">
+                <constraints nullable="false" />
+            </column>
         </createTable>
         <rollback>
             <dropTable tableName="USERS"/>
-        </rollback>
-    </changeSet>
-
-    <!--USERS.CREATION_TIME-->
-    <changeSet author="antonchar" id="initial.003">
-        <sql dbms="postgresql">
-            <comment>Liquibase does not support TZ timestamp types properly.</comment>
-            ALTER TABLE USERS ADD CREATION_TIME TIMESTAMP WITH TIME ZONE NOT NULL;
-        </sql>
-        <sql dbms="h2">
-            <comment>Liquibase does not support TZ timestamp types properly.</comment>
-            ALTER TABLE USERS ADD CREATION_TIME TIMESTAMP NOT NULL;
-        </sql>
-        <rollback>
-            <dropColumn tableName="USERS">
-                <column name="CREATION_TIME"/>
-            </dropColumn>
         </rollback>
     </changeSet>
 </databaseChangeLog>

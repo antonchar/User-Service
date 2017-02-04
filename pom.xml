@@ -25,13 +25,15 @@
         <!--Encodings-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!--Libs-->
-        <modelmapper.version>0.7.5</modelmapper.version>
-        <lombok.version>1.16.10</lombok.version>
+        <!--Hibernate-->
+        <hibernate-java8.version>5.0.1.Final</hibernate-java8.version>
         <!--DB-->
         <postgresql.version>9.4.1212</postgresql.version>
         <h2.version>1.4.193</h2.version>
         <liquibase.version>3.5.3</liquibase.version>
+        <!--Libs-->
+        <modelmapper.version>0.7.5</modelmapper.version>
+        <lombok.version>1.16.10</lombok.version>
     </properties>
 
     <dependencies>
@@ -50,6 +52,12 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
             <version>${liquibase.version}</version>
+        </dependency>
+        <!--Hibernate Java 8 Time API-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-java8</artifactId>
+            <version>${hibernate-java8.version}</version>
         </dependency>
         <!--Spring Boot-->
         <dependency>
