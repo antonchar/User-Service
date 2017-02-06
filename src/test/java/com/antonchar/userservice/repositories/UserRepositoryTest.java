@@ -6,13 +6,11 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.antonchar.userservice.entities.User;
@@ -20,12 +18,10 @@ import com.antonchar.userservice.entities.User;
 import static com.antonchar.userservice.UserTestData.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@ActiveProfiles("h2")
+@DataJpaTest
 public class UserRepositoryTest {
 
     @Autowired
@@ -80,7 +76,6 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     public void testDeleteExisting() throws Exception {
         repository.delete(1L);
         assertThat(repository.count(), is(3L));
@@ -104,14 +99,12 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DirtiesContext
     public void testSave() throws Exception {
         User user = repository.save(new User(null, "Dummy", 12, true, LocalDateTime.now()));
         assertThat(user.getId(), greaterThan(4L));
     }
 
     @Test
-    @DirtiesContext
     public void testUpdate() throws Exception {
         User user = USER_1.setAge(68);
         User savedUser = repository.save(user);

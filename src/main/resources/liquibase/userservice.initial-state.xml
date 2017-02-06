@@ -8,9 +8,6 @@
                    http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
-    <property name="now" value="now()" dbms="postgresql"/>
-    <property name="now" value="now()" dbms="h2"/>
-
     <!--USERSERVICE_PK_SEQUENCE POSTGRES-->
     <changeSet author="antonchar" id="initial.001" dbms="postgresql">
         <createSequence cacheSize="5" cycle="false"
@@ -41,7 +38,7 @@
             <column name="ADMIN" type="BOOLEAN" defaultValueBoolean="false">
                 <constraints nullable="false" />
             </column>
-            <column name="CREATION_TIME" type="TIMESTAMP" defaultValueComputed="${now}">
+            <column name="CREATION_TIME" type="TIMESTAMP">
                 <constraints nullable="false" />
             </column>
         </createTable>
