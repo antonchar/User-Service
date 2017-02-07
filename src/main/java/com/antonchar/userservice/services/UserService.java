@@ -7,17 +7,17 @@ import java.util.List;
 
 public interface UserService {
 
-    long getUserNum();
+    long getNum();
 
-    Page<UserDto> getUsers(Integer pageNumber);
+    Page<UserDto> getPage(Integer pageNumber);
 
-    void deleteUser(Long id);
+    void delete(Long id);
 
-    UserDto findUser(Long id);
+    UserDto find(Long id);
 
-    void saveUser(UserDto user);
+    void save(UserDto user);
 
-    UserDto addUser(UserDto user);
+    UserDto update(UserDto user);
 
-    List<UserDto> findUsers(String name);
+    List<UserDto> findByName(String name);
 }

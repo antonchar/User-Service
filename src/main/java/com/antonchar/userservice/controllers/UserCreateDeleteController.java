@@ -2,7 +2,7 @@ package com.antonchar.userservice.controllers;
 
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
-import com.antonchar.userservice.validators.UserValidator;
+import com.antonchar.userservice.util.UserValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +42,7 @@ public class UserCreateDeleteController {
         }
 
         user.setCreationDate(LocalDateTime.now());
-        UserDto savedUser = userService.addUser(user);
+        UserDto savedUser = userService.update(user);
 
         sessionStatus.setComplete();
         log.info("New user saved successfully! {}", user);
@@ -55,7 +55,7 @@ public class UserCreateDeleteController {
         log.info("POST: Delete user with id = {}", id);
         logRequestSender(page, query);
 
-        userService.deleteUser(id);
+        userService.delete(id);
         sessionStatus.setComplete();
         return "redirect:/users" + (page != null ? "/pages/" + page : "/search?query=" + query);
     }

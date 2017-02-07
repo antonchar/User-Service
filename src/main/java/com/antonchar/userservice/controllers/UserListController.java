@@ -1,6 +1,6 @@
 package com.antonchar.userservice.controllers;
 
-import com.antonchar.userservice.exceptions.NoUsersException;
+import com.antonchar.userservice.util.exceptions.EmptyUserListException;
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ public class UserListController {
     @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
     public String showUserPage(@PathVariable Integer pageNumber, Model model) {
         log.info("GET: Show user page number {}", pageNumber);
-        Page<UserDto> userPages = userService.getUsers(pageNumber);
+        Page<UserDto> userPages = userService.getPage(pageNumber);
 
         int currentIndex = userPages.getNumber() + 1;
         int beginIndex = Math.max(1, currentIndex - 5);
@@ -38,13 +38,13 @@ public class UserListController {
 
     @ModelAttribute("userNum")
     public long getUserNumber(){
-        Long userNum = userService.getUserNum();
+        Long userNum = userService.getNum();
         log.debug("List of users accessed : {} user(s) found.", userNum);
         return userNum;
     }
 
-    @ExceptionHandler
-    public String emptyDbHandler(NoUsersException e, Model model) {
+    @ExceptionHandler(EmptyUserListException.class)
+    public String emptyDbHandler(EmptyUserListException e, Model model) {
         model.addAttribute("emptyDB", e.getMessage());
         return "error";
     }

@@ -2,7 +2,7 @@ package com.antonchar.userservice.controllers;
 
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
-import com.antonchar.userservice.validators.UserValidator;
+import com.antonchar.userservice.util.UserValidator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +27,7 @@ public class UserShowEditController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
         log.info("GET: Show data for user with id = {}", id);
-        UserDto user = userService.findUser(id);
+        UserDto user = userService.find(id);
 
         model.addAttribute("existingUser", user);
         model.addAttribute("saved", saved);
@@ -49,7 +49,7 @@ public class UserShowEditController {
             return "user_edit";
         }
 
-        userService.saveUser(user);
+        userService.save(user);
         sessionStatus.setComplete();
         log.info("User data updated successfully! {}", user);
         return String.format("redirect:/user/%d?saved=true", user.getId());

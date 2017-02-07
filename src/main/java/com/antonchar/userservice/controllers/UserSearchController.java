@@ -24,7 +24,7 @@ public class UserSearchController {
     public String searchUser(@RequestParam(required = false) String query, Model model) {
         if (query != null && !query.isEmpty()) {
             log.info("GET: Search user by name containing '{}'", query);
-            List<UserDto> users = userService.findUsers(query);
+            List<UserDto> users = userService.findByName(query);
 
             model.addAttribute("users", users);
             model.addAttribute("query", query);
