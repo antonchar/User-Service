@@ -1,6 +1,8 @@
 package com.antonchar.userservice.services;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -21,12 +23,11 @@ import com.antonchar.userservice.util.exceptions.UserNotFoundException;
 
 import static com.antonchar.userservice.UserTestData.*;
 import static com.antonchar.userservice.util.UserUtil.convert2DtoList;
+import static com.antonchar.userservice.util.UserUtil.convert2Dto;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class UserServiceImplTest {
 
@@ -53,7 +54,7 @@ public class UserServiceImplTest {
 
         when(userRepository.count()).thenReturn((long) users.size());
         when(userRepository.findAll(any(PageRequest.class)))
-            .thenAnswer(invc -> new PageImpl<>(users, invc.getArgumentAt(0, PageRequest.class), users.size()));
+                .thenAnswer(invc -> new PageImpl<>(users, invc.getArgumentAt(0, PageRequest.class), users.size()));
 
         final List<UserDto> expectedDtos = convert2DtoList(users);
         final Page<UserDto> actualPage = userService.getPage(1);
@@ -74,6 +75,7 @@ public class UserServiceImplTest {
     public void testDelete() throws Exception {
         doNothing().when(userRepository).delete(1L);
         userService.delete(1L);
+        verify(userRepository, only()).delete(1L);
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -82,23 +84,42 @@ public class UserServiceImplTest {
         userService.delete(1L);
     }
 
-//    @Test
-//    public void find() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void save() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void update() throws Exception {
-//
-//    }
-//
-//    @Test
-//    public void findByName() throws Exception {
-//
-//    }
+    @Test
+    public void testFindExisting() throws Exception {
+        when(userRepository.findOne(1L)).thenReturn(USER_1);
+        assertThat(userService.find(1L), is(convert2Dto(USER_1)));
+    }
+
+    @Test(expected = UserNotFoundException.class)
+    public void testFindMissing() throws Exception {
+        when(userRepository.findOne(1L)).thenReturn(null);
+        userService.find(1L);
+    }
+
+    @Test
+    public void testSave() throws Exception {
+        final User user = new User(null, "Test", 23, true, LocalDateTime.now());
+        final User savedUser = new User(1L, "Test", 23, true, LocalDateTime.now());
+
+        when(userRepository.save(user)).thenReturn(savedUser);
+        assertThat(userService.save(convert2Dto(user)), is(convert2Dto(savedUser)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSaveWithId() throws Exception {
+      userService.save(convert2Dto(USER_1));
+    }
+
+    @Test
+    public void testUpdate() throws Exception {
+        when(userRepository.save(USER_1)).thenReturn(USER_1);
+        final UserDto updatedUser = userService.update(convert2Dto(USER_1));
+        assertThat(updatedUser, is(convert2Dto(USER_1)));
+    }
+
+    @Test
+    public void testFindByName() throws Exception {
+        when(userRepository.findByNameContaining("ABC")).thenReturn(Collections.singletonList(USER_1));
+        assertThat(userService.findByName("ABC"), is(Collections.singletonList(convert2Dto(USER_1))));
+    }
 }

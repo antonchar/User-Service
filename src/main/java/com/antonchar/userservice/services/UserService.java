@@ -15,7 +15,7 @@ public interface UserService {
 
     UserDto find(Long id);
 
-    void save(UserDto user);
+    UserDto save(UserDto user);
 
     UserDto update(UserDto user);
 

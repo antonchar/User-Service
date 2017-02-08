@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.antonchar.userservice.util.UserUtil.*;
+import static org.springframework.util.Assert.isNull;
 import static org.springframework.util.Assert.notNull;
 
 @Service
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Long id) {
+        notNull(id, "Id must not be null");
         try {
             userRepository.delete(id);
         } catch (Exception e) {
@@ -53,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto find(Long id) {
+        notNull(id, "Id must not be null");
         User user = userRepository.findOne(id);
         if (user == null) {
             throw new UserNotFoundException();
@@ -61,9 +64,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDto user) {
+    public UserDto save(UserDto user) {
         notNull(user, "User must not be null");
-        userRepository.save(convertFromDto(user));
+        isNull(user.getId(), "New user must not have ID");
+        User savedUser = userRepository.save(convertFromDto(user));
+        return convert2Dto(savedUser);
     }
 
     @Override
