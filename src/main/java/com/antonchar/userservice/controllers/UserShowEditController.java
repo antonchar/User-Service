@@ -49,7 +49,7 @@ public class UserShowEditController {
             return "user_edit";
         }
 
-        userService.save(user);
+        userService.update(user);
         sessionStatus.setComplete();
         log.info("User data updated successfully! {}", user);
         return String.format("redirect:/user/%d?saved=true", user.getId());

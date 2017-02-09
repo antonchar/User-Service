@@ -42,7 +42,7 @@ public class UserCreateDeleteController {
         }
 
         user.setCreationDate(LocalDateTime.now());
-        UserDto savedUser = userService.update(user);
+        UserDto savedUser = userService.save(user);
 
         sessionStatus.setComplete();
         log.info("New user saved successfully! {}", user);

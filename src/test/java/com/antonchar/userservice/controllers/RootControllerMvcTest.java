@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(RootController.class)
@@ -21,6 +22,7 @@ public class RootControllerMvcTest {
     @Test
     public void testRoot() throws Exception {
         mvc.perform(get("/").accept(MediaType.TEXT_HTML))
-                .andExpect(status().isOk());
+            .andExpect(status().isOk())
+            .andExpect(view().name("index"));
     }
 }
