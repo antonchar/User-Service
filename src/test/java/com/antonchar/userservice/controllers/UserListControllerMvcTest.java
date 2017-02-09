@@ -55,7 +55,7 @@ public class UserListControllerMvcTest {
             .andExpect(model().attribute("beginIndex", is(1)))
             .andExpect(model().attribute("currentIndex", is(1)))
             .andExpect(model().attribute("endIndex", is(2)))
-            .andExpect(view().name("index"));
+            .andExpect(view().name("users"));
     }
 
     @Test
