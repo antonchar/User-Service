@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Slf4j
 @Controller
 @RequestMapping("/")
-public class StartController {
+public class RootController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String showStartPage() {
