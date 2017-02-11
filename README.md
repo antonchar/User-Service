@@ -15,7 +15,7 @@ The application deployed at Heroku. You can try it out [HERE](https://user-servi
 It may take some time while the application is waking up.
 If you have been redirected to this page from the Heroku link, please try to visit the url again.
 
-![alt text](https://github.com/antonchar/User-Service/blob/master/app.png "App's Screenshot")
+![screenshot](https://github.com/antonchar/User-Service/blob/master/app.png "App's Screenshot")
 
 ## List of used technologies
 
