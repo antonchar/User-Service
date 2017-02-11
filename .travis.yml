@@ -6,8 +6,9 @@ cache:
   directories:
   - $HOME/.m2
 
+script: "mvn cobertura:cobertura"
+
 after_success:
-  - mvn cobertura:cobertura
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
