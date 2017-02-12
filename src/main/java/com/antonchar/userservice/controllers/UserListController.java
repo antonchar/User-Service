@@ -1,14 +1,21 @@
 package com.antonchar.userservice.controllers;
 
-import com.antonchar.userservice.util.exceptions.EmptyUserListException;
-import com.antonchar.userservice.services.UserService;
-import com.antonchar.userservice.services.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.antonchar.userservice.services.UserService;
+import com.antonchar.userservice.services.dto.UserDto;
+import com.antonchar.userservice.util.exceptions.EmptyUserListException;
 
 @Slf4j
 @Controller
@@ -19,7 +26,7 @@ public class UserListController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/pages/{pageNumber}", method = RequestMethod.GET)
+    @GetMapping(value = "/pages/{pageNumber}")
     public String showUserPage(@PathVariable Integer pageNumber, Model model) {
         log.info("GET: Show user page number {}", pageNumber);
         Page<UserDto> userPages = userService.getPage(pageNumber);

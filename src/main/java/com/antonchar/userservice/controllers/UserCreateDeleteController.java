@@ -1,18 +1,25 @@
 package com.antonchar.userservice.controllers;
 
-import com.antonchar.userservice.services.UserService;
-import com.antonchar.userservice.services.dto.UserDto;
-import com.antonchar.userservice.util.UserValidator;
 import lombok.extern.slf4j.Slf4j;
+
+import java.time.LocalDateTime;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import javax.validation.Valid;
-import java.time.LocalDateTime;
+import com.antonchar.userservice.services.UserService;
+import com.antonchar.userservice.services.dto.UserDto;
+import com.antonchar.userservice.util.UserValidator;
 
 @Slf4j
 @Controller
@@ -23,14 +30,14 @@ public class UserCreateDeleteController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @GetMapping(value = "/add")
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
         model.addAttribute("newUser", new UserDto());
         return "user_add_form";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @PostMapping(value = "/add")
     public String addUser(@ModelAttribute("newUser") @Valid UserDto user, BindingResult result,
                           SessionStatus sessionStatus) {
         log.info("POST: Add new user");
@@ -49,7 +56,7 @@ public class UserCreateDeleteController {
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @PostMapping(value = "/delete")
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
                              @RequestParam(required = false) String query, SessionStatus sessionStatus) {
         log.info("POST: Delete user with id = {}", id);
