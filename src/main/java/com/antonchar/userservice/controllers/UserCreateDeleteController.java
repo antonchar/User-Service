@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ public class UserCreateDeleteController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("hasAuthority('USER')")
     @GetMapping(value = "/add")
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
@@ -56,6 +58,7 @@ public class UserCreateDeleteController {
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/delete")
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
                              @RequestParam(required = false) String query, SessionStatus sessionStatus) {
