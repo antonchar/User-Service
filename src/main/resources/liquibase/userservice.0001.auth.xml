@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+                   http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
+
+    <!--USERS: add new columns-->
+    <changeSet author="antonchar" id="auth.001">
+        <addColumn tableName="USERS">
+            <column name="EMAIL" type="VARCHAR2(80)">
+                <constraints nullable="false" unique="true" uniqueConstraintName="CONSTR_UQ_USERS_EMAIL"/>
+            </column>
+            <column name="PWD_HASH" type="VARCHAR2(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SURNAME" type="VARCHAR2(32)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ROLE" type="VARCHAR2(10)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="USERS">
+                <column name="EMAIL"/>
+                <column name="PWD_HASH"/>
+                <column name="SURNAME"/>
+                <column name="ROLE"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+    <!--USERS: rename ADMIN column to BLOCKED-->
+    <changeSet author="antonchar" id="auth.002">
+        <renameColumn tableName="USERS" oldColumnName="ADMIN" newColumnName="BLOCKED"/>
+        <rollback>
+            <renameColumn tableName="USERS" oldColumnName="BLOCKED" newColumnName="ADMIN"/>
+        </rollback>
+    </changeSet>
+
+    <!--USERS: revoke NAME's uniqueness-->
+    <changeSet author="antonchar" id="auth.003">
+        <dropUniqueConstraint tableName="USERS" uniqueColumns="NAME" constraintName="CONSTR_UQ_USERS_NAME"/>
+        <rollback>
+            <addUniqueConstraint tableName="USERS" columnNames="NAME" constraintName="CONSTR_UQ_USERS_NAME"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

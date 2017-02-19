@@ -27,10 +27,10 @@
     <changeSet author="antonchar" id="initial.002">
         <createTable tableName="USERS">
             <column name="ID" type="INTEGER">
-                <constraints primaryKey="true" primaryKeyName="CONSTR_PK_USERSERVICE_USER" nullable="false"/>
+                <constraints primaryKey="true" primaryKeyName="CONSTR_PK_USER" nullable="false"/>
             </column>
             <column name="NAME" type="VARCHAR2(32)">
-                <constraints nullable="false" unique="true"/>
+                <constraints nullable="false" unique="true" uniqueConstraintName="CONSTR_UQ_USERS_NAME"/>
             </column>
             <column name="AGE" type="SMALLINT">
                 <constraints nullable="false"/>

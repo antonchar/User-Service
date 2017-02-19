@@ -100,7 +100,8 @@ public class UserRepositoryTest {
 
     @Test
     public void testSave() throws Exception {
-        User user = repository.save(new User(null, "Dummy", 12, true, LocalDateTime.now()));
+        User user = repository.save(getNewUser(null));
+        //TODO: check all properties
         assertThat(user.getId(), greaterThan(4L));
     }
 

@@ -9,5 +9,6 @@
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd">
 
     <include file="userservice.initial-state.xml" relativeToChangelogFile="true"/>
+    <include file="userservice.0001.auth.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

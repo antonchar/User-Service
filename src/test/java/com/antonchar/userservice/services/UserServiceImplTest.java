@@ -98,8 +98,8 @@ public class UserServiceImplTest {
 
     @Test
     public void testSave() throws Exception {
-        final User user = new User(null, "Test", 23, true, LocalDateTime.now());
-        final User savedUser = new User(1L, "Test", 23, true, LocalDateTime.now());
+        final User user = getNewUser(null);
+        final User savedUser = getNewUser(1L);
 
         when(userRepository.save(user)).thenReturn(savedUser);
         assertThat(userService.save(convert2Dto(user)), is(convert2Dto(savedUser)));
