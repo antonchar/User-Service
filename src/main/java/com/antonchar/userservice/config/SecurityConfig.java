@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
             .antMatchers("/", "/login", "/fonts/*").permitAll()
+            //.antMatchers("/user").authenticated()
             .antMatchers("/user/**").hasAuthority("ADMIN")
             .anyRequest().fullyAuthenticated()
             .and()
@@ -36,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
             .logoutUrl("/logout")
             .deleteCookies("remember-me")
-            .logoutSuccessUrl("/")
+            .logoutSuccessUrl("/login")
             .permitAll()
             .and()
             .rememberMe();

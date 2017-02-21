@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.antonchar.userservice.util.UserUtil.*;
 import static org.springframework.util.Assert.isNull;
@@ -76,6 +77,11 @@ public class UserServiceImpl implements UserService {
         notNull(user, "User must not be null");
         User savedUser = userRepository.save(convertFromDto(user));
         return convert2Dto(savedUser);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return Optional.ofNullable(userRepository.findByEmail(email));
     }
 
     @Override

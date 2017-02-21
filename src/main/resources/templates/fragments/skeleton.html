@@ -46,20 +46,26 @@
                         <span th:text="#{menu.home}"></span>
                     </a>
                 </li>
-                <li id="users" th:if="${authenticated}">
+                <li id="profile" th:if="${authenticated}">
+                    <a th:href="@{/profile}">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                        <span th:text="#{menu.profile}"></span>
+                    </a>
+                </li>
+                <li id="users" th:if="${authenticated and currentUser.isUser() == false}">
                     <a th:href="@{/users/pages/1}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         <span th:text="#{menu.user.list}"></span>
                         <span id="userNum" th:text="'(' + ${userNum} + ')'">(</span>
                     </a>
                 </li>
-                <li id="add_user" th:if="${authenticated}">
+                <li id="add_user" th:if="${authenticated and currentUser.isUser() == false}">
                     <a th:href="@{/user/add}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         <span th:text="#{menu.add.user}"></span>
                     </a>
                 </li>
-                <li id="search_users" th:if="${authenticated}">
+                <li id="search_users" th:if="${authenticated and currentUser.isUser() == false}">
                     <a th:href="@{/users/search}">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         <span th:text="#{menu.user.search}"></span>
@@ -69,6 +75,12 @@
                     <a th:href="@{/login}">
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                         <span th:text="#{menu.login}"></span>
+                    </a>
+                </li>
+                <li id="logout" th:if="${authenticated}">
+                    <a id="logoutLink" href="#">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        <span th:text="#{menu.logout}"></span>
                     </a>
                 </li>
             </ul>
@@ -103,7 +115,13 @@
     <!--Custom script-->
     <script th:inline="javascript">
         /*<![CDATA[*/
-        $(/*[[${activeTab}]]*/).addClass("active");
+        $([[${activeTab}]]).addClass("active");
+
+        $("#logoutLink").click(function () {
+           $.post([[@{/logout}]],{[[${_csrf.parameterName}]]: [[${_csrf.token}]]}, function() {
+                window.location.replace([[@{/}]]);
+            });
+        });
         /*]]>*/
     </script>
 </div>

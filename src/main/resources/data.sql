@@ -11,7 +11,7 @@ INSERT INTO Users (id, email, pwd_hash, name, surname, age, role, blocked, creat
    'John', 'Doe', 33, 'USER', FALSE, '2004-10-19 10:23:54'),
   (4, 'avo.pots@example.com', '$2a$04$jzeBznajaIeT5SOVYsx2XOy0h7ryBePQ/LZ4xqWlT4d457BCQjTZq',
    'Avo', 'Pots', 22, 'SUPERADMIN', FALSE, '2004-12-31 10:23:54'),
-  (5, 'babymonster@example.com', '$2a$04$jzeBznajaIeT5SOVYsx2XOy0h7ryBePQ/LZ4xqWlT4d457BCQjTZq',
+  (5, 'tracktoristo@example.com', '$2a$04$jzeBznajaIeT5SOVYsx2XOy0h7ryBePQ/LZ4xqWlT4d457BCQjTZq',
    'Tristo', 'Ergs', 56, 'USER', TRUE, NOW()),
   (6, 'toroee@example.com', '$2a$04$jzeBznajaIeT5SOVYsx2XOy0h7ryBePQ/LZ4xqWlT4d457BCQjTZq',
    'Benjamin', 'Toom', 54, 'USER', FALSE , NOW()),
