@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!--Head-->
+<head th:fragment="head(title)">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Bootstrap 3.3.7-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <!--Custom css-->
+    <link th:href="@{/css/justified-nav.css}" rel="stylesheet"/>
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet"/>
+
+    <title th:text="${title}"></title>
+</head>
+
+<body>
+<div class="container">
+
+    <!--Language-->
+    <div class="btn-group pull-right" role="group" aria-label="..."
+         th:with="classes='btn btn-default'" th:fragment="lang(path)">
+        <a th:href="@{${path} + 'lang=en'}" role="button"
+           th:class="__${#locale}__=='en' ? ${classes} + ' active' : ${classes}">
+            ENG
+        </a>
+        <a th:href="@{${path} + 'lang=ru'}" role="button"
+           th:class="__${#locale}__=='ru' ? ${classes} + ' active' : ${classes}">
+            RUS
+        </a>
+    </div>
+
+    <!--Navigation bar-->
+    <div class="masthead" th:fragment="navbar" th:with="authenticated=${currentUser != null}">
+
+        <h3 class="text-muted">User Service</h3>
+
+        <nav>
+            <ul class="nav nav-justified">
+                <li id="home">
+                    <a th:href="@{/}">
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                        <span th:text="#{menu.home}"></span>
+                    </a>
+                </li>
+                <li id="users" th:if="${authenticated}">
+                    <a th:href="@{/users/pages/1}">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        <span th:text="#{menu.user.list}"></span>
+                        <span id="userNum" th:text="'(' + ${userNum} + ')'">(</span>
+                    </a>
+                </li>
+                <li id="add_user" th:if="${authenticated}">
+                    <a th:href="@{/user/add}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <span th:text="#{menu.add.user}"></span>
+                    </a>
+                </li>
+                <li id="search_users" th:if="${authenticated}">
+                    <a th:href="@{/users/search}">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        <span th:text="#{menu.user.search}"></span>
+                    </a>
+                </li>
+                <li id="login" th:unless="${authenticated}">
+                    <a th:href="@{/login}">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                        <span th:text="#{menu.login}"></span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!--Content-->
+    <div class="jumbotron">
+        <h1>User Service Project</h1>
+        <p>
+            This is a simple CRUD MVC project implemented with Spring Boot, MySQL and Thymeleaf technologies.
+            The project is not finished and is under development. It is updated from time to time.
+        </p>
+
+        <h2 th:text="#{home.tech.list}"></h2>
+        <p>Spring Boot, Maven, Spring MVC, MySQL, Thymeleaf, Bootstrap, JPA (Hibernate), Lombok
+        </p>
+    </div>
+
+    <!--Footer-->
+    <footer class="footer" th:fragment="footer">
+        <p>Copyright &copy; 2016 Anton Charnamord</p>
+    </footer>
+
+</div>
+
+<div th:fragment="scripts(activeTab)">
+    <!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!--Custom script-->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $(/*[[${activeTab}]]*/).addClass("active");
+        /*]]>*/
+    </script>
+</div>
+
+</body>
+</html>

@@ -1,77 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
-    <!-- Bootstrap 3.3.7-->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <!--Custom css-->
-    <link th:href="@{/css/justified-nav.css}" rel="stylesheet"/>
-    <!--Google Font-->
-    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet"/>
-
-    <title>User Service</title>
-
-</head>
+<head th:replace="fragments/skeleton :: head(title='Home Page')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: lang(path='/?')"/>
 
-    <!--Language-->
-    <div th:with="res='/?'">
-        <div class="btn-group pull-right" role="group" aria-label="..."
-             th:with="classes='btn btn-default'" th:fragment="lang">
-            <a th:href="@{${res} + 'lang=en'}" role="button"
-               th:class="__${#locale}__=='en' ? ${classes} + ' active' : ${classes}">
-                ENG
-            </a>
-            <a th:href="@{${res} + 'lang=ru'}" role="button"
-               th:class="__${#locale}__=='ru' ? ${classes} + ' active' : ${classes}">
-                RUS
-            </a>
-        </div>
-    </div>
-
-    <!--Navigation bar-->
-    <div class="masthead" th:fragment="navbar">
-
-        <h3 class="text-muted">User Service</h3>
-
-        <nav>
-            <ul class="nav nav-justified">
-                <li id="home">
-                    <a th:href="@{/}">
-                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                        <span th:text="#{menu.home}"></span>
-                    </a>
-                </li>
-                <li id="users">
-                    <a th:href="@{/users/pages/1}">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        <span th:text="#{menu.user.list}"></span>
-                        <span id="userNum" th:text="'(' + ${userNum} + ')'">(</span>
-                    </a>
-                </li>
-                <li id="add_user">
-                    <a th:href="@{/user/add}">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        <span th:text="#{menu.add.user}"></span>
-                    </a>
-                </li>
-                <li id="search_users">
-                    <a th:href="@{/users/search}">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        <span th:text="#{menu.user.search}"></span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron">
@@ -86,23 +23,9 @@
         </p>
     </div>
 
-    <!--Footer-->
-    <footer class="footer" th:fragment="footer">
-        <p>Copyright &copy; 2016 Anton Charnamord</p>
-    </footer>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<!--Custom script-->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $("#home").addClass("active");
-    /*]]>*/
-</script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#home')"/>
 </body>
 </html>
