@@ -27,6 +27,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--Hibernate-->
         <hibernate-java8.version>5.0.1.Final</hibernate-java8.version>
+        <!--Thymeleaf-->
+        <thymeleaf-java8.version>2.1.0.RELEASE</thymeleaf-java8.version>
         <!--DB-->
         <postgresql.version>9.4.1212</postgresql.version>
         <h2.version>1.4.193</h2.version>
@@ -37,6 +39,7 @@
     </properties>
 
     <dependencies>
+        <!--Convenient Libs-->
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
@@ -69,6 +72,12 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-java8</artifactId>
             <version>${hibernate-java8.version}</version>
+        </dependency>
+        <!--Thymeleaf Java 8 Time API-->
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-java8time</artifactId>
+            <version>${thymeleaf-java8.version}</version>
         </dependency>
         <!--Spring Boot-->
         <dependency>

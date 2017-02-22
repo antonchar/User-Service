@@ -19,7 +19,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
             true,
             true,
             true,
-            user.getIsBlocked(),
+            !user.getIsBlocked(),
             AuthorityUtils.createAuthorityList(user.getRole().name())
         );
         this.id = user.getId();
@@ -28,5 +28,11 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 
     public boolean isUser() {
         return this.role == User.Role.USER;
+    }
+    public boolean isAdmin() {
+        return this.role == User.Role.ADMIN;
+    }
+    public boolean isSuperAdmin() {
+        return this.role == User.Role.SUPERADMIN;
     }
 }

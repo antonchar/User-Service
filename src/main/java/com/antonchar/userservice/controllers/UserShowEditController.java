@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,7 @@ public class UserShowEditController {
     @Autowired
     private UserService userService;
 
+    @PostAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
     @GetMapping(value = "/{id}")
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
         log.info("GET: Show data for user with id = {}", id);

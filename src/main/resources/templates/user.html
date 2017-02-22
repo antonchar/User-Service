@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="index :: head"></div>
+<head th:replace="fragments/skeleton :: head(title='Profile')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: lang(path='/user/' + ${id} + '?' + (${saved} ? 'saved=true&amp;' : ''))"/>
 
-    <!--Language-->
-    <div th:with="res='/user/' + ${id} + '?' + (${saved} ? 'saved=true&amp;' : '')">
-        <div th:replace="index :: lang"></div>
-    </div>
-
-    <div th:replace="index :: navbar"></div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron">
@@ -40,48 +36,43 @@
 
             <!--User table-->
             <table class="table table-bordered">
-
-                <thead><tr></tr></thead>
+                <thead><tr/></thead>
 
                 <tbody>
                 <div th:object="${existingUser}">
                     <tr>
-                        <td>ID</td>
-                        <td th:text="*{id}"></td>
+                        <td>Email</td>
+                        <td th:text="*{email}"/>
                     </tr>
                     <tr>
-                        <td th:text="#{user.name}"></td>
-                        <td th:text="*{name}"></td>
+                        <td th:text="#{user.name}"/>
+                        <td th:text="*{name}"/>
                     </tr>
                     <tr>
-                        <td th:text="#{user.age}"></td>
-                        <td th:text="*{age}"></td>
+                        <td th:text="#{user.surname}"/>
+                        <td th:text="*{surname}"/>
                     </tr>
                     <tr>
-                        <td th:text="#{user.admin}"></td>
-                        <td th:text="(*{admin}) ? 'yes' : 'no'"></td>
+                        <td th:text="#{user.age}"/>
+                        <td th:text="*{age}"/>
                     </tr>
                     <tr>
-                        <td th:text="#{user.creation.date}"></td>
-                        <td th:text="*{creationDate}"></td>
+                        <td th:text="#{user.role}"/>
+                        <td th:text="*{role}"/>
+                    </tr>
+                    <tr>
+                        <td th:text="#{user.creation.date}"/>
+                        <td th:text="*{#temporals.format(creationDate, 'dd-MMM-yyyy HH:mm')}"/>
                     </tr>
                 </div>
                 </tbody>
-
             </table>
-
         </div>
-
     </div>
 
-    <div th:replace="index :: footer"></div>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#profile')"/>
 </body>
 </html>

@@ -32,9 +32,11 @@ public class UserDto {
 
     private User.Role role;
 
-    private boolean admin;
-
     private Boolean isBlocked;
 
     private LocalDateTime creationDate;
+
+    public boolean isAdmin() {
+        return role == User.Role.ADMIN || role == User.Role.SUPERADMIN;
+    }
 }

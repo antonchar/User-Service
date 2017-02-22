@@ -47,7 +47,7 @@
                     </a>
                 </li>
                 <li id="profile" th:if="${authenticated}">
-                    <a th:href="@{/profile}">
+                    <a th:href="@{/user/} + ${currentUser.id}">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         <span th:text="#{menu.profile}"></span>
                     </a>
