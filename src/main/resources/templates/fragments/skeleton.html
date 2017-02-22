@@ -117,13 +117,13 @@
         /*<![CDATA[*/
         $([[${activeTab}]]).addClass("active");
 
-        var csrfParamName = [[${_csrf != null ? _csrf.parameterName : '#'}]];
-        var csrfToken = [[${_csrf != null ? _csrf.token : '#'}]];
-
         $("#logoutLink").click(function () {
-           $.post([[@{/logout}]],{csrfParamName: csrfToken}, function() {
+           $.post(
+               [[@{/logout}]], {
+                   [[${_csrf != null ? _csrf.parameterName : '#'}]]: [[${_csrf != null ? _csrf.token : '#'}]]
+               }, function() {
                 window.location.replace([[@{/}]]);
-            });
+               });
         });
         /*]]>*/
     </script>
