@@ -33,6 +33,11 @@
         </a>
     </div>
 
+    <p th:if="${currentUser != null}" class="navbar-text pull-right" th:fragment="signedUser">
+        Signed in as
+        <a th:href="@{/user/} + ${currentUser.id}" class="navbar-link" th:text="${currentUser.fullName}"></a>
+    </p>
+
     <!--Navigation bar-->
     <div class="masthead" th:fragment="navbar" th:with="authenticated=${currentUser != null}">
 

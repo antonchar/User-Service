@@ -10,6 +10,8 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 
     @Getter
     private final Long id;
+    @Getter
+    private final String fullName;
     private final User.Role role;
 
     public CurrentUser(User user) {
@@ -24,6 +26,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
         );
         this.id = user.getId();
         this.role = user.getRole();
+        this.fullName = user.getName() + " " + user.getSurname();
     }
 
     public boolean isUser() {

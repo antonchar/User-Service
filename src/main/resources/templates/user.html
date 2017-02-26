@@ -8,6 +8,8 @@
 <div class="container">
     <div th:replace="fragments/skeleton :: lang(path='/user/' + ${id} + '?' + (${saved} ? 'saved=true&amp;' : ''))"/>
 
+    <div th:replace="fragments/skeleton :: signedUser"/>
+
     <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
