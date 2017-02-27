@@ -29,7 +29,7 @@
             </button>
         </form>
 
-        <div th:if="${users != null AND not #lists.isEmpty(users)}">
+        <div th:if="${users != null and not #lists.isEmpty(users)}">
             <div th:replace="users :: user_table_panel"></div>
         </div>
 

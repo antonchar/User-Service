@@ -21,7 +21,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
             true,
             true,
             true,
-            !user.getIsBlocked(),
+            !user.getBlocked(),
             AuthorityUtils.createAuthorityList(user.getRole().name())
         );
         this.id = user.getId();

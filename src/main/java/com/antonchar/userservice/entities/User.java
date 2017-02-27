@@ -49,7 +49,7 @@ public class User {
     private Role role;
 
     @Column(name = "blocked", nullable = false)
-    private Boolean isBlocked;
+    private Boolean blocked;
 
     @Column(name = "creation_time", nullable = false)
     private LocalDateTime creationDate;

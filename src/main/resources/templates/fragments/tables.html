@@ -6,7 +6,56 @@
     <title>Tables</title>
 </head>
 <body>
-<!--Show Data Table-->
+<!--User List Table-->
+<table class="table table-hover" th:fragment="userListTable">
+    <thead>
+    <tr class="thead">
+        <th th:text="#{user.email}"/>
+        <th th:text="#{user.name}"/>
+        <th th:text="#{user.surname}"/>
+        <th th:text="#{user.age}"/>
+        <th th:text="#{user.role}"/>
+        <th th:text="#{user.blocked}"/>
+        <th th:text="#{user.creationDate}"/>
+        <th th:if="${currentUser.isSuperAdmin()}" th:text="#{user.operation.show-edit}"/>
+        <th th:if="${currentUser.isAdmin()}" th:text="#{user.operation.show}"/>
+        <th th:if="${currentUser.isSuperAdmin()}" th:text="#{user.operation.delete}"/>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:class="${user.blocked} ? 'danger' : ''" th:each="user : ${users}">
+        <div th:object="${user}">
+            <td th:text="*{email}"/>
+            <td th:text="*{name}"/>
+            <td th:text="*{surname}"/>
+            <td th:text="*{age}"/>
+            <td th:text="*{role}"/>
+            <td><span th:class="*{blocked} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
+            <td th:text="*{#temporals.format(creationDate, 'dd-MMM-yyyy HH:mm')}"/>
+            <td>
+                <button>
+                    <a th:href="@{/user/{id}(id=*{id})}">
+                        <span class="glyphicon glyphicon-edit big-ico" aria-hidden="true"></span>
+                    </a>
+                </button>
+            </td>
+            <td>
+                <button name="id" form="delete-form" type="submit" th:value="*{id}">
+                    <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
+                </button>
+            </td>
+        </div>
+    </tr>
+    </tbody>
+
+    <form id="delete-form" th:action="@{/user/delete}" method="POST">
+        <input type="hidden" name="page" th:value="${currentIndex}"/>
+    </form>
+</table>
+
+
+<!--Show User Data Table-->
 <table>
     <tbody>
     <tr th:fragment="showEmailRow">
@@ -30,7 +79,7 @@
         <td th:text="*{role}"/>
     </tr>
     <tr th:fragment="showCreationDateRow">
-        <td th:text="#{user.creation.date}"/>
+        <td th:text="#{user.creationDate}"/>
         <td th:text="*{#temporals.format(creationDate, 'dd-MMM-yyyy HH:mm')}"/>
     </tr>
     </tbody>

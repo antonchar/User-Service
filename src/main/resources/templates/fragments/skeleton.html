@@ -57,20 +57,20 @@
                         <span th:text="#{menu.profile}"></span>
                     </a>
                 </li>
-                <li id="users" th:if="${authenticated and currentUser.isUser() == false}">
+                <li id="user_list" th:if="${authenticated and not currentUser.isUser()}">
                     <a th:href="@{/users/pages/1}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         <span th:text="#{menu.user.list}"></span>
                         <span id="userNum" th:text="'(' + ${userNum} + ')'">(</span>
                     </a>
                 </li>
-                <li id="add_user" th:if="${authenticated and currentUser.isUser() == false}">
+                <li id="add_user" th:if="${authenticated and currentUser.isSuperAdmin()}">
                     <a th:href="@{/user/add}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         <span th:text="#{menu.add.user}"></span>
                     </a>
                 </li>
-                <li id="search_users" th:if="${authenticated and currentUser.isUser() == false}">
+                <li id="search_users" th:if="${authenticated and not currentUser.isUser()}">
                     <a th:href="@{/users/search}">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         <span th:text="#{menu.user.search}"></span>

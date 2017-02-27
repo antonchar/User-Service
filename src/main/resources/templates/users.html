@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="index :: head"></div>
+<head th:replace="fragments/skeleton :: head(title='User List')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: lang(path='/users/pages/' + ${currentIndex} + '?')"/>
 
-    <!--Language-->
-    <div th:with="res='/users/pages/' + ${currentIndex} + '?'">
-        <div th:replace="index :: lang"></div>
-    </div>
+    <div th:replace="fragments/skeleton :: signedUser"/>
 
-    <div th:replace="index :: navbar"></div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron" th:with="users=${userPages.getContent()}">
@@ -24,7 +22,6 @@
             prevUrl='/users/pages/' + ${prevIndex}, nextUrl='/users/pages/' + ${nextIndex}">
 
                 <nav aria-label="Page navigation">
-
                     <ul class="pagination">
 
                         <!--Arrows back-->
@@ -58,89 +55,27 @@
                                 <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
                             </a>
                         </li>
-
                     </ul>
-
                 </nav>
-
             </div>
-
         </div>
 
         <!--Panel-->
-        <div class="panel panel-primary" th:fragment="user_table_panel">
-
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 <span th:text="#{user.list.header}"></span>
             </div>
 
-            <!--User table-->
-            <table class="table table-hover">
-
-                <thead>
-                <tr class="thead">
-                    <th>ID</th>
-                    <th th:text="#{user.name}"></th>
-                    <th th:text="#{user.age}"></th>
-                    <th th:text="#{user.role}"></th>
-                    <th th:text="#{user.creation.date}"></th>
-                    <th th:text="#{user.operation.show.edit}"></th>
-                    <th th:text="#{user.operation.delete}"></th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr th:class="${user.admin} ? 'info' : ''" th:each="user : ${users}">
-                    <div th:object="${user}">
-                        <td th:text="*{id}"></td>
-                        <td th:text="*{name}"></td>
-                        <td th:text="*{age}"></td>
-                        <td><span th:class="*{admin} ? 'glyphicon glyphicon-ok' : ''" aria-hidden="true"></span></td>
-                        <td th:text="*{creationDate}"></td>
-                        <td>
-                            <button>
-                                <a th:href="@{/user/{id}(id=*{id})}">
-                                    <span class="glyphicon glyphicon-edit big-ico" aria-hidden="true"></span>
-                                </a>
-                            </button>
-                        </td>
-                        <td>
-                            <button name="id" form="delete-form" type="submit" th:value="*{id}">
-                                <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
-                            </button>
-                        </td>
-                    </div>
-                </tr>
-                </tbody>
-
-            </table>
+            <table th:replace="fragments/tables :: userListTable"/>
 
             <div class="panel-footer"></div>
-
         </div>
-
-        <form id="delete-form" th:action="@{/user/delete}" method="POST">
-            <input type="hidden" name="page" th:value="${currentIndex}"/>
-        </form>
-
     </div>
 
-    <div th:replace="index :: footer"></div>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<!--Custom script-->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $("#users").addClass("active");
-    $("#userNum").show();
-    /*]]>*/
-</script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#user_list')"/>
 </body>
 </html>

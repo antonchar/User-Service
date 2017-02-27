@@ -34,7 +34,7 @@ public class UserDto {
 
     private User.Role role;
 
-    private Boolean isBlocked;
+    private Boolean blocked;
 
     private LocalDateTime creationDate;
 
