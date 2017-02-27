@@ -37,36 +37,23 @@
             </div>
 
             <!--User table-->
-            <table class="table table-bordered">
-                <thead><tr/></thead>
+            <table class="table table-bordered" th:object="${existingUser}">
+                <thead>
+                <tr/>
+                </thead>
 
                 <tbody>
-                <div th:object="${existingUser}">
-                    <tr>
-                        <td>Email</td>
-                        <td th:text="*{email}"/>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.name}"/>
-                        <td th:text="*{name}"/>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.surname}"/>
-                        <td th:text="*{surname}"/>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.age}"/>
-                        <td th:text="*{age}"/>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.role}"/>
-                        <td th:text="*{role}"/>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.creation.date}"/>
-                        <td th:text="*{#temporals.format(creationDate, 'dd-MMM-yyyy HH:mm')}"/>
-                    </tr>
-                </div>
+                <tr th:replace="fragments/tables :: showEmailRow"/>
+
+                <tr th:replace="fragments/tables :: showNameRow"/>
+
+                <tr th:replace="fragments/tables :: showSurnameRow"/>
+
+                <tr th:replace="fragments/tables :: showAgeRow"/>
+
+                <tr th:replace="fragments/tables :: showRoleRow"/>
+
+                <tr th:replace="fragments/tables :: showCreationDateRow"/>
                 </tbody>
             </table>
         </div>

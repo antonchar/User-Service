@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Tables</title>
+</head>
+<body>
+<!--Show Data Table-->
+<table>
+    <tbody>
+    <tr th:fragment="showEmailRow">
+        <td th:text="#{user.email}"/>
+        <td th:text="*{email}"/>
+    </tr>
+    <tr th:fragment="showNameRow">
+        <td th:text="#{user.name}"/>
+        <td th:text="*{name}"/>
+    </tr>
+    <tr th:fragment="showSurnameRow">
+        <td th:text="#{user.surname}"/>
+        <td th:text="*{surname}"/>
+    </tr>
+    <tr th:fragment="showAgeRow">
+        <td th:text="#{user.age}"/>
+        <td th:text="*{age}"/>
+    </tr>
+    <tr th:fragment="showRoleRow">
+        <td th:text="#{user.role}"/>
+        <td th:text="*{role}"/>
+    </tr>
+    <tr th:fragment="showCreationDateRow">
+        <td th:text="#{user.creation.date}"/>
+        <td th:text="*{#temporals.format(creationDate, 'dd-MMM-yyyy HH:mm')}"/>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

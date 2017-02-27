@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="index :: head"></div>
+<head th:replace="fragments/skeleton :: head(title='Edit User Details')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: signedUser"/>
 
-    <div th:replace="index :: navbar"></div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron">
@@ -33,16 +34,15 @@
 
                 <!--User table-->
                 <table class="table table-bordered">
-
-                    <thead><tr></tr></thead>
+                    <thead>
+                    <tr/>
+                    </thead>
 
                     <tbody>
+                    <tr th:replace="fragments/tables :: showEmailRow"/>
+
                     <tr>
-                        <td>ID</td>
-                        <td th:text="*{id}"></td>
-                    </tr>
-                    <tr th:fragment="name_row">
-                        <td th:text="#{user.name}"></td>
+                        <td th:text="#{user.name}"/>
                         <td>
                             <div class="form-group" th:class="(${#fields.hasErrors('name')}) ? 'has-error' : ''">
                                 <label class="control-label"
@@ -53,8 +53,20 @@
                             </div>
                         </td>
                     </tr>
-                    <tr th:fragment="age_row">
-                        <td th:text="#{user.age}"></td>
+                    <tr>
+                        <td th:text="#{user.surname}"/>
+                        <td>
+                            <div class="form-group" th:class="(${#fields.hasErrors('surname')}) ? 'has-error' : ''">
+                                <label class="control-label"
+                                       th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
+                                </label>
+                                <input class="form-control" type="text" th:placeholder="#{user.placeholder.surname}"
+                                       th:field="*{surname}"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{user.age}"/>
                         <td>
                             <div class="form-group" th:class="(${#fields.hasErrors('age')}) ? 'has-error' : ''">
                                 <label class="control-label"
@@ -65,21 +77,10 @@
                             </div>
                         </td>
                     </tr>
-                    <tr th:fragment="admin_row">
-                        <td th:text="#{user.role}"></td>
-                        <td>
-                            <div th:class="(${#fields.hasErrors('admin')}) ? 'has-error' : ''">
-                                <div class="checkbox">
-                                    <input type="checkbox" th:field="*{admin}"/>
-                                    <label th:if="${#fields.hasErrors('admin')}" th:errors="*{admin}"></label>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.creation.date}"></td>
-                        <td th:text="*{creationDate}"></td>
-                    </tr>
+
+                    <tr th:replace="fragments/tables :: showRoleRow"/>
+
+                    <tr th:replace="fragments/tables :: showCreationDateRow"/>
                     </tbody>
 
                 </table>
@@ -90,14 +91,9 @@
 
     </div>
 
-    <div th:replace="index :: footer"></div>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#')"/>
 </body>
 </html>

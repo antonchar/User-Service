@@ -20,9 +20,11 @@ public class UserDto {
     private String pwdHash;
 
     @NotNull(message = "{error.null}")
-    @Size(min = 3, max = 50, message = "{error.name.length}")
+    @Size(min = 3, max = 30, message = "{error.name.length}")
     private String name;
 
+    @NotNull(message = "{error.null}")
+    @Size(min = 4, max = 50, message = "{error.surname.length}")
     private String surname;
 
     @NotNull(message = "{error.null}")

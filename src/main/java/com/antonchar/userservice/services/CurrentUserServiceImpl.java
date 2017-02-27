@@ -8,15 +8,24 @@ import com.antonchar.userservice.services.dto.CurrentUser;
 public class CurrentUserServiceImpl implements CurrentUserService {
 
     @Override
-    public boolean canAccessUser(CurrentUser currentUser, Long userId) {
-        return currentUser != null && hasPermissions(currentUser, userId);
+    public boolean canReadUserDetails(CurrentUser currentUser, Long userId) {
+        return currentUser != null && hasReadPermission(currentUser, userId);
     }
 
-    private boolean hasPermissions(CurrentUser currentUser, Long userId) {
+    @Override
+    public boolean canWriteUserDetails(CurrentUser currentUser, Long userId) {
+        return currentUser != null && hasWritePermission(currentUser, userId);
+    }
+
+    private boolean hasReadPermission(CurrentUser currentUser, Long userId) {
         return currentUser.isAdmin() || currentUser.isSuperAdmin() || isUsersOwnData(currentUser, userId);
     }
 
+    private boolean hasWritePermission(CurrentUser currentUser, Long userId) {
+        return currentUser.isSuperAdmin() || isUsersOwnData(currentUser, userId);
+    }
+
     private boolean isUsersOwnData(CurrentUser currentUser, Long userId) {
-        return currentUser.isUser() && currentUser.getId().equals(userId);
+        return currentUser.getId().equals(userId);
     }
 }

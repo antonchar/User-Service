@@ -4,5 +4,7 @@ import com.antonchar.userservice.services.dto.CurrentUser;
 
 public interface CurrentUserService {
 
-    boolean canAccessUser(CurrentUser currentUser, Long userId);
+    boolean canReadUserDetails(CurrentUser currentUser, Long userId);
+
+    boolean canWriteUserDetails(CurrentUser currentUser, Long userId);
 }
