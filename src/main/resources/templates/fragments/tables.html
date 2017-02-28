@@ -17,9 +17,9 @@
         <th th:text="#{user.role}"/>
         <th th:text="#{user.blocked}"/>
         <th th:text="#{user.creationDate}"/>
-        <th th:if="${currentUser.isSuperAdmin()}" th:text="#{user.operation.show-edit}"/>
-        <th th:if="${currentUser.isAdmin()}" th:text="#{user.operation.show}"/>
-        <th th:if="${currentUser.isSuperAdmin()}" th:text="#{user.operation.delete}"/>
+        <th th:if="${currentUser != null and currentUser.isSuperAdmin()}" th:text="#{user.operation.show-edit}"/>
+        <th th:if="${currentUser != null and currentUser.isAdmin()}" th:text="#{user.operation.show}"/>
+        <th th:if="${currentUser != null and currentUser.isSuperAdmin()}" th:text="#{user.operation.delete}"/>
     </tr>
     </thead>
 
@@ -40,7 +40,7 @@
                     </a>
                 </button>
             </td>
-            <td th:if="${currentUser.isSuperAdmin()}">
+            <td th:if="${currentUser != null and currentUser.isSuperAdmin()}">
                 <button name="id" form="delete-form" type="submit" th:value="*{id}">
                     <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
                 </button>
@@ -49,7 +49,7 @@
     </tr>
     </tbody>
 
-    <form th:if="${currentUser.isSuperAdmin()}" id="delete-form" th:action="@{/user/delete}" method="POST">
+    <form th:if="${currentUser != null and currentUser.isSuperAdmin()}" id="delete-form" th:action="@{/user/delete}" method="POST">
         <input th:if="${forPage} == 'list'" type="hidden" name="page" th:value="${currentIndex}"/>
         <input th:if="${forPage} == 'search'" type="hidden" name="query" th:value="${query}"/>
     </form>

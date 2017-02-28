@@ -47,9 +47,10 @@ public class UserCreateDeleteControllerMvcTest {
 
         mvc.perform(post("/user/add").accept(MediaType.TEXT_HTML)
             .sessionAttr("newUser", new UserDto())
+            .param("email", "email@example.com")
             .param("name", "DummyName")
-            .param("age", "23")
-            .param("admin", "true"))
+            .param("surname", "DummySurname")
+            .param("age", "23"))
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl("/user/1?saved=true"));
     }
