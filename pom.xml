@@ -29,6 +29,7 @@
         <hibernate-java8.version>5.0.1.Final</hibernate-java8.version>
         <!--Thymeleaf-->
         <thymeleaf-java8.version>2.1.0.RELEASE</thymeleaf-java8.version>
+        <thymeleaf-security.version>3.0.2.RELEASE</thymeleaf-security.version>
         <!--DB-->
         <postgresql.version>9.4.1212</postgresql.version>
         <h2.version>1.4.193</h2.version>
@@ -73,11 +74,16 @@
             <artifactId>hibernate-java8</artifactId>
             <version>${hibernate-java8.version}</version>
         </dependency>
-        <!--Thymeleaf Java 8 Time API-->
+        <!--Thymeleaf Extras-->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-java8time</artifactId>
             <version>${thymeleaf-java8.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity4</artifactId>
+            <version>${thymeleaf-security.version}</version>
         </dependency>
         <!--Spring Boot-->
         <dependency>
