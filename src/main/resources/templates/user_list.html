@@ -67,7 +67,7 @@
                 <span th:text="#{user.list.header}"></span>
             </div>
 
-            <table th:replace="fragments/tables :: userListTable"/>
+            <table th:replace="fragments/tables :: userListTable(forPage='list')"/>
 
             <div class="panel-footer"></div>
         </div>

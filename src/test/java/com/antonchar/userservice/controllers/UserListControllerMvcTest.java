@@ -31,9 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(UsersController.class)
+@WebMvcTest(UserListController.class)
 @ActiveProfiles("disabled-security")
-public class UsersControllerMvcTest {
+public class UserListControllerMvcTest {
 
     @Autowired
     private MockMvc mvc;

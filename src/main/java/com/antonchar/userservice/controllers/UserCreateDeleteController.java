@@ -24,6 +24,7 @@ import com.antonchar.userservice.util.UserValidator;
 
 @Slf4j
 @Controller
+@PreAuthorize("hasAuthority('SUPERADMIN')")
 @RequestMapping("/user")
 @SessionAttributes(value = {"userNum", "newUser"})
 public class UserCreateDeleteController {
@@ -58,7 +59,6 @@ public class UserCreateDeleteController {
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "/delete")
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
                              @RequestParam(required = false) String query, SessionStatus sessionStatus) {

@@ -21,7 +21,7 @@ import com.antonchar.userservice.util.exceptions.EmptyUserListException;
 @Controller
 @RequestMapping("/users")
 @SessionAttributes("userNum")
-public class UsersController {
+public class UserListController {
 
     @Autowired
     private UserService userService;
@@ -40,7 +40,7 @@ public class UsersController {
         model.addAttribute("currentIndex", currentIndex);
         model.addAttribute("endIndex", endIndex);
 
-        return "users";
+        return "user_list";
     }
 
     @ModelAttribute("userNum")

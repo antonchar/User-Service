@@ -7,7 +7,7 @@
 </head>
 <body>
 <!--User List Table-->
-<table class="table table-hover" th:fragment="userListTable">
+<table class="table table-hover" th:fragment="userListTable(forPage)">
     <thead>
     <tr class="thead">
         <th th:text="#{user.email}"/>
@@ -40,7 +40,7 @@
                     </a>
                 </button>
             </td>
-            <td>
+            <td th:if="${currentUser.isSuperAdmin()}">
                 <button name="id" form="delete-form" type="submit" th:value="*{id}">
                     <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
                 </button>
@@ -49,8 +49,9 @@
     </tr>
     </tbody>
 
-    <form id="delete-form" th:action="@{/user/delete}" method="POST">
-        <input type="hidden" name="page" th:value="${currentIndex}"/>
+    <form th:if="${currentUser.isSuperAdmin()}" id="delete-form" th:action="@{/user/delete}" method="POST">
+        <input th:if="${forPage} == 'list'" type="hidden" name="page" th:value="${currentIndex}"/>
+        <input th:if="${forPage} == 'search'" type="hidden" name="query" th:value="${query}"/>
     </form>
 </table>
 
