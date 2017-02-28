@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.antonchar.userservice.entities.User;
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 import com.antonchar.userservice.util.UserValidator;
@@ -32,7 +34,6 @@ public class UserCreateDeleteController {
     @Autowired
     private UserService userService;
 
-    @PreAuthorize("hasAuthority('USER')")
     @GetMapping(value = "/add")
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
@@ -51,7 +52,12 @@ public class UserCreateDeleteController {
             return "user_add";
         }
 
-        user.setCreationDate(LocalDateTime.now());
+        user
+            .setPwdHash(new BCryptPasswordEncoder().encode("123"))
+            .setRole(User.Role.USER)
+            .setBlocked(false)
+            .setCreationDate(LocalDateTime.now());
+
         UserDto savedUser = userService.save(user);
 
         sessionStatus.setComplete();

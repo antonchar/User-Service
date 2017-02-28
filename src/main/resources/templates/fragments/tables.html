@@ -85,5 +85,60 @@
     </tr>
     </tbody>
 </table>
+
+
+<!--Show Checked User Data Table-->
+<table>
+    <tbody>
+    <tr th:fragment="showCheckedEmailRow">
+        <td th:text="#{user.email}"/>
+        <td>
+            <div class="form-group" th:class="(${#fields.hasErrors('email')}) ? 'has-error' : ''">
+                <label class="control-label"
+                       th:if="${#fields.hasErrors('email')}" th:errors="*{email}">
+                </label>
+                <input class="form-control" type="email" th:placeholder="#{user.placeholder.email}"
+                       th:field="*{email}"/>
+            </div>
+        </td>
+    </tr>
+    <tr th:fragment="showCheckedNameRow">
+        <td th:text="#{user.name}"/>
+        <td>
+            <div class="form-group" th:class="(${#fields.hasErrors('name')}) ? 'has-error' : ''">
+                <label class="control-label"
+                       th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
+                </label>
+                <input class="form-control" type="text" th:placeholder="#{user.placeholder.name}"
+                       th:field="*{name}"/>
+            </div>
+        </td>
+    </tr>
+    <tr th:fragment="showCheckedSurnameRow">
+        <td th:text="#{user.surname}"/>
+        <td>
+            <div class="form-group" th:class="(${#fields.hasErrors('surname')}) ? 'has-error' : ''">
+                <label class="control-label"
+                       th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
+                </label>
+                <input class="form-control" type="text" th:placeholder="#{user.placeholder.surname}"
+                       th:field="*{surname}"/>
+            </div>
+        </td>
+    </tr>
+    <tr th:fragment="showCheckedAgeRow">
+        <td th:text="#{user.age}"/>
+        <td>
+            <div class="form-group" th:class="(${#fields.hasErrors('age')}) ? 'has-error' : ''">
+                <label class="control-label"
+                       th:if="${#fields.hasErrors('age')}" th:errors="*{age}">
+                </label>
+                <input class="form-control" type="number" th:placeholder="#{user.placeholder.age}"
+                       th:field="*{age}"/>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

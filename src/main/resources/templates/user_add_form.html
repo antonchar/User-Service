@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="index :: head"></div>
+<head th:replace="fragments/skeleton :: head(title='Add User')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: lang(path='/user/add?')"/>
 
-    <!--Language-->
-    <div th:with="res='/user/add?'">
-        <div th:replace="index :: lang"></div>
-    </div>
+    <div th:replace="fragments/skeleton :: signedUser"/>
 
-    <div th:replace="index :: navbar"></div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron">
@@ -38,15 +36,30 @@
 
                 <!--User table-->
                 <table class="table table-bordered">
-
-                    <thead><tr></tr></thead>
+                    <thead>
+                    <tr/>
+                    </thead>
 
                     <tbody>
+                    <tr>
+                        <td th:text="#{user.email}"></td>
+                        <td>
+                            <input class="form-control" type="email" th:placeholder="#{user.placeholder.email}"
+                                   name="email"/>
+                        </td>
+                    </tr>
                     <tr>
                         <td th:text="#{user.name}"></td>
                         <td>
                             <input class="form-control" type="text" th:placeholder="#{user.placeholder.name}"
                                    name="name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td th:text="#{user.surname}"></td>
+                        <td>
+                            <input class="form-control" type="text" th:placeholder="#{user.placeholder.surname}"
+                                   name="surname"/>
                         </td>
                     </tr>
                     <tr>
@@ -56,34 +69,15 @@
                                    name="age"/>
                         </td>
                     </tr>
-                    <tr>
-                        <td th:text="#{user.role}"></td>
-                        <td><input type="checkbox" name="admin"/></td>
-                    </tr>
                     </tbody>
-
                 </table>
-
             </form>
-
         </div>
-
     </div>
 
-    <div th:replace="index :: footer"></div>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<!--Custom script-->
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $("#add_user").addClass("active");
-    /*]]>*/
-</script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#add_user')"/>
 </body>
 </html>

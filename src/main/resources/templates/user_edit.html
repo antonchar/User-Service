@@ -41,42 +41,11 @@
                     <tbody>
                     <tr th:replace="fragments/tables :: showEmailRow"/>
 
-                    <tr>
-                        <td th:text="#{user.name}"/>
-                        <td>
-                            <div class="form-group" th:class="(${#fields.hasErrors('name')}) ? 'has-error' : ''">
-                                <label class="control-label"
-                                       th:if="${#fields.hasErrors('name')}" th:errors="*{name}">
-                                </label>
-                                <input class="form-control" type="text" th:placeholder="#{user.placeholder.name}"
-                                       th:field="*{name}"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.surname}"/>
-                        <td>
-                            <div class="form-group" th:class="(${#fields.hasErrors('surname')}) ? 'has-error' : ''">
-                                <label class="control-label"
-                                       th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">
-                                </label>
-                                <input class="form-control" type="text" th:placeholder="#{user.placeholder.surname}"
-                                       th:field="*{surname}"/>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td th:text="#{user.age}"/>
-                        <td>
-                            <div class="form-group" th:class="(${#fields.hasErrors('age')}) ? 'has-error' : ''">
-                                <label class="control-label"
-                                       th:if="${#fields.hasErrors('age')}" th:errors="*{age}">
-                                </label>
-                                <input class="form-control" type="number" th:placeholder="#{user.placeholder.age}"
-                                       th:field="*{age}"/>
-                            </div>
-                        </td>
-                    </tr>
+                    <tr th:replace="fragments/tables :: showCheckedNameRow"/>
+
+                    <tr th:replace="fragments/tables :: showCheckedSurnameRow"/>
+
+                    <tr th:replace="fragments/tables :: showCheckedAgeRow"/>
 
                     <tr th:replace="fragments/tables :: showRoleRow"/>
 

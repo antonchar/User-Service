@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="index :: head"></div>
+<head th:replace="fragments/skeleton :: head(title='Add User')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: signedUser"/>
 
-    <div th:replace="index :: navbar"></div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron">
 
         <!--Panel-->
         <div class="panel panel-primary">
+            <div th:replace="user_add_form :: add_user_header"/>
 
-            <div th:replace="user_add_form :: add_user_header"></div>
-
-            <div th:replace="user_add_form :: add_user_button"></div>
+            <div th:replace="user_add_form :: add_user_button"/>
 
             <!--Form-->
             <form id="save-form" th:action="@{/user/add}" th:object="${newUser}" method="POST">
 
                 <!--User table-->
                 <table class="table table-bordered">
-
-                    <thead><tr></tr></thead>
+                    <thead>
+                    <tr/>
+                    </thead>
 
                     <tbody>
-                    <div th:replace="user_edit :: name_row"></div>
-                    <div th:replace="user_edit :: age_row"></div>
-                    <div th:replace="user_edit :: admin_row"></div>
+                    <tr th:replace="fragments/tables :: showCheckedEmailRow"/>
+
+                    <tr th:replace="fragments/tables :: showCheckedNameRow"/>
+
+                    <tr th:replace="fragments/tables :: showCheckedSurnameRow"/>
+
+                    <tr th:replace="fragments/tables :: showCheckedAgeRow"/>
                     </tbody>
-
                 </table>
-
             </form>
-
         </div>
-
     </div>
 
-    <div th:replace="index :: footer"></div>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#add_user')"/>
 </body>
 </html>

@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+import org.hibernate.validator.constraints.Email;
+
 import com.antonchar.userservice.entities.User;
 
 @Data
@@ -16,7 +18,10 @@ import com.antonchar.userservice.entities.User;
 public class UserDto {
 
     private Long id;
+
+    @Email(message = "{error.email}")
     private String email;
+
     private String pwdHash;
 
     @NotNull(message = "{error.null}")
