@@ -17,17 +17,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(RootController.class)
+@WebMvcTest(LoginController.class)
 @Import(value = {SecurityConfig.class, TestConfig.class})
-public class RootControllerMvcTest {
+public class LoginControllerMvcTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Test
-    public void testRoot() throws Exception {
-        mvc.perform(get("/").accept(MediaType.TEXT_HTML))
+    public void testLogin() throws Exception {
+        mvc.perform(get("/login").accept(MediaType.TEXT_HTML))
             .andExpect(status().isOk())
-            .andExpect(view().name("index"));
+            .andExpect(view().name("login"));
     }
 }

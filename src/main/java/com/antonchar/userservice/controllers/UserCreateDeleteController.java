@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +35,9 @@ public class UserCreateDeleteController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @GetMapping(value = "/add")
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
@@ -53,7 +57,7 @@ public class UserCreateDeleteController {
         }
 
         user
-            .setPwdHash(new BCryptPasswordEncoder().encode("123"))
+            .setPwdHash(encoder.encode("123"))
             .setRole(User.Role.USER)
             .setBlocked(false)
             .setCreationDate(LocalDateTime.now());

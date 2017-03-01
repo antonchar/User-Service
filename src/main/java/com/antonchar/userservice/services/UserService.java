@@ -1,12 +1,12 @@
 package com.antonchar.userservice.services;
 
-import com.antonchar.userservice.entities.User;
-import com.antonchar.userservice.services.dto.CurrentUser;
-import com.antonchar.userservice.services.dto.UserDto;
-import org.springframework.data.domain.Page;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+
+import com.antonchar.userservice.entities.User;
+import com.antonchar.userservice.services.dto.UserDto;
 
 public interface UserService {
 
