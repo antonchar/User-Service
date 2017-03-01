@@ -63,6 +63,6 @@
     <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<div th:replace="fragments/skeleton :: scripts(activeTab='#profile')"/>
+<div th:replace="fragments/skeleton :: scripts(activeTab=${currentUser.id == existingUser.id} ? '#profile' : '#')"/>
 </body>
 </html>
