@@ -5,16 +5,16 @@ import org.springframework.stereotype.Service;
 import com.antonchar.userservice.services.dto.CurrentUser;
 
 @Service
-public class CurrentUserServiceImpl implements CurrentUserService {
+public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public boolean canReadUserDetails(CurrentUser currentUser, Long userId) {
-        return currentUser != null && hasReadPermission(currentUser, userId);
+        return currentUser != null && userId != null && hasReadPermission(currentUser, userId);
     }
 
     @Override
     public boolean canWriteUserDetails(CurrentUser currentUser, Long userId) {
-        return currentUser != null && hasWritePermission(currentUser, userId);
+        return currentUser != null && userId != null && hasWritePermission(currentUser, userId);
     }
 
     private boolean hasReadPermission(CurrentUser currentUser, Long userId) {

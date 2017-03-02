@@ -16,7 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 
-import static com.antonchar.userservice.UserTestData.*;
+import static com.antonchar.userservice.TestDataHelper.*;
 import static com.antonchar.userservice.util.UserUtil.convert2DtoList;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
@@ -46,7 +46,7 @@ public class UserSearchControllerMvcTest {
 
     @Test
     public void testSearch() throws Exception {
-        final List<UserDto> userDtos = convert2DtoList(Arrays.asList(USER_1, USER_2, USER_3));
+        final List<UserDto> userDtos = convert2DtoList(Arrays.asList(USER_ADM, USER_SADM, USER_USR_BL));
         when(userService.findByName("ABC")).thenReturn(userDtos);
 
         mvc.perform(get("/users/search").accept(MediaType.TEXT_HTML)

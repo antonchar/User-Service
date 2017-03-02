@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.antonchar.userservice.services.dto.CurrentUser;
 
-import static com.antonchar.userservice.UserTestData.*;
+import static com.antonchar.userservice.TestDataHelper.*;
 
 @Configuration
 public class TestConfig {
@@ -16,10 +16,10 @@ public class TestConfig {
     public UserDetailsService userDetailsService() {
         return email -> {
             switch (email) {
-                case "vasilypup@example.com": return new CurrentUser(USER_1);
-                case "superbratan@example.com": return new CurrentUser(USER_2);
-                case "johnnny@example.com": return new CurrentUser(USER_3);
-                case "avo.pots@example.com": return new CurrentUser(USER_4);
+                case "vasilypup@example.com": return new CurrentUser(USER_ADM);
+                case "superbratan@example.com": return new CurrentUser(USER_SADM);
+                case "johnnny@example.com": return new CurrentUser(USER_USR_BL);
+                case "avo.pots@example.com": return new CurrentUser(USER_USR);
                 default: throw new UsernameNotFoundException("Fail to authenticate user");
             }
         };

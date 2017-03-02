@@ -21,7 +21,7 @@ import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 import com.antonchar.userservice.util.exceptions.EmptyUserListException;
 
-import static com.antonchar.userservice.UserTestData.*;
+import static com.antonchar.userservice.TestDataHelper.*;
 import static com.antonchar.userservice.util.UserUtil.convert2DtoList;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
@@ -44,7 +44,7 @@ public class UserListControllerMvcTest {
     @Test
     public void testUserList() throws Exception {
         final PageRequest request = new PageRequest(0, 2, Sort.Direction.ASC, "id");
-        final List<UserDto> userDtos = convert2DtoList(Arrays.asList(USER_1, USER_2, USER_3));
+        final List<UserDto> userDtos = convert2DtoList(Arrays.asList(USER_ADM, USER_SADM, USER_USR_BL));
         final Page<UserDto> userPages = new PageImpl<>(userDtos, request, userDtos.size());
 
         when(userService.getNum()).thenReturn(3L);

@@ -1,9 +1,9 @@
 package com.antonchar.userservice.services;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ import com.antonchar.userservice.services.dto.UserDto;
 import com.antonchar.userservice.util.exceptions.EmptyUserListException;
 import com.antonchar.userservice.util.exceptions.UserNotFoundException;
 
-import static com.antonchar.userservice.UserTestData.*;
+import static com.antonchar.userservice.TestDataHelper.*;
 import static com.antonchar.userservice.util.UserUtil.convert2DtoList;
 import static com.antonchar.userservice.util.UserUtil.convert2Dto;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -50,7 +50,7 @@ public class UserServiceImplTest {
 
     @Test
     public void testGetPage() throws Exception {
-        final List<User> users = Arrays.asList(USER_1, USER_2, USER_3, USER_1, USER_2, USER_3);
+        final List<User> users = Arrays.asList(USER_ADM, USER_SADM, USER_USR_BL, USER_ADM, USER_SADM, USER_USR_BL);
 
         when(userRepository.count()).thenReturn((long) users.size());
         when(userRepository.findAll(any(PageRequest.class)))
@@ -86,8 +86,8 @@ public class UserServiceImplTest {
 
     @Test
     public void testFindExisting() throws Exception {
-        when(userRepository.findOne(1L)).thenReturn(USER_1);
-        assertThat(userService.find(1L), is(convert2Dto(USER_1)));
+        when(userRepository.findOne(1L)).thenReturn(USER_ADM);
+        assertThat(userService.find(1L), is(convert2Dto(USER_ADM)));
     }
 
     @Test(expected = UserNotFoundException.class)
@@ -98,8 +98,8 @@ public class UserServiceImplTest {
 
     @Test
     public void testSave() throws Exception {
-        final User user = getNewUser(null);
-        final User savedUser = getNewUser(1L);
+        final User user = getNewUserUsr(null);
+        final User savedUser = getNewUserUsr(1L);
 
         when(userRepository.save(user)).thenReturn(savedUser);
         assertThat(userService.save(convert2Dto(user)), is(convert2Dto(savedUser)));
@@ -107,19 +107,25 @@ public class UserServiceImplTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSaveWithId() throws Exception {
-      userService.save(convert2Dto(USER_1));
+      userService.save(convert2Dto(USER_ADM));
     }
 
     @Test
     public void testUpdate() throws Exception {
-        when(userRepository.save(USER_1)).thenReturn(USER_1);
-        final UserDto updatedUser = userService.update(convert2Dto(USER_1));
-        assertThat(updatedUser, is(convert2Dto(USER_1)));
+        when(userRepository.save(USER_ADM)).thenReturn(USER_ADM);
+        final UserDto updatedUser = userService.update(convert2Dto(USER_ADM));
+        assertThat(updatedUser, is(convert2Dto(USER_ADM)));
+    }
+
+    @Test
+    public void testFindByEmail() throws Exception {
+        when(userRepository.findByEmail(anyString())).thenReturn(USER_ADM);
+        assertThat(userService.findByEmail("dummy@email"), is(Optional.of(USER_ADM)));
     }
 
     @Test
     public void testFindByName() throws Exception {
-        when(userRepository.findByNameContaining("ABC")).thenReturn(Collections.singletonList(USER_1));
-        assertThat(userService.findByName("ABC"), is(Collections.singletonList(convert2Dto(USER_1))));
+        when(userRepository.findByNameContaining("ABC")).thenReturn(Collections.singletonList(USER_ADM));
+        assertThat(userService.findByName("ABC"), is(Collections.singletonList(convert2Dto(USER_ADM))));
     }
 }

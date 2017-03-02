@@ -2,7 +2,7 @@ package com.antonchar.userservice.services;
 
 import com.antonchar.userservice.services.dto.CurrentUser;
 
-public interface CurrentUserService {
+public interface PermissionService {
 
     boolean canReadUserDetails(CurrentUser currentUser, Long userId);
 

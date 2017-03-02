@@ -1,6 +1,5 @@
 package com.antonchar.userservice.repositories;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.Test;
@@ -15,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.antonchar.userservice.entities.User;
 
-import static com.antonchar.userservice.UserTestData.*;
+import static com.antonchar.userservice.TestDataHelper.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
@@ -35,7 +34,7 @@ public class UserRepositoryTest {
     @Test
     public void testFindAll() throws Exception {
         List<User> allUsers = repository.findAll();
-        assertThat(allUsers, containsInAnyOrder(USER_1, USER_2, USER_3, USER_4));
+        assertThat(allUsers, containsInAnyOrder(USER_ADM, USER_SADM, USER_USR_BL, USER_USR));
     }
 
     @Test
@@ -46,7 +45,7 @@ public class UserRepositoryTest {
 
         assertThat(userPage.getNumber(), is(pageNumber));
         assertThat(userPage.getTotalPages(), is(2));
-        assertThat(userPage.getContent(), contains(USER_1, USER_2, USER_3));
+        assertThat(userPage.getContent(), contains(USER_ADM, USER_SADM, USER_USR_BL));
     }
 
     @Test
@@ -56,7 +55,7 @@ public class UserRepositoryTest {
         Page<User> userPage = repository.findAll(request);
 
         assertThat(userPage.getNumber(), is(pageNumber));
-        assertThat(userPage.getContent(), contains(USER_4));
+        assertThat(userPage.getContent(), contains(USER_USR));
     }
 
     @Test
@@ -89,7 +88,7 @@ public class UserRepositoryTest {
     @Test
     public void testFindExisting() throws Exception {
         User user = repository.findOne(1L);
-        assertThat(user, is(USER_1));
+        assertThat(user, is(USER_ADM));
     }
 
     @Test
@@ -100,14 +99,14 @@ public class UserRepositoryTest {
 
     @Test
     public void testSave() throws Exception {
-        User user = repository.save(getNewUser(null));
+        User user = repository.save(getNewUserUsr(null));
         //TODO: check all properties
         assertThat(user.getId(), greaterThan(4L));
     }
 
     @Test
     public void testUpdate() throws Exception {
-        User user = USER_1.setAge(68);
+        User user = USER_ADM.setAge(68);
         User savedUser = repository.save(user);
         assertThat(savedUser, is(user));
     }
@@ -115,7 +114,7 @@ public class UserRepositoryTest {
     @Test
     public void testFindByNameExisting() throws Exception {
         List<User> users = repository.findByNameContaining("o");
-        assertThat(users, containsInAnyOrder(USER_3, USER_4));
+        assertThat(users, containsInAnyOrder(USER_USR_BL, USER_USR));
     }
 
     @Test
