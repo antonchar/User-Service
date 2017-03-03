@@ -15,7 +15,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.1.RELEASE</version>
+        <version>1.5.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -29,7 +29,7 @@
         <hibernate-java8.version>5.0.1.Final</hibernate-java8.version>
         <!--Thymeleaf-->
         <thymeleaf-java8.version>2.1.0.RELEASE</thymeleaf-java8.version>
-        <thymeleaf-security.version>3.0.2.RELEASE</thymeleaf-security.version>
+        <thymeleaf-security.version>2.1.3.RELEASE</thymeleaf-security.version>
         <!--DB-->
         <postgresql.version>9.4.1212</postgresql.version>
         <h2.version>1.4.193</h2.version>

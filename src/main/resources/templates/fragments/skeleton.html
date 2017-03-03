@@ -34,13 +34,15 @@
         </a>
     </div>
 
-    <p th:if="${currentUser != null}" class="navbar-text pull-right" th:fragment="signedUser">
+    <p class="navbar-text pull-right" th:fragment="signedUser" sec:authorize="isAuthenticated()">
         Signed in as
-        <a th:href="@{/user/} + ${currentUser.id}" class="navbar-link" th:text="${currentUser.fullName}"></a>
+        <a th:href="@{/user/} + ${#authentication.principal.id}" class="navbar-link"
+           th:text="${#authentication.principal.fullName}">
+        </a>
     </p>
 
     <!--Navigation bar-->
-    <div class="masthead" th:fragment="navbar" th:with="authenticated=${currentUser != null}">
+    <div class="masthead" th:fragment="navbar">
 
         <h3 class="text-muted">User Service</h3>
 
@@ -52,38 +54,38 @@
                         <span th:text="#{menu.home}"></span>
                     </a>
                 </li>
-                <li id="profile" th:if="${authenticated}">
-                    <a th:href="@{/user/} + ${currentUser.id}">
+                <li id="profile" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/} + ${#authentication.principal.id}">
                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                         <span th:text="#{menu.profile}"></span>
                     </a>
                 </li>
-                <li id="user_list" th:if="${authenticated and not currentUser.isUser()}">
+                <li id="user_list" sec:authorize="hasRole('SUPERADMIN')">
                     <a th:href="@{/users/pages/1}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         <span th:text="#{menu.user.list}"></span>
-                        <span id="userNum" th:text="'(' + ${userNum} + ')'">(</span>
+                        <span id="userNum" th:text="'(' + ${userNum} + ')'"></span>
                     </a>
                 </li>
-                <li id="add_user" th:if="${authenticated and currentUser.isSuperAdmin()}">
+                <li id="add_user" sec:authorize="hasRole('SUPERADMIN')">
                     <a th:href="@{/user/add}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         <span th:text="#{menu.add.user}"></span>
                     </a>
                 </li>
-                <li id="search_user" th:if="${authenticated and not currentUser.isUser()}">
+                <li id="search_user" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">
                     <a th:href="@{/users/search}">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         <span th:text="#{menu.user.search}"></span>
                     </a>
                 </li>
-                <li id="login" th:unless="${authenticated}">
+                <li id="login" sec:authorize="isAnonymous()">
                     <a th:href="@{/login}">
                         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
                         <span th:text="#{menu.login}"></span>
                     </a>
                 </li>
-                <li id="logout" th:if="${authenticated}">
+                <li id="logout" sec:authorize="isAuthenticated()">
                     <a id="logoutLink" href="#">
                         <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                         <span th:text="#{menu.logout}"></span>
@@ -91,19 +93,6 @@
                 </li>
             </ul>
         </nav>
-    </div>
-
-    <!--Content-->
-    <div class="jumbotron">
-        <h1>User Service Project</h1>
-        <p>
-            This is a simple CRUD MVC project implemented with Spring Boot, MySQL and Thymeleaf technologies.
-            The project is not finished and is under development. It is updated from time to time.
-        </p>
-
-        <h2 th:text="#{home.tech.list}"></h2>
-        <p>Spring Boot, Maven, Spring MVC, MySQL, Thymeleaf, Bootstrap, JPA (Hibernate), Lombok
-        </p>
     </div>
 
     <!--Footer-->
