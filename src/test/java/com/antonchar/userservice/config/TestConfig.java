@@ -16,10 +16,10 @@ public class TestConfig {
     public UserDetailsService userDetailsService() {
         return email -> {
             switch (email) {
-                case "vasilypup@example.com": return new CurrentUser(USER_ADM);
-                case "superbratan@example.com": return new CurrentUser(USER_SADM);
-                case "johnnny@example.com": return new CurrentUser(USER_USR_BL);
-                case "avo.pots@example.com": return new CurrentUser(USER_USR);
+                case "admin@example.com": return new CurrentUser(USER_ADM);
+                case "superadmin@example.com": return new CurrentUser(USER_SADM);
+                case "user-blocked@example.com": return new CurrentUser(USER_USR_BL);
+                case "user@example.com": return new CurrentUser(USER_USR);
                 default: throw new UsernameNotFoundException("Fail to authenticate user");
             }
         };

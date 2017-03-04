@@ -5,25 +5,30 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.antonchar.userservice.config.SecurityConfig;
+import com.antonchar.userservice.config.TestConfig;
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserCreateDeleteController.class)
-@ActiveProfiles("disabled-security")
+@Import(value = {SecurityConfig.class, TestConfig.class})
+@WithUserDetails("superadmin@example.com")
 public class UserCreateDeleteControllerMvcTest {
 
     @Autowired
@@ -37,7 +42,7 @@ public class UserCreateDeleteControllerMvcTest {
 
     @Test
     public void testAddUserGet() throws Exception {
-        mvc.perform(get("/user/add").accept(MediaType.TEXT_HTML))
+        mvc.perform(get("/user/add").with(csrf()).accept(MediaType.TEXT_HTML))
             .andExpect(status().isOk())
             .andExpect(model().attribute("newUser", is(new UserDto())))
             .andExpect(view().name("user_add_form"));
@@ -48,7 +53,7 @@ public class UserCreateDeleteControllerMvcTest {
         when(userService.save(any(UserDto.class)))
             .thenAnswer(invc -> invc.getArgumentAt(0, UserDto.class).setId(1L));
 
-        mvc.perform(post("/user/add").accept(MediaType.TEXT_HTML)
+        mvc.perform(post("/user/add").with(csrf()).accept(MediaType.TEXT_HTML)
             .sessionAttr("newUser", new UserDto())
             .param("email", "email@example.com")
             .param("name", "DummyName")
@@ -59,8 +64,9 @@ public class UserCreateDeleteControllerMvcTest {
     }
 
     @Test
+    @WithUserDetails("superadmin@example.com")
     public void testAddInvalidUserPost() throws Exception {
-        mvc.perform(post("/user/add").accept(MediaType.TEXT_HTML)
+        mvc.perform(post("/user/add").with(csrf()).accept(MediaType.TEXT_HTML)
             .sessionAttr("newUser", new UserDto())
             .param("age", "23"))
             .andExpect(status().isOk())
@@ -72,7 +78,7 @@ public class UserCreateDeleteControllerMvcTest {
     public void testDeleteFromList() throws Exception {
         doNothing().when(userService).delete(any(Long.class));
 
-        mvc.perform(post("/user/delete").accept(MediaType.TEXT_HTML)
+        mvc.perform(post("/user/delete").with(csrf()).accept(MediaType.TEXT_HTML)
             .param("id", "12")
             .param("page", "10"))
             .andExpect(status().is3xxRedirection())
@@ -85,7 +91,7 @@ public class UserCreateDeleteControllerMvcTest {
     public void testDeleteFromSearch() throws Exception {
         doNothing().when(userService).delete(any(Long.class));
 
-        mvc.perform(post("/user/delete").accept(MediaType.TEXT_HTML)
+        mvc.perform(post("/user/delete").with(csrf()).accept(MediaType.TEXT_HTML)
             .param("id", "12")
             .param("query", "ABC"))
             .andExpect(status().is3xxRedirection())

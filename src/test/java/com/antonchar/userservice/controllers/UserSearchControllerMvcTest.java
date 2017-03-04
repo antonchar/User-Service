@@ -8,26 +8,29 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.antonchar.userservice.config.SecurityConfig;
+import com.antonchar.userservice.config.TestConfig;
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 
 import static com.antonchar.userservice.TestDataHelper.*;
 import static com.antonchar.userservice.util.UserUtil.convert2DtoList;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserSearchController.class)
-@ActiveProfiles("disabled-security")
+@Import(value = {SecurityConfig.class, TestConfig.class})
+@WithUserDetails("admin@example.com")
 public class UserSearchControllerMvcTest {
 
     @Autowired
@@ -38,7 +41,7 @@ public class UserSearchControllerMvcTest {
 
     @Test
     public void testEmptySearch() throws Exception {
-        mvc.perform(get("/users/search").accept(MediaType.TEXT_HTML)
+        mvc.perform(get("/users/search").with(csrf()).accept(MediaType.TEXT_HTML)
             .param("query", ""))
             .andExpect(status().isOk())
             .andExpect(view().name("user_search"));
@@ -49,7 +52,7 @@ public class UserSearchControllerMvcTest {
         final List<UserDto> userDtos = convert2DtoList(Arrays.asList(USER_ADM, USER_SADM, USER_USR_BL));
         when(userService.findByName("ABC")).thenReturn(userDtos);
 
-        mvc.perform(get("/users/search").accept(MediaType.TEXT_HTML)
+        mvc.perform(get("/users/search").with(csrf()).accept(MediaType.TEXT_HTML)
             .param("query", "ABC"))
             .andExpect(status().isOk())
             .andExpect(model().attribute("query", is("ABC")))

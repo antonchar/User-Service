@@ -60,20 +60,20 @@
                         <span th:text="#{menu.profile}"></span>
                     </a>
                 </li>
-                <li id="user_list" sec:authorize="hasRole('SUPERADMIN')">
+                <li id="user_list" sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN')">
                     <a th:href="@{/users/pages/1}">
                         <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
                         <span th:text="#{menu.user.list}"></span>
                         <span id="userNum" th:text="'(' + ${userNum} + ')'"></span>
                     </a>
                 </li>
-                <li id="add_user" sec:authorize="hasRole('SUPERADMIN')">
+                <li id="add_user" sec:authorize="hasAnyAuthority('SUPERADMIN')">
                     <a th:href="@{/user/add}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         <span th:text="#{menu.add.user}"></span>
                     </a>
                 </li>
-                <li id="search_user" sec:authorize="hasAnyRole('ADMIN', 'SUPERADMIN')">
+                <li id="search_user" sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN')">
                     <a th:href="@{/users/search}">
                         <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                         <span th:text="#{menu.user.search}"></span>
@@ -114,9 +114,7 @@
 
         $("#logoutLink").click(function () {
            $.post(
-               [[@{/logout}]], {
-                   [[${_csrf != null ? _csrf.parameterName : '#'}]]: [[${_csrf != null ? _csrf.token : '#'}]]
-               }, function() {
+               [[@{/logout}]], {[[${_csrf.parameterName}]]: [[${_csrf.token}]]}, function() {
                 window.location.replace([[@{/}]]);
                });
         });

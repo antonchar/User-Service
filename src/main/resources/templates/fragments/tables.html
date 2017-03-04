@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="UTF-8"/>
@@ -17,9 +18,9 @@
         <th th:text="#{user.role}"/>
         <th th:text="#{user.blocked}"/>
         <th th:text="#{user.creationDate}"/>
-        <th th:if="${currentUser != null and currentUser.isSuperAdmin()}" th:text="#{user.operation.show-edit}"/>
-        <th th:if="${currentUser != null and currentUser.isAdmin()}" th:text="#{user.operation.show}"/>
-        <th th:if="${currentUser != null and currentUser.isSuperAdmin()}" th:text="#{user.operation.delete}"/>
+        <th th:text="#{user.operation.show-edit}" sec:authorize="hasAnyAuthority('SUPERADMIN')"/>
+        <th th:text="#{user.operation.show}" sec:authorize="hasAnyAuthority('ADMIN')"/>
+        <th th:text="#{user.operation.delete}" sec:authorize="hasAnyAuthority('SUPERADMIN')"/>
     </tr>
     </thead>
 
@@ -40,7 +41,7 @@
                     </a>
                 </button>
             </td>
-            <td th:if="${currentUser != null and currentUser.isSuperAdmin()}">
+            <td sec:authorize="hasAnyAuthority('SUPERADMIN')">
                 <button name="id" form="delete-form" type="submit" th:value="*{id}">
                     <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
                 </button>
@@ -49,7 +50,7 @@
     </tr>
     </tbody>
 
-    <form th:if="${currentUser != null and currentUser.isSuperAdmin()}" id="delete-form" th:action="@{/user/delete}" method="POST">
+    <form id="delete-form" th:action="@{/user/delete}" method="POST" sec:authorize="hasAnyAuthority('SUPERADMIN')">
         <input th:if="${forPage} == 'list'" type="hidden" name="page" th:value="${currentIndex}"/>
         <input th:if="${forPage} == 'search'" type="hidden" name="query" th:value="${query}"/>
     </form>
