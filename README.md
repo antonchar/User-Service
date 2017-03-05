@@ -6,8 +6,9 @@
 [![codecov](https://codecov.io/gh/antonchar/User-Service/branch/master/graph/badge.svg)](https://codecov.io/gh/antonchar/User-Service)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-This is a simple CRUD MVC project implemented with Spring Boot, MySQL and Thymeleaf technologies. 
-The project is not finished and is under development. It is updated from time to time.
+This is a CRUD MVC service which allows to manage user entries with various levels of access right. 
+Although the core functionality is ready, the project is not finished and is under development.
+New features and improvements will be added from time to time.
 
 ##Working Version
 
@@ -30,7 +31,7 @@ Therefore, there is less focus on the web part of the application (js, css, html
 Core Functionality | Java 8, Spring Boot, MVC, Spring MVC
 Database | PostgreSQL, JPA, Hibernate, Spring Data JPA, Liquibase
 Tests | JUnit, Hamcrest, Mockito, DataJpaTest, WebMvcTest
-Security | TODO
+Security | Spring Security
 Other | Lombok, i18n, Modelmapper
 Frontend | Html, Css, JS, Bootstrap, Thymeleaf
 Build Manager | Maven
