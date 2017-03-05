@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.antonchar.userservice.services.dto.CurrentUser;
 
-@Service
+@Service("permissionService")
 public class PermissionServiceImpl implements PermissionService {
 
     @Override

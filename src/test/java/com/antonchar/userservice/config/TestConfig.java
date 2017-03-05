@@ -1,5 +1,7 @@
 package com.antonchar.userservice.config;
 
+import com.antonchar.userservice.services.PermissionService;
+import com.antonchar.userservice.services.PermissionServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,5 +25,10 @@ public class TestConfig {
                 default: throw new UsernameNotFoundException("Fail to authenticate user");
             }
         };
+    }
+
+    @Bean
+    public PermissionService permissionService() {
+        return new PermissionServiceImpl();
     }
 }

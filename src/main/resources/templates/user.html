@@ -3,7 +3,7 @@
 
 <head th:replace="fragments/skeleton :: head(title='Profile')"/>
 
-<body>
+<body th:with="ownData=${#authentication.principal.id == existingUser.id}">
 
 <div class="container">
     <div th:replace="fragments/skeleton :: lang(path='/user/' + ${id} + '?' + (${saved} ? 'saved=true&amp;' : ''))"/>
@@ -24,7 +24,8 @@
             </div>
 
             <div class="panel-body">
-                <form th:if="${currentUser.id == existingUser.id or currentUser.isSuperAdmin()}"
+                <!--REFACTOR to aut-->
+                <form th:if="${ownData or #authentication.principal.isSuperAdmin()}"
                       th:action="@{/user/edit}" method="POST">
                     <input type="hidden" name="state" value="init"/>
                     <button id="save-btn" type="submit" class="btn btn-default element-row">
@@ -63,6 +64,6 @@
     <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<div th:replace="fragments/skeleton :: scripts(activeTab=${currentUser.id == existingUser.id} ? '#profile' : '#')"/>
+<div th:replace="fragments/skeleton :: scripts(activeTab=${ownData} ? '#profile' : '#')"/>
 </body>
 </html>

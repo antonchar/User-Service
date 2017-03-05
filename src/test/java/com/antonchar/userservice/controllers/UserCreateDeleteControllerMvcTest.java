@@ -38,7 +38,7 @@ public class UserCreateDeleteControllerMvcTest {
     private UserService userService;
 
     @MockBean
-    private PasswordEncoder encoder;
+    private PasswordEncoder dummyEncoder;
 
     @Test
     public void testAddUserGet() throws Exception {
@@ -52,6 +52,7 @@ public class UserCreateDeleteControllerMvcTest {
     public void testAddUserPost() throws Exception {
         when(userService.save(any(UserDto.class)))
             .thenAnswer(invc -> invc.getArgumentAt(0, UserDto.class).setId(1L));
+        when(dummyEncoder.encode(anyString())).thenReturn("dummyHash");
 
         mvc.perform(post("/user/add").with(csrf()).accept(MediaType.TEXT_HTML)
             .sessionAttr("newUser", new UserDto())

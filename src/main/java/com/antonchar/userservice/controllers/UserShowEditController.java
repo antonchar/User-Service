@@ -31,7 +31,7 @@ public class UserShowEditController {
     @Autowired
     private UserService userService;
 
-    @PostAuthorize("@permissionServiceImpl.canReadUserDetails(principal, #id)")
+    @PostAuthorize("@permissionService.canReadUserDetails(principal, #id)")
     @GetMapping(value = "/{id}")
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
         log.info("GET: Show data for user with id = {}", id);
@@ -42,7 +42,7 @@ public class UserShowEditController {
         return "user";
     }
 
-    @PostAuthorize("@permissionServiceImpl.canWriteUserDetails(principal, #user.id)")
+    @PostAuthorize("@permissionService.canWriteUserDetails(principal, #user.id)")
     @PostMapping(value = "/edit")
     public String editUser(@ModelAttribute("existingUser") @Valid UserDto user, BindingResult result,
                            @RequestParam(required = false) String state, SessionStatus sessionStatus) {
