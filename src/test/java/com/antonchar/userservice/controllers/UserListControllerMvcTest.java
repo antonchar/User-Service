@@ -69,7 +69,7 @@ public class UserListControllerMvcTest {
         when(userService.getPage(1)).thenThrow(new EmptyUserListException("Dummy"));
 
         mvc.perform(get("/users/pages/1").with(csrf()).accept(MediaType.TEXT_HTML))
-            .andExpect(status().isOk())
+            .andExpect(status().isNotFound())
             .andExpect(model().attributeDoesNotExist("userPages"))
             .andExpect(model().attributeExists("emptyDB"))
             .andExpect(view().name("error"));

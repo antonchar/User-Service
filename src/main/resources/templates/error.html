@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<div th:replace="index :: head"></div>
+<head th:replace="fragments/skeleton :: head(title='Ooops!')"/>
 
 <body>
 
 <div class="container">
+    <div th:replace="fragments/skeleton :: signedUser"/>
 
-    <div th:replace="index :: navbar"></div>
+    <div th:replace="fragments/skeleton :: navbar"/>
 
     <!--Content-->
     <div class="jumbotron">
@@ -20,26 +21,26 @@
             <p th:text="#{error.emptyDB.msg}"></p>
         </div>
 
-        <div th:unless="${emptyDB}">
-        <h1>
-            <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
-            <span th:text="#{error.other.header}"></span>
-        </h1>
-        <p th:text="'1. ' + #{error.other.db.connect}"></p>
-        <p th:text="'2. ' + #{error.other.bad.request}"></p>
-        <p th:text="'3. ' + #{error.other.shortcoming}"></p>
+        <div th:if="${accessDenied}">
+            <h1>
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                <span th:text="#{error.forbidden.header}"></span>
+            </h1>
+            <p th:text="#{error.forbidden.msg}"></p>
+        </div>
+
+        <div th:if="${genericError}">
+            <h1>
+                <span class="glyphicon glyphicon-fire" aria-hidden="true"></span>
+                <span th:text="#{error.other.header}"></span>
+            </h1>
         </div>
 
     </div>
 
-    <div th:replace="index :: footer"></div>
-
+    <div th:replace="fragments/skeleton :: footer"/>
 </div>
 
-<!-- jQuery 1.12.4(necessary for Bootstrap's JavaScript plugins) -->
-<script th:src="@{/js/jquery.min.js}"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-
+<div th:replace="fragments/skeleton :: scripts(activeTab='#')"/>
 </body>
 </html>

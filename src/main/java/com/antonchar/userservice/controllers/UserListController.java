@@ -49,10 +49,4 @@ public class UserListController {
         log.debug("List of users accessed : {} user(s) found.", userNum);
         return userNum;
     }
-
-    @ExceptionHandler(EmptyUserListException.class)
-    public String emptyDbHandler(EmptyUserListException e, Model model) {
-        model.addAttribute("emptyDB", e.getMessage());
-        return "error";
-    }
 }
