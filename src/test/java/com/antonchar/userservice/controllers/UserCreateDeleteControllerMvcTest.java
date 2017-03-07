@@ -45,7 +45,7 @@ public class UserCreateDeleteControllerMvcTest {
         mvc.perform(get("/user/add").with(csrf()).accept(MediaType.TEXT_HTML))
             .andExpect(status().isOk())
             .andExpect(model().attribute("newUser", is(new UserDto())))
-            .andExpect(view().name("user_add_form"));
+            .andExpect(view().name("user_add_starter"));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class UserCreateDeleteControllerMvcTest {
             .param("age", "23"))
             .andExpect(status().isOk())
             .andExpect(model().attribute("newUser", is(new UserDto().setAge(23))))
-            .andExpect(view().name("user_add"));
+            .andExpect(view().name("user_add_validated"));
     }
 
     @Test

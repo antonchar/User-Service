@@ -15,9 +15,9 @@
 
         <!--Panel-->
         <div class="panel panel-primary">
-            <div th:replace="user_add_form :: add_user_header"/>
+            <div th:replace="user_add_starter :: add_user_header"/>
 
-            <div th:replace="user_add_form :: add_user_button"/>
+            <div th:replace="user_add_starter :: add_user_button"/>
 
             <!--Form-->
             <form id="save-form" th:action="@{/user/add}" th:object="${newUser}" method="POST">

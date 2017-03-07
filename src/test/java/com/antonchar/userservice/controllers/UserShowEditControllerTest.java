@@ -47,7 +47,7 @@ public class UserShowEditControllerTest {
             .andExpect(status().isOk())
             .andExpect(model().attribute("existingUser", is(convert2Dto(USER_ADM))))
             .andExpect(model().attribute("saved", is(false)))
-            .andExpect(view().name("user"));
+            .andExpect(view().name("user_show"));
     }
 
     @Test

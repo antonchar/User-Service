@@ -41,7 +41,7 @@ public class UserCreateDeleteController {
     public String showAddUserForm(Model model) {
         log.info("GET: Add new user page");
         model.addAttribute("newUser", new UserDto());
-        return "user_add_form";
+        return "user_add_starter";
     }
 
     @PostMapping(value = "/add")
@@ -52,7 +52,7 @@ public class UserCreateDeleteController {
 
         if (result.hasErrors()) {
             log.error("Invalid new user data: {}", user);
-            return "user_add";
+            return "user_add_validated";
         }
 
         user

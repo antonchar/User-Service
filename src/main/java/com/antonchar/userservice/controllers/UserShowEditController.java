@@ -39,7 +39,7 @@ public class UserShowEditController {
 
         model.addAttribute("existingUser", user);
         model.addAttribute("saved", saved);
-        return "user";
+        return "user_show";
     }
 
     @PostAuthorize("@permissionService.canWriteUserDetails(principal, #user.id)")
