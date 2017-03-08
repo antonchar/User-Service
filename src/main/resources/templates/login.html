@@ -12,7 +12,6 @@
 
     <div class="jumbotron">
         <form class="form-inline" th:action="@{/login}" method="POST">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="form-group">
                 <label class="sr-only" for="inputEmail">Email address</label>
                 <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email"
