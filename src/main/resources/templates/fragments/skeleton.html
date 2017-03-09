@@ -8,12 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <link rel="shortcut icon" type="image/png" th:href="@{images/favicon.png}"/>
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
 
     <!-- Bootstrap 3.3.7-->
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
-    <!--Custom css-->
+    <!--Template css-->
     <link th:href="@{/css/justified-nav.css}" rel="stylesheet"/>
+    <!--Custom css-->
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet"/>
 
@@ -24,17 +26,17 @@
 <div class="container">
 
     <!--Language-->
-    <div class="btn-group pull-right" role="group" aria-label="..."
-         th:with="classes='btn btn-default'" th:fragment="lang(path)">
-        <a th:href="@{${path} + 'lang=en'}" role="button"
-           th:class="__${#locale}__=='en' ? ${classes} + ' active' : ${classes}">
-            ENG
-        </a>
-        <a th:href="@{${path} + 'lang=ru'}" role="button"
-           th:class="__${#locale}__=='ru' ? ${classes} + ' active' : ${classes}">
-            RUS
-        </a>
+    <div class="btn-group pull-right" role="group" aria-label="..." th:fragment="lang(params)">
+        <a th:replace="fragments/skeleton :: langItem(locale='en', params=${params}, langName='ENG')" />
+
+        <a th:replace="fragments/skeleton :: langItem(locale='ru', params=${params}, langName='RUS')" />
     </div>
+
+    <a th:fragment="langItem(locale, params, langName)"
+       class="btn btn-default" role="button"
+       th:classappend="__${#locale}__ == ${locale} ? 'active' : ''"
+       th:href="${#httpServletRequest.requestURL} + '?lang=' + ${locale} + ${params == '' ? '' : '&amp;' + params}"
+       th:text="${langName}"/>
 
     <p class="navbar-text pull-right" th:fragment="signedUser" sec:authorize="isAuthenticated()">
         Signed in as
@@ -52,45 +54,46 @@
             <ul class="nav nav-justified">
                 <li id="home">
                     <a th:href="@{/}">
-                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-                        <span th:text="#{menu.home}"></span>
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"/>
+                        <span th:text="#{menu.home}"/>
                     </a>
                 </li>
                 <li id="profile" sec:authorize="isAuthenticated()">
                     <a th:href="@{/user/} + ${#authentication.principal.id}">
-                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        <span th:text="#{menu.profile}"></span>
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"/>
+                        <span th:text="#{menu.profile}"/>
                     </a>
                 </li>
                 <li id="user_list" sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN')">
                     <a th:href="@{/users/pages/1}">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        <span th:text="#{menu.user.list}"></span>
-                        <span id="userNum" th:text="'(' + ${userNum} + ')'"></span>
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"/>
+                        <span th:text="#{menu.user.list}"/>
+                        <span th:if="${#strings.contains(#httpServletRequest.requestURL, '/users/pages/')}"
+                              th:text="'(' + ${userNum} + ')'"/>
                     </a>
                 </li>
                 <li id="add_user" sec:authorize="hasAnyAuthority('SUPERADMIN')">
                     <a th:href="@{/user/add}">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        <span th:text="#{menu.add.user}"></span>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"/>
+                        <span th:text="#{menu.add.user}"/>
                     </a>
                 </li>
                 <li id="search_user" sec:authorize="hasAnyAuthority('ADMIN', 'SUPERADMIN')">
                     <a th:href="@{/users/search}">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                        <span th:text="#{menu.user.search}"></span>
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"/>
+                        <span th:text="#{menu.user.search}"/>
                     </a>
                 </li>
                 <li id="login" sec:authorize="isAnonymous()">
                     <a th:href="@{/login}">
-                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                        <span th:text="#{menu.login}"></span>
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"/>
+                        <span th:text="#{menu.login}"/>
                     </a>
                 </li>
                 <li id="logout" sec:authorize="isAuthenticated()">
                     <a id="logoutLink" href="#">
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                        <span th:text="#{menu.logout}"></span>
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"/>
+                        <span th:text="#{menu.logout}"/>
                     </a>
                 </li>
             </ul>

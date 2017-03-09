@@ -6,7 +6,7 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/skeleton :: lang(path='/users/pages/' + ${currentIndex} + '?')"/>
+    <div th:replace="fragments/skeleton :: lang(params='')"/>
 
     <div th:replace="fragments/skeleton :: signedUser"/>
 

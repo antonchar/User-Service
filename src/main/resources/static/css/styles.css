@@ -1,0 +1,16 @@
+.thead {
+    background-color: #DDDDDD;
+}
+
+th {
+    text-align: center;
+}
+
+.big-ico {
+    font-size: 20px;
+}
+
+.element-row {
+    float: left;
+    margin-left: 20px;
+}

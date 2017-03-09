@@ -6,7 +6,7 @@
 <body th:with="ownData=${#authentication.principal.id == existingUser.id}">
 
 <div class="container">
-    <div th:replace="fragments/skeleton :: lang(path='/user/' + ${id} + '?' + (${saved} ? 'saved=true&amp;' : ''))"/>
+    <div th:replace="fragments/skeleton :: lang(params=${saved ? 'saved=true' : ''})"/>
 
     <div th:replace="fragments/skeleton :: signedUser"/>
 

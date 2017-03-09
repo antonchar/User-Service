@@ -6,7 +6,7 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/skeleton :: lang(path='/users/search?' + (${query != null} ? 'query=' + ${query} + '&amp;' : ''))"/>
+    <div th:replace="fragments/skeleton :: lang(params=${query} ? 'query=' + ${query} : '')"/>
 
     <div th:replace="fragments/skeleton :: signedUser"/>
 
