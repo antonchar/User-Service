@@ -1,5 +1,9 @@
 package com.antonchar.userservice.controllers;
 
+import com.antonchar.userservice.config.SecurityConfig;
+import com.antonchar.userservice.config.TestConfig;
+import com.antonchar.userservice.services.UserService;
+import com.antonchar.userservice.services.dto.UserDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +15,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.Validator;
 
-import com.antonchar.userservice.config.SecurityConfig;
-import com.antonchar.userservice.config.TestConfig;
-import com.antonchar.userservice.services.UserService;
-import com.antonchar.userservice.services.dto.UserDto;
+import java.util.Optional;
 
+import static com.antonchar.userservice.TestDataHelper.USER_ADM;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -37,6 +40,9 @@ public class UserCreateDeleteControllerMvcTest {
     @MockBean
     private UserService userService;
 
+    @MockBean(name = "userValidator")
+    private Validator userValidator;
+
     @MockBean
     private PasswordEncoder dummyEncoder;
 
@@ -50,8 +56,10 @@ public class UserCreateDeleteControllerMvcTest {
 
     @Test
     public void testAddUserPost() throws Exception {
+        when(userService.findByEmail(anyString())).thenReturn(Optional.empty());
         when(userService.save(any(UserDto.class)))
             .thenAnswer(invc -> invc.getArgumentAt(0, UserDto.class).setId(1L));
+
         when(dummyEncoder.encode(anyString())).thenReturn("dummyHash");
 
         mvc.perform(post("/user/add").with(csrf()).accept(MediaType.TEXT_HTML)
@@ -66,12 +74,36 @@ public class UserCreateDeleteControllerMvcTest {
 
     @Test
     @WithUserDetails("superadmin@example.com")
-    public void testAddInvalidUserPost() throws Exception {
+    public void testAddInvalidHibernateUserPost() throws Exception {
         mvc.perform(post("/user/add").with(csrf()).accept(MediaType.TEXT_HTML)
             .sessionAttr("newUser", new UserDto())
             .param("age", "23"))
             .andExpect(status().isOk())
             .andExpect(model().attribute("newUser", is(new UserDto().setAge(23))))
+            .andExpect(view().name("user_add_validated"));
+    }
+
+    @Test
+    @WithUserDetails("superadmin@example.com")
+    public void testAddTakenEmailUserPost() throws Exception {
+        when(userService.findByEmail(anyString())).thenReturn(Optional.of(USER_ADM));
+
+        mvc.perform(post("/user/add").with(csrf()).accept(MediaType.TEXT_HTML)
+            .sessionAttr("newUser", new UserDto())
+            .param("email", USER_ADM.getEmail())
+            .param("name", "DummyName")
+            .param("surname", "DummySurname")
+            .param("age", "23"))
+            .andExpect(status().isOk())
+            .andExpect(model().attribute("newUser", is(
+                // TODO: REFACTOR
+                new UserDto()
+                    .setEmail(USER_ADM.getEmail())
+                    .setName("DummyName")
+                    .setSurname("DummySurname")
+                    .setAge(23)
+                )
+            ))
             .andExpect(view().name("user_add_validated"));
     }
 

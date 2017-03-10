@@ -1,28 +1,22 @@
 package com.antonchar.userservice.controllers;
 
+import com.antonchar.userservice.entities.User;
+import com.antonchar.userservice.services.UserService;
+import com.antonchar.userservice.services.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
-
-import java.time.LocalDateTime;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.antonchar.userservice.entities.User;
-import com.antonchar.userservice.services.UserService;
-import com.antonchar.userservice.services.dto.UserDto;
-import com.antonchar.userservice.util.UserValidator;
+import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Controller
@@ -35,10 +29,14 @@ public class UserCreateDeleteController {
     private UserService userService;
 
     @Autowired
+    @Qualifier("userValidator")
+    private Validator userValidator;
+
+    @Autowired
     private PasswordEncoder encoder;
 
     @GetMapping(value = "/add")
-    public String showAddUserForm(Model model) {
+    public String addUserStarter(Model model) {
         log.info("GET: Add new user page");
         model.addAttribute("newUser", new UserDto());
         return "user_add_starter";
@@ -48,7 +46,13 @@ public class UserCreateDeleteController {
     public String addUser(@ModelAttribute("newUser") @Valid UserDto user, BindingResult result,
                           SessionStatus sessionStatus) {
         log.info("POST: Add new user");
-        new UserValidator().validate(user, result);
+
+        if (!result.hasFieldErrors("email")) {
+            userService.findByEmail(user.getEmail())
+                .ifPresent(usr -> result.rejectValue("email", "error.email.taken"));
+        }
+
+        userValidator.validate(user, result);
 
         if (result.hasErrors()) {
             log.error("Invalid new user data: {}", user);
@@ -62,9 +66,9 @@ public class UserCreateDeleteController {
             .setCreationDate(LocalDateTime.now());
 
         UserDto savedUser = userService.save(user);
-
         sessionStatus.setComplete();
         log.info("New user saved successfully! {}", user);
+
         return String.format("redirect:/user/%d?saved=true", savedUser.getId());
     }
 

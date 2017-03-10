@@ -1,7 +1,9 @@
 package com.antonchar.userservice.services.dto;
 
+import com.antonchar.userservice.entities.User;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -9,17 +11,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-import org.hibernate.validator.constraints.Email;
-
-import com.antonchar.userservice.entities.User;
-
 @Data
 @Accessors(chain = true)
 public class UserDto {
 
     private Long id;
 
-    @Email(message = "{error.email}")
+    @NotNull(message = "{error.null}")
+    @Email(message = "{error.email.format}")
     private String email;
 
     private String pwdHash;
@@ -42,8 +41,4 @@ public class UserDto {
     private Boolean blocked;
 
     private LocalDateTime creationDate;
-
-    public boolean isAdmin() {
-        return role == User.Role.ADMIN || role == User.Role.SUPERADMIN;
-    }
 }

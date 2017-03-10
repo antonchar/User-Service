@@ -2,7 +2,6 @@ package com.antonchar.userservice.controllers;
 
 import com.antonchar.userservice.config.SecurityConfig;
 import com.antonchar.userservice.config.TestConfig;
-import com.antonchar.userservice.entities.User;
 import com.antonchar.userservice.services.UserService;
 import com.antonchar.userservice.services.dto.UserDto;
 import org.junit.Test;
@@ -15,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.validation.Validator;
 
 import static com.antonchar.userservice.TestDataHelper.USER_ADM;
 import static com.antonchar.userservice.TestDataHelper.getNewUserAdm;
@@ -38,6 +38,9 @@ public class UserShowEditControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean(name = "userValidator")
+    private Validator userValidator;
 
     @Test
     public void testShowUser() throws Exception {
