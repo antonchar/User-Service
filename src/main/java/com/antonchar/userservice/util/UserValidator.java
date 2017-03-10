@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import static com.antonchar.userservice.util.ValidationConstants.ADMIN_MIN_AGE;
+import static com.antonchar.userservice.util.ValidationConstants.YOUNG_ADMIN_ERR_CODE;
+
 @Component
 public class UserValidator implements Validator {
-
-    private final static int ADMIN_MIN_AGE = 18;
 
     @Override
     public boolean supports(Class clazz) {
@@ -21,7 +22,7 @@ public class UserValidator implements Validator {
         UserDto user = (UserDto) target;
 
         if (isAdmin(user) && user.getAge() < ADMIN_MIN_AGE) {
-            errors.rejectValue("admin", "error.admin.young",
+            errors.rejectValue("role", YOUNG_ADMIN_ERR_CODE,
                 new String[] {String.valueOf(user.getRole()), String.valueOf(ADMIN_MIN_AGE)}, null);
         }
     }
