@@ -41,9 +41,11 @@
                     </a>
                 </button>
             </td>
-            <td sec:authorize="hasAnyAuthority('SUPERADMIN')">
-                <button name="id" form="delete-form" type="submit" th:value="*{id}">
-                    <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"></span>
+            <td th:with="ownData=${#authentication.principal.id == user.id}"
+                sec:authorize="hasAnyAuthority('SUPERADMIN')">
+                <button name="id" th:form="${not ownData} ? 'delete-form' : ''" type="submit" th:value="*{id}">
+                    <span class="glyphicon glyphicon-trash big-ico" aria-hidden="true"
+                          th:classappend="${ownData} ? 'ico-inactive' : ''"/>
                 </button>
             </td>
         </div>
