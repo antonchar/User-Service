@@ -2,7 +2,7 @@ package com.antonchar.userservice;
 
 import java.time.LocalDateTime;
 
-import com.antonchar.userservice.entities.User;
+import com.antonchar.userservice.entity.User;
 
 public class TestDataHelper {
 

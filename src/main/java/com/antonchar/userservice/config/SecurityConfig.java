@@ -10,8 +10,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.antonchar.userservice.service.UserService;
+import com.antonchar.userservice.service.dto.CurrentUser;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -19,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserService userService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -46,6 +50,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public UserDetailsService userDetailsService() {
+        return email -> new CurrentUser(userService.findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException(
+                String.format("User with email=%s was not found", email))));
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -53,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-            .userDetailsService(userDetailsService)
+            .userDetailsService(userDetailsService())
             .passwordEncoder(passwordEncoder());
     }
 }

@@ -5,10 +5,11 @@ import org.junit.Test;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import com.antonchar.userservice.entities.User;
-import com.antonchar.userservice.services.dto.UserDto;
+import com.antonchar.userservice.entity.User;
+import com.antonchar.userservice.service.dto.UserDto;
+import com.antonchar.userservice.validation.UserValidator;
 
-import static com.antonchar.userservice.util.ValidationConstants.ADMIN_MIN_AGE;
+import static com.antonchar.userservice.validation.ValidationConstants.ADMIN_MIN_AGE;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;

@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 
-import com.antonchar.userservice.entities.User;
-import com.antonchar.userservice.services.dto.UserDto;
+import com.antonchar.userservice.entity.User;
+import com.antonchar.userservice.service.dto.UserDto;
 
 public final class UserUtil {
 
