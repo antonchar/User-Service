@@ -39,7 +39,7 @@ public class UserShowEditController {
     @PostAuthorize("@permissionService.canReadUserDetails(principal, #id)")
     @GetMapping(value = "/{id}")
     public String showUser(@PathVariable Long id, Model model, @RequestParam(required = false) boolean saved) {
-        log.info("GET: Show data for user with id = {}", id);
+        log.info("Show data for user with id = {}", id);
         UserDto user = userService.find(id);
 
         model.addAttribute("existingUser", user);
@@ -51,7 +51,7 @@ public class UserShowEditController {
     @PostMapping(value = "/edit")
     public String editUser(@ModelAttribute("existingUser") @Valid UserDto user, BindingResult result,
                            @RequestParam(required = false) String state, SessionStatus sessionStatus) {
-        log.info("POST: Edit user");
+        log.info("Edit user");
         userValidator.validate(user, result);
 
         if (state != null && state.equals("init")) {

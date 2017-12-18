@@ -44,7 +44,7 @@ public class UserCreateDeleteController {
 
     @GetMapping(value = "/add")
     public String addUserStarter(Model model) {
-        log.info("GET: Add new user page");
+        log.info("Add new user page");
         model.addAttribute("newUser", new UserDto());
         return "user_add_starter";
     }
@@ -52,7 +52,7 @@ public class UserCreateDeleteController {
     @PostMapping(value = "/add")
     public String addUser(@ModelAttribute("newUser") @Valid UserDto user, BindingResult result,
                           SessionStatus sessionStatus) {
-        log.info("POST: Add new user");
+        log.info("Add new user");
 
         if (!result.hasFieldErrors("email")) {
             userService.findByEmail(user.getEmail())
@@ -82,7 +82,7 @@ public class UserCreateDeleteController {
     @PostMapping(value = "/delete")
     public String deleteUser(@RequestParam Long id, @RequestParam(required = false) Integer page,
                              @RequestParam(required = false) String query, SessionStatus sessionStatus) {
-        log.info("POST: Delete user with id = {}", id);
+        log.info("Delete user with id = {}", id);
         logRequestSender(page, query);
 
         userService.delete(id);

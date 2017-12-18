@@ -1,4 +1,4 @@
-package com.antonchar.userservice.controller;
+package com.antonchar.userservice.advice;
 
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

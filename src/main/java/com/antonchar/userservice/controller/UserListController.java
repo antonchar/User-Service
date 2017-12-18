@@ -26,7 +26,7 @@ public class UserListController {
 
     @GetMapping(value = "/pages/{pageNumber}")
     public String showUserPage(@PathVariable Integer pageNumber, Model model) {
-        log.info("GET: Show user page number {}", pageNumber);
+        log.info("Show user page number {}", pageNumber);
         Page<UserDto> userPages = userService.getPage(pageNumber);
 
         int currentIndex = userPages.getNumber() + 1;

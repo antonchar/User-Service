@@ -1,8 +1,10 @@
 logging:
   file: logs/simple_ws.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - [user=%X{user} ip=%X{ip} %X{method}] - %msg%n"
   level:
     org.springframework.web: INFO
-    com.antonchar.userservice.controllers: DEBUG
+    com.antonchar.userservice.controller: DEBUG
 
 liquibase:
   enabled: true

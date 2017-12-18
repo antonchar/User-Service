@@ -13,7 +13,7 @@ public class RootController {
 
     @GetMapping
     public String showStartPage() {
-        log.info("GET: Show home page");
+        log.info("Show home page");
         return "index";
     }
 }
